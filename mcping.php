@@ -5,7 +5,7 @@
 <table align="center">
 <tr><td>If you want to parse this information for yourself, just give the script an $ip and $port (default assumed)</td></tr>
 <tr><td>then pull an arraylist for $srvinfo from 0-2 to get motd, players online, and max players. </td></tr>
-<tr><td>Server and port are just echo'd $ip and $port. To check online status, use testserver.php. </td></tr>
+<tr><td>Server and port are just echoed $ip and $port. To check online status, use testserver.php. </td></tr>
 <tr><td>Call testserver.php and use the GetServerStatus($ip, $port); function - echo that and done :3</td></tr>
 <tr><td>Example: <pre>
 include('http://unps-gama.tk/mcping.php?ip=$ip&port=$port')
