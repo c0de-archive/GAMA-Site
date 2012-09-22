@@ -36,7 +36,7 @@
 	<div id="navigation">
 		<ul>
 			<li><a href="http://unps-gama.tk">Home</a></li>
-			<li><a href="placeholder.html">About</a></li>
+			<li><a href="http://unps-gama.tk/about.php">About</a></li>
 			<li><a href="http://unps-gama.tk/img/">IMGShare</a></li>
 			<li><a href="http://unps-gama.tk/fp/flatpress/">Personal Blog</a></li>
 			<li><a href="http://unps-gama.tk/upload/index.php">Uploads</a></li>
