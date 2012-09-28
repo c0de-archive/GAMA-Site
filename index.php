@@ -40,7 +40,7 @@
 			<li><a href="http://unps-gama.tk/img/">IMGShare</a></li>
 			<li><a href="http://unps-gama.tk/fp/flatpress/">Personal Blog</a></li>
 			<li><a href="http://unps-gama.tk/upload/index.php">Uploads</a></li>
-			<li><a href="http://unps-ga,a/tk/pox/">Proxy</a></li>
+			<li><a href="http://unps-gama/tk/pox/">Proxy</a></li>
 			<li><a href="placeholder.html">Contact us</a></li>
 		</ul>
 	</div>
