@@ -40,6 +40,7 @@
 			<li><a href="http://unps-gama.tk/img/">IMGShare</a></li>
 			<li><a href="http://unps-gama.tk/fp/flatpress/">Personal Blog</a></li>
 			<li><a href="http://unps-gama.tk/upload/index.php">Uploads</a></li>
+			<li><a href="http://unps-ga,a/tk/pox/">Proxy</a></li>
 			<li><a href="placeholder.html">Contact us</a></li>
 		</ul>
 	</div>
@@ -55,6 +56,7 @@
 					<li><a href="http://en.wikipedia.org/wiki/Email">EMail</a> (through SSH)</li>
 					<li><a href="http://en.wikipedia.org/wiki/Ftp">FTP</a> (through <a href="http://en.wikipedia.org/wiki/SSH_File_Transfer_Protocol">SFTP</a>)</li>
 					<li><a href="upload.html">File Storage</a> (up to 20MB)</li>
+					<li><a href="http://en.wikipedia.org/wiki/Proxy_server">Proxy/a> at <a href="http://unps-gama.tk/pox/">Pox</a></li>
 				</ul>
 			</div>
 			<div id="content">
