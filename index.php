@@ -56,7 +56,7 @@
 					<li><a href="http://en.wikipedia.org/wiki/Email">EMail</a> (through SSH)</li>
 					<li><a href="http://en.wikipedia.org/wiki/Ftp">FTP</a> (through <a href="http://en.wikipedia.org/wiki/SSH_File_Transfer_Protocol">SFTP</a>)</li>
 					<li><a href="upload.html">File Storage</a> (up to 20MB)</li>
-					<li><a href="http://en.wikipedia.org/wiki/Proxy_server">Proxy/a> at <a href="http://unps-gama.tk/pox/">Pox</a></li>
+					<li><a href="http://en.wikipedia.org/wiki/Proxy_server">Proxy</a> at <a href="http://unps-gama.tk/pox/">Pox</a></li>
 				</ul>
 			</div>
 			<div id="content">
