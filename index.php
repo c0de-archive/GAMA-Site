@@ -29,7 +29,7 @@
  function unhide(divID) {
 	var item = document.getElementById(divID);
 	if (item) {
-		item.className=(item.className=='hidden')?'unhidden':'hidden';
+		item.className = 'unhidden';
 	}
  }
   function hide(divID) {
@@ -57,11 +57,11 @@
 		<ul>
 			<li><a href="javascript:unhide('home');hide('about');hide('contact');">Home</a></li>
 			<li><a href="javascript:unhide('about');hide('home');hide('contact');">About</a></li>
-			<li><a href="http://unps-gama.tk/img/">IMGShare</a></li>
-			<li><a href="http://unps-gama.tk/fp/flatpress/">Personal Blog</a></li>
-			<li><a href="http://unps-gama.tk/upload/index.php">Uploads</a></li>
-			<li><a href="http://unps-gama.tk/pox/">Proxy</a></li>
-			<li><a href="https://github.com/alopexc0de/GAMA-Site">GitHub</a></li>
+			<li><a href="http://unps-gama.tk/img/" target="img">IMGShare</a></li>
+			<li><a href="http://unps-gama.tk/fp/flatpress/" target="blog">Personal Blog</a></li>
+			<li><a href="http://unps-gama.tk/upload/index.php" target="upload">Uploads</a></li>
+			<li><a href="http://unps-gama.tk/pox/" target="pox">Proxy</a></li>
+			<li><a href="https://github.com/alopexc0de/GAMA-Site" target="_ghgama">GitHub</a></li>
 			<li><a href="javascript:unhide('contact');hide('home');hide('about');">Contact Us</a></li>
 		</ul>
 	</div>
@@ -70,14 +70,14 @@
 			<div id="section-navigation">
 				<ul>
 					<li><h4>Offered Services:</h4></li>
-					<li><a href="http://en.wikipedia.org/wiki/IRC">IRC</a> - unps-gama.tk:6667</li>
-					<li><a href="http://teamspeak.com">TeamSpeak</a> - unps-gama.tk:9987</li>
-					<li><a href="http://unps-gama.tk/img">Image Host</a></li>
-					<li><a href="http://en.wikipedia.org/wiki/Secure_Shell">SSH Access</a> - email <a href="mailto:c0de@unps-gama.tk">c0de</a> for info</li>
-					<li><a href="http://en.wikipedia.org/wiki/Email">EMail</a> (through SSH)</li>
-					<li><a href="http://en.wikipedia.org/wiki/Ftp">FTP</a> (through <a href="http://en.wikipedia.org/wiki/SSH_File_Transfer_Protocol">SFTP</a>)</li>
-					<li><a href="upload.html">File Storage</a> (up to 20MB)</li>
-					<li><a href="http://en.wikipedia.org/wiki/Proxy_server">Proxy</a> at <a href="http://unps-gama.tk/pox/">Pox</a></li>
+					<li><a href="http://en.wikipedia.org/wiki/IRC" target="irc">IRC</a> - unps-gama.tk:6667</li>
+					<li><a href="http://teamspeak.com" target="ts">TeamSpeak</a> - unps-gama.tk:9987</li>
+					<li><a href="http://unps-gama.tk/img" target="img">Image Host</a></li>
+					<li><a href="http://en.wikipedia.org/wiki/Secure_Shell" target="ssh">SSH Access</a> - email <a href="mailto:c0de@unps-gama.tk">c0de</a> for info</li>
+					<li><a href="http://en.wikipedia.org/wiki/Email" target="email">EMail</a> (through SSH)</li>
+					<li><a href="http://en.wikipedia.org/wiki/Ftp" target="ftp">FTP</a> (through <a href="http://en.wikipedia.org/wiki/SSH_File_Transfer_Protocol" target="sftp">SFTP</a>)</li>
+					<li><a href="upload.html" target="upload">File Storage</a> (up to 20MB)</li>
+					<li><a href="http://en.wikipedia.org/wiki/Proxy_server" target="proxy">Proxy</a> at <a href="http://unps-gama.tk/pox/" target="pox">Pox</a></li>
 				</ul>
 			</div>
 			<div id="content"><div id="home" class="unhidden">
@@ -162,7 +162,7 @@
 						<img src="http://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0 Transitional" height="31" width="88" />
 					</a>
 				</p>
-				<h5>Everything availiable <a href="https://github.com/alopexc0de/GAMA-Site">here</a> on <a href="https://github.com">GitHub</a></h5>
+				<h5>Everything availiable <a href="https://github.com/alopexc0de/GAMA-Site" target="_ghgama">here</a> on <a href="https://github.com">GitHub</a></h5>
 				<h5>Copyright &copy; UnPS-GAMATechnologies, 2012 - CSS Provided by: <a href="http://www.maxdesign.com.au/articles/css-layouts/three-liquid/" target="maxdesign">maxdesign</a></h5>
 				<h5>
 					<?php 
