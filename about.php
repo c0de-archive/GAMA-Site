@@ -64,6 +64,7 @@
 				<h2>
 					UnProfessional Standards - GAMATechnologies | About Us
 				</h2><hr />
+				<h1>This page has been outdated.</h1><h1>Please go <a href="index.php">Home</a> and click "About"</h1>
 				<p>
 					The way this works is fairly simple, what I do is I host web services. If you want to use me for anything, then feel free to contact me at <a href="mailto:c0de@unps-gama.tk">c0de</a>. Most of what I offer is free for anyone, and I can terminate service for anybody, including to the point of not being able to access anything on the GAMA network. If I decide to terminate service however, I will compress any of your files and give you a link. The link is only good for ~48 hours before it will be deleted automatically. Services that I offer by default are listed to the left, these are free for anyone who wants to use them. Depending on your request I might be able to host other things though, just ask.
 				</p>
