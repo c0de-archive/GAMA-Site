@@ -35,7 +35,8 @@ a.showApi:hover, a.hideApi:hover {
 <tr><td>then pull an arraylist for $srvinfo from 0-2 to get motd, players online, and max players. </td></tr>
 <tr><td>Server and port are just echoed $ip and $port. To check online status, use testserver.php. </td></tr>
 <tr><td>Call testserver.php and use the GetServerStatus($ip, $port); function - echo that and done :3</td></tr>
-<tr><td>Example: (remove spaces in color) <code><pre>
+<tr><td>Example call: http://unps-gama.tk/mcping.php?ip=unps-gama.tk&port=25565</td></tr>
+<tr><td>Example:<code><pre>
 include('http://unps-gama.tk/mcping.php?ip=$ip&port=$port')
 	echo "Server:&#60font color='red'> " . $ip . "&#60/font> on port:&#60font color='yellow'> " . $port . " &#60/font> is: ";
 	include('http://unps-gama.tk/testserver.php');
