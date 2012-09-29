@@ -7,7 +7,7 @@
 <tr><td>then pull an arraylist for $srvinfo from 0-2 to get motd, players online, and max players. </td></tr>
 <tr><td>Server and port are just echoed $ip and $port. To check online status, use testserver.php. </td></tr>
 <tr><td>Call testserver.php and use the GetServerStatus($ip, $port); function - echo that and done :3</td></tr>
-<tr><td>Example: <pre>
+<tr><td>Example: (remove spaces in color) <pre>
 include('http://unps-gama.tk/mcping.php?ip=$ip&port=$port')
 	echo "Server:<font colo r='red'> " . $ip . "</font> on port:<font colo r='yellow'> " . $port . " </font> is: ";
 	include('http://unps-gama.tk/testserver.php');
@@ -19,7 +19,6 @@ include('http://unps-gama.tk/mcping.php?ip=$ip&port=$port')
 		echo "max players: " . $srvinfo[2] . "\n";</pre></td></tr>
 </table><br><hr><br><table align="center">
 <?php
-//$ip = "mc.techfurs.net"; // Minecraf$port = "36565"; // Minecraft port
 $ip = $_GET["ip"];
 $port = $_GET["port"];
 if ($port==null){$port = 25565;}
