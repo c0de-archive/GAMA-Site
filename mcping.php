@@ -9,11 +9,11 @@
 <tr><td>Call testserver.php and use the GetServerStatus($ip, $port); function - echo that and done :3</td></tr>
 <tr><td>Example: <pre>
 include('http://unps-gama.tk/mcping.php?ip=$ip&port=$port')
-	echo "Server:<font color='red'> " . $ip . "</font> on port:<font color='yellow'> " . $port . " </font> is: ";
+	echo "Server:<font colo r='red'> " . $ip . "</font> on port:<font colo r='yellow'> " . $port . " </font> is: ";
 	include('http://unps-gama.tk/testserver.php');
 		$status = GetServerStatus($ip, $port);
-			if ($status=="ONLINE") echo "<font color='green'>" . $status . "</font>\n";
-			if ($status=="OFFLINE") echo "<font color='red'>" . $status . "</font>\n";
+			if ($status=="ONLINE") echo "<font colo r='green'>" . $status . "</font>\n";
+			if ($status=="OFFLINE") echo "<font colo r='red'>" . $status . "</font>\n";
 		echo "motd: " . $srvinfo[0] . "\n";
 		echo "players online: " . $srvinfo[1] . "\n";
 		echo "max players: " . $srvinfo[2] . "\n";</pre></td></tr>
