@@ -25,6 +25,26 @@
 
 <link rel="stylesheet" href="site.css" />
 
+<script type="text/javascript">
+ function unhide(divID) {
+	var item = document.getElementById(divID);
+	if (item) {
+		item.className=(item.className=='hidden')?'unhidden':'hidden';
+	}
+ }
+  function hide(divID) {
+	var item = document.getElementById(divID);
+	if (item) {
+		item.className = 'hidden';
+	}
+ }
+ </script>
+ 
+ <style type="text/css">
+	.hidden { display: none; }
+    .unhidden { display: block; }
+ </style>
+
 </head>
 <body>
 <div id="container">
@@ -35,14 +55,14 @@
 	</div>
 	<div id="navigation">
 		<ul>
-			<li><a href="http://unps-gama.tk">Home</a></li>
-			<li><a href="http://unps-gama.tk/about.php">About</a></li>
+			<li><a href="javascript:unhide('home');hide('about');hide('contact');">Home</a></li>
+			<li><a href="javascript:unhide('about');hide('home');hide('contact');">About</a></li>
 			<li><a href="http://unps-gama.tk/img/">IMGShare</a></li>
 			<li><a href="http://unps-gama.tk/fp/flatpress/">Personal Blog</a></li>
 			<li><a href="http://unps-gama.tk/upload/index.php">Uploads</a></li>
 			<li><a href="http://unps-gama.tk/pox/">Proxy</a></li>
 			<li><a href="https://github.com/alopexc0de/GAMA-Site">GitHub</a></li>
-			<li><a href="placeholder.html">Contact us</a></li>
+			<li><a href="javascript:unhide('contact');hide('home');hide('about');">Contact Us</a></li>
 		</ul>
 	</div>
 	<div id="content-container1">
@@ -60,7 +80,7 @@
 					<li><a href="http://en.wikipedia.org/wiki/Proxy_server">Proxy</a> at <a href="http://unps-gama.tk/pox/">Pox</a></li>
 				</ul>
 			</div>
-			<div id="content">
+			<div id="content"><div id="home" class="unhidden">
 				<h2>
 					UnProfessional Standards - GAMATechnologies | Home Page
 				</h2><hr />
@@ -73,7 +93,28 @@
 		It was actually pretty fun, and I saw that it was a simple php upload exploit to change the way php worked on the system.
 		The person who pulled it off has not been banned from this server (because of my hackerish side)
 								 ciao - dc0de
-				</p>
+				</p></div>
+				<div id="about" class="hidden">
+					<h2>
+						UnProfessional Standards - GAMATechnologies | About Us
+					</h2><hr />
+					<p>
+						The way this works is fairly simple, what I do is I host web services. If you want to use me for anything, then feel free to contact me at <a href="mailto:c0de@unps-gama.tk">c0de</a>. Most of what I offer is free for anyone, and I can terminate service for anybody, including to the point of not being able to access anything on the GAMA network. If I decide to terminate service however, I will compress any of your files and give you a link. The link is only good for ~48 hours before it will be deleted automatically. Services that I offer by default are listed to the left, these are free for anyone who wants to use them. Depending on your request I might be able to host other things though, just ask.
+					</p>
+				</div>
+				<div id="contact" class="hidden">
+					<h2>
+						UnProfessional Standards - GAMATechnologies | Contact Us
+					</h2><hr />
+					<p>Hello, I'm assuming that you want to contact me.</p><p>Here's a list of ways (listed in order of highest chance of reaching me to lowest):</p>
+					<ul>
+						<li>Skype: <a href="skype:alopexlagopus-c0de?chat">alopexlagopus-c0de</a></li>
+						<li>Facebook: <a href="http://facebook.com/G1itch3D" target="_fbgama">G1itch3D</a></li>
+						<li>Email: <a href="mailto:c0de@unps-gama.tk">c0de@unps-gama.tk</a></li>
+						<li>IRC: <a href="irc:irc.unps-gama.tk#minecraft">irc.unps-gama.tk</a> #minecraft</li>
+						<li>TeamSpeak: <a href="teamspeak:unps-gama.tk">unps-gama.tk</a> default channel</li>
+					</ul>
+				</div>
 			</div>
 			<div id="aside">
 				<script type="text/javascript"><!--
