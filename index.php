@@ -55,14 +55,15 @@
 	</div>
 	<div id="navigation">
 		<ul>
-			<li><a href="javascript:unhide('home');hide('about');hide('contact');">Home</a></li>
-			<li><a href="javascript:unhide('about');hide('home');hide('contact');">About</a></li>
+			<li><a href="javascript:unhide('home');hide('about');hide('contact');hide('schedule');">Home</a></li>
+			<li><a href="javascript:unhide('about');hide('home');hide('contact');hide('schedule');">About</a></li>
 			<li><a href="http://unps-gama.tk/img/" target="img">IMGShare</a></li>
 			<li><a href="http://unps-gama.tk/fp/flatpress/" target="blog">Personal Blog</a></li>
 			<li><a href="http://unps-gama.tk/upload/index.php" target="upload">Uploads</a></li>
 			<li><a href="http://unps-gama.tk/pox/" target="pox">Proxy</a></li>
 			<li><a href="https://github.com/alopexc0de/GAMA-Site" target="_ghgama">GitHub</a></li>
-			<li><a href="javascript:unhide('contact');hide('home');hide('about');">Contact Us</a></li>
+			<li><a href="javascript:unhide('contact');hide('home');hide('about');hide('schedule');">Contact Us</a></li>
+			<li><a href="javascript:unhide('schedule');hide('home');hide('about');hide('contact');">C0de's Schedule</a></li>
 		</ul>
 	</div>
 	<div id="content-container1">
@@ -114,6 +115,9 @@
 						<li>IRC: <a href="irc:irc.unps-gama.tk#minecraft">irc.unps-gama.tk</a> #minecraft</li>
 						<li>TeamSpeak: <a href="teamspeak:unps-gama.tk">unps-gama.tk</a> default channel</li>
 					</ul>
+				</div>
+				<div id="schedule" class="hidden">
+					<iframe src="https://www.google.com/calendar/embed?title=C0de's%20Schedule&amp;showNav=0&amp;showPrint=0&amp;showTabs=0&amp;mode=AGENDA&amp;height=350&amp;wkst=2&amp;bgcolor=%23FFFFFF&amp;src=tehfoxy.c0de%40gmail.com&amp;color=%23182C57&amp;ctz=America%2FNew_York" style=" border-width:0 " width="700" height="350" frameborder="0" scrolling="no"></iframe>
 				</div>
 			</div>
 			<div id="aside">
