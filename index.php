@@ -63,6 +63,7 @@
 			<li><a href="http://unps-gama.tk/pox/" target="pox">Proxy</a></li>
 			<li><a href="https://github.com/alopexc0de/GAMA-Site" target="_ghgama">GitHub</a></li>
 			<li><a href="javascript:unhide('contact');hide('home');hide('about');hide('schedule');">Contact Us</a></li>
+			<li><a href="http://unps-gama.tk/short" target="_short">URL Shortener</a></li>
 			<li><a href="javascript:unhide('schedule');hide('home');hide('about');hide('contact');">C0de's Schedule</a></li>
 		</ul>
 	</div>
@@ -79,6 +80,7 @@
 					<li><a href="http://en.wikipedia.org/wiki/Ftp" target="ftp">FTP</a> (through <a href="http://en.wikipedia.org/wiki/SSH_File_Transfer_Protocol" target="sftp">SFTP</a>)</li>
 					<li><a href="upload.html" target="upload">File Storage</a> (up to 20MB)</li>
 					<li><a href="http://en.wikipedia.org/wiki/Proxy_server" target="proxy">Proxy</a> at <a href="http://unps-gama.tk/pox/" target="pox">Pox</a></li>
+					<li><a href="http://unps-gama.tk/short" target="_short">URL Shortener</a></li>
 				</ul>
 			</div>
 			<div id="content"><div id="home" class="unhidden">
