@@ -18,7 +18,7 @@ if($_POST["submit"])
 	{
 		if(isset($_POST['dest'])) 
 			{
-				$myFile = $path.$random.".html";
+				$myFile = $random.".html";
 				$fh = fopen($myFile, 'w') or die("can't open file");
 				$stringData = '
 
@@ -36,8 +36,8 @@ Service by '.$pagepath.'
 				fclose($fh);	
 echo '
 Thanks for using '.$pagetitle.' <br>
-your Link is shorten link is available here:<br>
-<a href='.$pagepath.$path.$random.'>'.$pagepath.$path.$random.'</a><br>
+your link is available here:<br>
+<a href='.$pagepath.$random.'>'.$pagepath.$random.'</a><br>
 <a href="index.php">Back to index</a><br>
 <a href="http://unps-gama.tk">Home</a>
 
