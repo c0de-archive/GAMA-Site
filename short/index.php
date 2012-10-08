@@ -21,7 +21,7 @@ if(!$_POST['submit'])
 $dest=$_POST['dest'];
 if($_POST["submit"])
 	{
-		if(isset($_POST['dest'])) 
+		if(isset($_POST['dest']) && $dest != "") 
 			{
 				$myFile = $random.".html";
 				$fh = fopen($myFile, 'w') or die("can't open file");
@@ -47,7 +47,15 @@ your link is available here:<br>
 <a href="http://unps-gama.tk">Home</a>
 
 ';	
-			}
+			}if($dest == ""){
+				echo '
+						Sorry, you are not able to shorten something without a url <br>
+						<a href="index.php">Back to index</a><br>
+						<a href="http://unps-gama.tk">Home</a>
+
+';	
+				
+		}
 
 	}
 ?>
