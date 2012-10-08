@@ -1,6 +1,11 @@
 <body bgcolor="black" text="greem"><div align="center">
 <img src="http://unps-gama.tk/upload/Pictures/header.png"><br>
-<h4>Welcome to the UnPS-GAMA page shortener</h4><br><hr><br>
+<h4>Welcome to the UnPS-GAMA page shortener</h4>
+<?php
+include('getfiles.php');
+echo "<table><tr><td><P>List of links already:</p></td></tr><tr><td>" . $thelist . "</td></tr></table>";
+?>
+<br><hr><br>
 <?php
 include("config.php");
 if(!$_POST['submit'])
