@@ -152,11 +152,13 @@
 					<input id="file" type="file" name="file" /><br />
 					<input value="Upload!" type="submit" name="submit" />
      				</form>
-				<br /><h3>Files currently on GAMA (No links): </h3>
+				<br /><h3>Files currently on GAMA: </h3>
       				<?php 
-      					include 'preg_find.php';
-					$files = preg_find('/./', './upload', PREG_FIND_RECURSIVE);
-					foreach($files as $file) printf("<br />%s\n", $file); 
+      					//include 'preg_find.php';
+						//$files = preg_find('/./', './upload', PREG_FIND_RECURSIVE);
+						//foreach($files as $file) printf("<br />%s\n", $file); 
+						include 'upload-list.php';
+						getDirectory( "./upload" ); 
 				?>
 			</div>
 			<div id="footer">
