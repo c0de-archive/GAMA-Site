@@ -6,7 +6,7 @@ if ($handle = opendir('.')) {
 	  {
 		$last_modified = filemtime($file); 
 		//print(date("m/j/y h:i:s a", $last_modified)); 
-          	$thelist .= '<a href="http://ugama.tk/short/'.$file.'">'.$file.'</a> Last Modified: <font align="right" color="green">'. date("m/j/y h:i:s a", $last_modified) .'</font><br />';
+          	$thelist .= '<a href="http://ugama.tk/short/'.$file.'">'.$file.'</a> Created on: <font align="right" color="green">'. date("h:i a - m/j/y", $last_modified) .'</font><br />';
           }
        }
   closedir($handle);
