@@ -12,9 +12,13 @@
   })();
 
 </script>
-<body bgcolor="black" text="white">
+<body background="https://si0.twimg.com/profile_background_images/468495900/bg.gif" text="greem" link="red" vlink="purple">
+	<div align="center">
+		<a href="http://unps-gama.tk/">
+			<img src="http://unps-gama.tk/upload/Pictures/header.png" alt="To UnPS-GAMA" title="To Home" />
+		</a><br>
 <?php
-if (($_FILES["file"]["size"] < 2000000000000000000000000000000000000000000))
+if (($_FILES["file"]["size"] < 2000000))
   {
   if ($_FILES["file"]["error"] > 0)
     {
@@ -25,7 +29,7 @@ if (($_FILES["file"]["size"] < 2000000000000000000000000000000000000000000))
     echo "Upload: " . $_FILES["file"]["name"] . "<br />";
     echo "Type: " . $_FILES["file"]["type"] . "<br />";
     echo "Size: " . ($_FILES["file"]["size"] / 1024) . " Kb<br />";
-    echo "Temp file: " . $_FILES["file"]["tmp_name"] . "<br />";
+    //echo "Temp file: " . $_FILES["file"]["tmp_name"] . "<br />";
 
     if (file_exists("upload/" . $_FILES["file"]["name"]))
       {
@@ -35,7 +39,7 @@ if (($_FILES["file"]["size"] < 2000000000000000000000000000000000000000000))
       {
       move_uploaded_file($_FILES["file"]["tmp_name"],
       "upload/" . $_FILES["file"]["name"]);
-      echo "Stored in: " . "unps-gama.tk/upload/" . $_FILES["file"]["name"];
+      echo "Stored at: <a href='http://unps-gama.tk/upload/".$_FILES["file"]["name"]."'>". $_FILES["file"]["name"]."</a>";
       }
     }
   }
@@ -44,6 +48,5 @@ else
   echo "Invalid file";
   }
 ?>
-<div align="center"><a href="http://unps-gama.tk/index.php">Go Home</a>
 </div>
 </body></html>
