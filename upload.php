@@ -30,6 +30,8 @@ if (($_FILES["file"]["size"] < 2000000))
     echo "Type: " . $_FILES["file"]["type"] . "<br />";
     echo "Size: " . ($_FILES["file"]["size"] / 1024) . " Kb<br />";
     //echo "Temp file: " . $_FILES["file"]["tmp_name"] . "<br />";
+     
+     
 
     if (file_exists("upload/" . $_FILES["file"]["name"]))
       {
@@ -37,11 +39,15 @@ if (($_FILES["file"]["size"] < 2000000))
       }
     else
       {
-      move_uploaded_file($_FILES["file"]["tmp_name"],
-      "upload/" . $_FILES["file"]["name"]);
-      echo "Stored at: <a href='http://unps-gama.tk/upload/".$_FILES["file"]["name"]."'>". $_FILES["file"]["name"]."</a>";
-      }
-    }
+		if($_FILES["file"]["type"] == "application/x-php"){
+			echo $_FILES["file"]["name"] . " is not allowed, sorry about that...";
+		}else{
+			move_uploaded_file($_FILES["file"]["tmp_name"],
+			"upload/" . $_FILES["file"]["name"]);
+			echo "Stored at: <a href='http://unps-gama.tk/upload/".$_FILES["file"]["name"]."'>". $_FILES["file"]["name"]."</a>";
+		}
+	  }
+	}
   }
 else
   {
