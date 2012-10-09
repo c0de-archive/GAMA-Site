@@ -42,7 +42,7 @@ Service by '.$pagepath.'
 echo '
 Thanks for using '.$pagetitle.' <br>
 your link is available here (right click, copy link):<br>
-<a href='.$pagepath.$random.'>'.$pagepath.$random.'</a><br>
+<a href='.$pagepath.$random.' target='.$random.'>'.$pagepath.$random.'</a><br>
 <a href="index.php">Back to index</a><br>
 <a href="http://unps-gama.tk">Home</a>
 
