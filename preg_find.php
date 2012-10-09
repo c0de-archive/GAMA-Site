@@ -1,4 +1,5 @@
 <?php
+//This file has become useless for now
 /*
  * Find files in a directory matching a pattern
  *
