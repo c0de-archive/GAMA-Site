@@ -1,5 +1,7 @@
 <?php
 $img = $_GET["img"];
+strip_tags($img);
+$img = strip_tags($img);
 ?>
 <html prefix="og: http://ogp.me/ns#">
 <head>
