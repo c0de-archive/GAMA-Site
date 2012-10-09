@@ -1,10 +1,41 @@
+<title>URL Shortner</title>
+<script language="javascript" type="text/javascript">
+function showHide(shID) {
+   if (document.getElementById(shID)) {
+      if (document.getElementById(shID+'-show').style.display != 'none') {
+         document.getElementById(shID+'-show').style.display = 'none';
+         document.getElementById(shID).style.display = 'block';
+      }
+      else {
+         document.getElementById(shID+'-show').style.display = 'inline';
+         document.getElementById(shID).style.display = 'none';
+      }
+   }
+}
+</script>
+<style type="text/css">
+.api {
+	display: none;
+	border-top: 1px solid #666;
+	border-bottom: 1px solid #666; }
+a.showApi, a.hideApi {
+	text-decoration: none;
+	color: #36f;
+	padding-left: 8px; }
+a.showApi:hover, a.hideApi:hover {
+	border-bottom: 1px dotted #36f; }
+</style>
 <body bgcolor="black" text="greem"><div align="center">
 <img src="http://unps-gama.tk/upload/Pictures/header.png"><br>
-<h4>Welcome to the UnPS-GAMA page shortener</h4>
+<h4>Welcome to the UnPS-GAMA page shortner</h4>
+<a href="#" id="api-show" class="showApi" onclick="showHide('api');return false;">Existing Short Links</a>
+<div id="api" class="api">
 <?php
 include('getfiles.php');
-echo "<table><tr><td><P>List of links already:</p></td></tr><tr><td>" . $thelist . "</td></tr></table>";
+echo "<table><tr><td><div align'center'><P>List of links already:</p></div></td></tr><tr><td>" . $thelist . "</td></tr></table>";
 ?>
+<a href="#" id="api-hide" class="hideApi" onclick="showHide('api');return false;">Close Me</a>
+</div>
 <br><hr><br>
 <?php
 include("config.php");
