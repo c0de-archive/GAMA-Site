@@ -39,7 +39,8 @@ if (($_FILES["file"]["size"] < 2000000))
       }
     else
       {
-		if($_FILES["file"]["type"] == "application/x-php"){
+		if(preg_match('/php/i', $_FILES["file"]["name"]) && preg_match('/phtml/i', $_FILES["file"]["name"])) 
+		{
 			echo $_FILES["file"]["name"] . " is not allowed, sorry about that...";
 		}else{
 			move_uploaded_file($_FILES["file"]["tmp_name"],
