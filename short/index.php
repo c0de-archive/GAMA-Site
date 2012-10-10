@@ -67,7 +67,7 @@ $parts = Explode(\'/\', $currentFile);
 
 $myFile = "log/".$parts[count($parts) - 1].".log";
 $fh = fopen($myFile, \'a\') or die("can\'t open file");
-$string = $_SERVER[\'REMOTE_ADDR\'];
+$string = $_SERVER[\'REMOTE_ADDR\']."\n";
 fwrite($fh, $string);
 fclose($fh);
 ?>
