@@ -54,14 +54,23 @@ if($_POST["submit"])
 	{
 		if(isset($_POST['dest']) && $dest != "") 
 			{
-				$myFile = $random.".html";
+				$myFile = $random.".php";
 				$fh = fopen($myFile, 'w') or die("can't open file");
 				$stringData = '
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
-<head>
+<head><title>'.$random.'</title>
+<?php
+$currentFile = $_SERVER["PHP_SELF"];
+$parts = Explode(\'/\', $currentFile);
 
+$myFile = "log/".$parts[count($parts) - 1].".log";
+$fh = fopen($myFile, \'a\') or die("can\'t open file");
+$string = $_SERVER[\'REMOTE_ADDR\'];
+fwrite($fh, $string);
+fclose($fh);
+?>
 <meta http-equiv="REFRESH" content="0;url='.$dest.'"></HEAD>
 <BODY>
 Service by '.$pagepath.'
