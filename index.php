@@ -55,16 +55,16 @@
 	</div>
 	<div id="navigation">
 		<ul>
-			<li><a href="javascript:unhide('home');hide('about');hide('contact');hide('schedule');">Home</a></li>
-			<li><a href="javascript:unhide('about');hide('home');hide('contact');hide('schedule');">About</a></li>
+			<li><a href="javascript:unhide('home');hide('about');hide('contact');hide('minecraft');">Home</a></li>
+			<li><a href="javascript:unhide('about');hide('home');hide('contact');hide('minecraft');">About</a></li>
 			<li><a href="http://unps-gama.tk/img/" target="img">IMGShare</a></li>
 			<li><a href="http://unps-gama.tk/fp/flatpress/" target="blog">Personal Blog</a></li>
 			<li><a href="http://unps-gama.tk/upload/index.php" target="upload">Uploads</a></li>
 			<li><a href="http://unps-gama.tk/pox/" target="pox">Proxy</a></li>
 			<li><a href="https://github.com/alopexc0de/GAMA-Site" target="_ghgama">GitHub</a></li>
-			<li><a href="javascript:unhide('contact');hide('home');hide('about');hide('schedule');">Contact Us</a></li>
+			<li><a href="javascript:unhide('contact');hide('home');hide('about');hide('minecraft');">Contact Us</a></li>
 			<li><a href="http://unps-gama.tk/short" target="_short">URL Shortner</a></li>
-			<li><a href="javascript:unhide('schedule');hide('home');hide('about');hide('contact');">C0de's Schedule</a></li>
+			<li><a href="javascript:unhide('minecraft');hide('home');hide('about');hide('contact');">Minecraft</a></li>
 		</ul>
 	</div>
 	<div id="content-container1">
@@ -118,8 +118,96 @@
 						<li>TeamSpeak: <a href="teamspeak:unps-gama.tk">unps-gama.tk</a> default channel</li>
 					</ul>
 				</div>
-				<div id="schedule" class="hidden">
-					<iframe src="https://www.google.com/calendar/embed?title=C0de's%20Schedule&amp;showNav=0&amp;showPrint=0&amp;showTabs=0&amp;mode=AGENDA&amp;height=350&amp;wkst=2&amp;bgcolor=%23FFFFFF&amp;src=tehfoxy.c0de%40gmail.com&amp;color=%23182C57&amp;ctz=America%2FNew_York" style=" border-width:0 " width="700" height="350" frameborder="0" scrolling="no"></iframe>
+				<div id="minecraft" class="hidden">
+					<h4>Server Status:</h4><br />
+					<table align="center">
+						<?php
+							$ip = 'mc.unps-gama.tk';
+							$port = '36565';
+							$result = '';
+							$fp = fsockopen($ip, $port, $errno, $errstr, 5); // Socket for connecting to server
+							if (!$fp) { 
+								echo "<font color='red'>Unable to reach server</font>";
+							} else {
+								$out = "\xFE"; // Hex needed for server info
+								fwrite($fp, $out);
+								while (!feof($fp)) {
+									$result .= fgets($fp, 128);
+								}
+								fclose($fp);
+								// Remove extra spaces between characters
+								$result = str_replace("\x00", "", $result); 
+								$result = str_replace("\x1A", "", $result); 
+								$result = str_replace("\xFF", "", $result);
+								$srvinfo = explode("\xA7",$result); 
+								echo "<tr><td>\n";
+								echo "Server:<font color='red'> " . $ip . "</font> on port:<font color='blue'> " . $port . " </font> is: ";
+								include('testserver.php');
+								$status = GetServerStatus($ip, $port);
+								if ($status=="ONLINE") echo "<font color='green'>" . $status . "</font></td></tr>\n";
+								if ($status=="OFFLINE") echo "<font color='red'>" . $status . "</font></td></tr>\n";
+								echo "<tr><td>motd: " . $srvinfo[0] . "</td></tr>\n";
+								echo "<tr><td>players online: " . $srvinfo[1] . "</td></tr>\n";
+								echo "<tr><td>max players: " . $srvinfo[2] . "</td></tr>\n";
+							}
+						?>
+					</table><br /><hr /><br />
+					<?php
+						$choice = '';
+						$map = '';
+						$uniqueid = '';
+						$voterip = '';
+						$random = rand(); 
+						$path="."; //shortening url storage folder
+						$pagepath = "http://ugama.tk/short/";
+						$pagetitle = "Unps-gama.tk shortner";
+						if(!$_POST['submit'])
+						{
+					?>
+					<h4>Poll - I'm planing on doing a custom map for a short time, who votes yes, who votes no and if you're yes tell me what map please</h4>
+					<form action="index.php" method="post">
+						<p>Yes, put up a custom map for a short time <input type="radio" name="choice" value="yes" /></p>
+						<p>No, don't change the map <input type="radio" name="choice" value="no" /></p>
+						<p>Map to use(optional): <input name="map" type="text" size="30" value="No map was supplied" /></p>
+						<input type="hidden" name="uniqueid" value="<?php echo $random; ?>" />
+						<input type="hidden" name="voterip" value="<?php echo $_SERVER['REMOTE_ADDR']; ?>" />
+						<input type="submit" name="submit" value="submit" />
+					</form>
+					<?php
+						}
+						$choice = $_POST['choice'];
+						//$map = $_POST['map'];
+						$uniqueid = $_POST['uniqueid'];
+						$voterip = $_POST['voterip'];
+						if($_POST["submit"])
+						{
+							if(isset($_POST['choice']) && isset($_POST['uniqueid']) && isset($_POST['voterip']) && $choice != "" && $uniqueid != "" && $voterip != "") 
+							{
+								if(isset($_POST['map'])){ 
+									$map = $_POST['map'];
+								}else{
+									$map = "No Map was supplied";
+								}
+								$myFile = "poll.txt";
+								$fh = fopen($myFile, 'a') or die("can't open file");
+								$stringData = "Voter: ".$uniqueid." Of IP: ".$voterip.", has voted ".$choice." and their map is: ".$map.".\n";
+								fwrite($fh, $stringData);
+								fclose($fh);	
+								echo "
+								<script type='text/javascript'>
+									unhide('minecraft');hide('home');hide('about');hide('contact');
+								</script>
+								<h3>Thanks for voting!</h3>";
+								//echo "Voter: ".$uniqueid." Of IP: ".$voterip.", has voted ".$choice." and their map is: ".$map."\r\n\r\n";
+							}if($choice == "" || $uniqueid == "" || $voterip == ""){
+								echo "
+								<script type='text/javascript'>
+									unhide('minecraft');hide('home');hide('about');hide('contact');
+								</script>
+								<h1>Something's not right here... Try using the poll again</h1>";
+							}
+						}
+					?>
 				</div>
 			</div>
 			<div id="aside">
