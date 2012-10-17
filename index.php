@@ -151,6 +151,11 @@
 								echo "<tr><td>max players: " . $srvinfo[2] . "</td></tr>\n";
 							}
 						?>
+						<tr><td><img src="http://unps-gama.tk/mcimage.php" alt="server status image"></td></tr>
+						<tr><td><form action="404.html" method="get"><p>Share this banner:</p></td></tr>
+						<tr><td><p>Direct: </p><input type="text" size="15" value="http://unps-gama.tk/mcimage.php" readonly /></p></td></tr>
+						<tr><td><p>HTML: </p><input type="text" size="50" value="<img src='http://unps-gama.tk/mcimage.php alt='UnPS-GAMA Minecraft server status image' />" readonly /></p></td></tr>
+						<tr><td><p>BBCode (for forums): </p><input type="text" size="30" value="[align=center][img]http://unps-gama.tk/mcimage.php[/img][/align]" readonly /></p></form></td></tr>
 					</table><br /><hr /><br />
 					<?php
 						$choice = '';
