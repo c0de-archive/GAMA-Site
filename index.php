@@ -150,12 +150,12 @@
 								echo "<tr><td>players online: " . $srvinfo[1] . "</td></tr>\n";
 								echo "<tr><td>max players: " . $srvinfo[2] . "</td></tr>\n";
 							}
-						?>
-						<tr><td><img src="http://unps-gama.tk/mcimage.php" alt="server status image"></td></tr>
-						<tr><td><form action="404.html" method="get"><p>Share this banner:</p></td></tr>
-						<tr><td><p>Direct: </p><input type="text" size="15" value="http://unps-gama.tk/mcimage.php" readonly /></p></td></tr>
-						<tr><td><p>HTML: </p><input type="text" size="50" value="<img src='http://unps-gama.tk/mcimage.php alt='UnPS-GAMA Minecraft server status image' />" readonly /></p></td></tr>
-						<tr><td><p>BBCode (for forums): </p><input type="text" size="30" value="[align=center][img]http://unps-gama.tk/mcimage.php[/img][/align]" readonly /></p></form></td></tr>
+						?><tr><td><hr /></td></tr>
+						<tr><td><img src="http://unps-gama.tk/mcimage.php" alt="server status image" /></td></tr>
+						<tr><td><form action="404.html" method="get"><p>Share this banner:</p>
+						<p>Direct: <input type="text" size="28" name="directlink" value="http://unps-gama.tk/mcimage.php" readonly="readonly" /></p>
+						<p>HTML: <input type="text" size="88" name="html" value="&lt;img src='http://unps-gama.tk/mcimage.php alt='UnPS-GAMA Minecraft server status image' &#47;&gt;" readonly="readonly" /></p>
+						<p>BBCode (for forums): <input type="text" size="58" value="[align=center][img]http://unps-gama.tk/mcimage.php[/img][/align]" readonly="readonly" name="bbcode" /></p></form></td></tr>
 					</table><br /><hr /><br />
 					<?php
 						$choice = '';
@@ -163,13 +163,10 @@
 						$uniqueid = '';
 						$voterip = '';
 						$random = rand(); 
-						$path="."; //shortening url storage folder
-						$pagepath = "http://ugama.tk/short/";
-						$pagetitle = "Unps-gama.tk shortner";
 						if(!$_POST['submit'])
 						{
 					?>
-					<h4>Poll - I'm planing on doing a custom map for a short time, who votes yes, who votes no and if you're yes tell me what map please</h4>
+					<h4>Poll - I'm planning on doing a custom map for a short time, who votes yes, who votes no and if you're yes tell me what map please</h4>
 					<form action="index.php" method="post">
 						<p>Yes, put up a custom map for a short time <input type="radio" name="choice" value="yes" /></p>
 						<p>No, don't change the map <input type="radio" name="choice" value="no" /></p>
