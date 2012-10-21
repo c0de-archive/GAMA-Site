@@ -260,9 +260,8 @@
 						<img src="http://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0 Transitional" height="31" width="88" />
 					</a>
 				</p>
-				<h5>Everything availiable <a href="https://github.com/alopexc0de/GAMA-Site" target="_ghgama">here</a> on <a href="https://github.com">GitHub</a></h5>
-				<h5>Copyright &copy; UnPS-GAMATechnologies, 2012 - CSS Provided by: <a href="http://www.maxdesign.com.au/articles/css-layouts/three-liquid/" target="maxdesign">maxdesign</a></h5>
-				<h5>
+				<h5>Everything availiable <a href="https://github.com/alopexc0de/GAMA-Site" target="_ghgama">here</a> on <a href="https://github.com">GitHub</a><br />
+				Copyright &copy; UnPS-GAMATechnologies, 2012 - CSS Provided by: <a href="http://www.maxdesign.com.au/articles/css-layouts/three-liquid/" target="maxdesign">maxdesign</a><br />
 					<?php 
 						$last_modified = filemtime("index.php"); 
 						print("Last Modified "); 
