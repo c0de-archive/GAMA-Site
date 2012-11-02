@@ -14,12 +14,12 @@ function getDirectory( $path = '.', $level = 0 ){
             // show the directory tree. 
             if( is_dir( "$path/$file" ) ){ 
             // Its a directory, so we need to keep reading down... 
-                echo "<strong>$spaces <a href='$path/$file'>$file</a></strong><br />"; 
+                echo "<strong>$spaces └ <a href='$path/$file'>$file</a></strong><br />"; 
                 getDirectory( "$path/$file", ($level+1) ); 
                 // Re-call this same function but on a new directory. 
                 // this is what makes function recursive. 
             } else { 
-                echo "$spaces <a href='$path/$file'>$file</a><br />"; 
+                echo "$spaces └ <a href='$path/$file'>$file</a><br />"; 
                 // Just print out the filename 
             } 
         }  
