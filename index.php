@@ -49,22 +49,23 @@
 <body>
 <div id="container">
 	<div id="header">
-		<a href="http://unps-gama.tk">
-			<img src="http://unps-gama.tk/upload/Pictures/header.png" alt="UnPS-GAMA Header logo" />
+		<a href="http://www.unps-gama.info">
+			<img src="http://www.unps-gama.info/upload/Pictures/header.png" alt="UnPS-GAMA Header logo" />
 		</a>
 	</div>
 	<div id="navigation">
 		<ul>
-			<li><a href="javascript:unhide('home');hide('about');hide('contact');hide('minecraft');">Home</a></li>
-			<li><a href="javascript:unhide('about');hide('home');hide('contact');hide('minecraft');">About</a></li>
-			<li><a href="http://unps-gama.tk/img/" target="img">IMGShare</a></li>
-			<li><a href="http://unps-gama.tk/fp/flatpress/" target="blog">Personal Blog</a></li>
-			<li><a href="http://unps-gama.tk/upload/index.php" target="upload">Uploads</a></li>
-			<li><a href="http://unps-gama.tk/pox/" target="pox">Proxy</a></li>
+			<li><a href="javascript:unhide('home');hide('about');hide('contact');hide('minecraft');hide('Privacy');">Home</a></li>
+			<li><a href="javascript:unhide('about');hide('home');hide('contact');hide('minecraft');hide('Privacy');">About</a></li>
+			<li><a href="http://www.unps-gama.info/img/" target="img">IMGShare</a></li>
+			<li><a href="http://www.unps-gama.info/fp/flatpress/" target="blog">Personal Blog</a></li>
+			<li><a href="http://www.unps-gama.info/upload/index.php" target="upload">Uploads</a></li>
+			<li><a href="http://www.unps-gama.info/pox/" target="pox">Proxy</a></li>
 			<li><a href="https://github.com/alopexc0de/GAMA-Site" target="_ghgama">GitHub</a></li>
-			<li><a href="javascript:unhide('contact');hide('home');hide('about');hide('minecraft');">Contact Us</a></li>
-			<li><a href="http://unps-gama.tk/short" target="_short">URL Shortner</a></li>
-			<li><a href="javascript:unhide('minecraft');hide('home');hide('about');hide('contact');">Minecraft</a></li>
+			<li><a href="javascript:unhide('contact');hide('home');hide('about');hide('minecraft');hide('Privacy');">Contact Us</a></li>
+			<li><a href="http://www.unps-gama.info/short" target="_short">URL Shortner</a></li>
+			<li><a href="javascript:unhide('minecraft');hide('home');hide('about');hide('contact');hide('Privacy');">Minecraft</a></li>
+			<!--<li><a href="javascript:unhide('Privacy');hide('home');hide('about');hide('contact');hide('minecrft')">Privacy Policy</a></li>-->
 		</ul>
 	</div>
 	<div id="content-container1">
@@ -72,15 +73,14 @@
 			<div id="section-navigation">
 				<ul>
 					<li><h4>Offered Services:</h4></li>
-					<li><a href="http://en.wikipedia.org/wiki/IRC" target="irc">IRC</a> - unps-gama.tk:6667</li>
 					<li><a href="http://teamspeak.com" target="ts">TeamSpeak</a> - unps-gama.tk:9987</li>
-					<li><a href="http://unps-gama.tk/img" target="img">Image Host</a></li>
+					<li><a href="http://www.unps-gama.info/img" target="img">Image Host</a></li>
 					<li><a href="http://en.wikipedia.org/wiki/Secure_Shell" target="ssh">SSH Access</a> - email <a href="mailto:c0de@unps-gama.tk">c0de</a> for info</li>
 					<li><a href="http://en.wikipedia.org/wiki/Email" target="email">EMail</a> (through SSH)</li>
 					<li><a href="http://en.wikipedia.org/wiki/Ftp" target="ftp">FTP</a> (through <a href="http://en.wikipedia.org/wiki/SSH_File_Transfer_Protocol" target="sftp">SFTP</a>)</li>
 					<li><a href="upload.html" target="upload">File Storage</a> (up to 20MB)</li>
-					<li><a href="http://en.wikipedia.org/wiki/Proxy_server" target="proxy">Proxy</a> at <a href="http://unps-gama.tk/pox/" target="pox">Pox</a></li>
-					<li><a href="http://unps-gama.tk/short" target="_short">URL Shortner</a></li>
+					<li><a href="http://en.wikipedia.org/wiki/Proxy_server" target="proxy">Proxy</a> at <a href="http://www.unps-gama.info/pox/" target="pox">Pox</a></li>
+					<li><a href="http://www.unps-gama.info/short" target="_short">URL Shortner</a></li>
 				</ul>
 			</div>
 			<div id="content"><div id="home" class="unhidden">
@@ -88,14 +88,11 @@
 					UnProfessional Standards - GAMATechnologies | Home Page
 				</h2><hr />
 				<p>
-					Hello and welcome to the newly designed UnPS-GAMA website! The past week has mainly been spent upgrading my image share system, and it is nearly at completion. I have been absolutly dreading redesiging this page, but I decided today, September 13th 2012 at 1500 EST, that I would finally get to work. I decided to start more from scratch and pull in the things that I wanted. Currently this is beta and not every page is done with formatting. Pages that I'm happy with for now (aside for not having CSS2 or XHTML1 compliance) are the <a href="http://unps-gama.tk/404.html">404</a> page, and pretty much anything with the <a href="http://unps-gama.tk/img">image host</a>. Pages that I need to work on are the upload, contact us, and about pages so far. As of now, they'll just redirect to the 404 page until I get to them.<br />As I have placement tests for college today, I am trying to get as much done as I can before then, <strike>but it could be unlikely that I get the page uploaded and live until then.</strike> I got it uploaded and debugged quickly. There are some alignment issues but good otherwise. Updates soon to follow.
+					@Nov 2, 2012 - 0130 EST: <br />
+					We have officially launched with an actual domain name! In the next few days you'll also see some changes to this site, hopefully for the better. I have been hard at work setting up an email system, and it has caused a lot of grief. If you see webmail one day, then great, I managed to get the mysql working with postfix and whatever I choose to use for webmail. Registration is, as always going to be free. I am also currently adding mysql to other sections of my site, and I'm debating on requiring user login for uploading files and pictures. I have added a privacy policy <a href="javascript:unhide('Privacy');hide('home');hide('about');hide('contact');hide('minecrft')">Here</a>. So have fun with that.
 				</p><hr />
-				<p>(Pulled from old index)</p><h4>Whoo! We've gone through our first actual hack!</h4>
-				<p>This page was defaced today, May 25th at 8:18am EST by Nightmare Team.
-		The page can still be accessed <a href="index.php.hack" target="unps-hack">here</a>
-		It was actually pretty fun, and I saw that it was a simple php upload exploit to change the way php worked on the system.
-		The person who pulled it off has not been banned from this server (because of my hackerish side)
-								 ciao - dc0de
+				<p>
+					Hello and welcome to the newly designed UnPS-GAMA website! The past week has mainly been spent upgrading my image share system, and it is nearly at completion. I have been absolutly dreading redesiging this page, but I decided today, September 13th 2012 at 1500 EST, that I would finally get to work. I decided to start more from scratch and pull in the things that I wanted. Currently this is beta and not every page is done with formatting. Pages that I'm happy with for now (aside for not having CSS2 or XHTML1 compliance) are the <a href="http://www.unps-gama.info/404.html">404</a> page, and pretty much anything with the <a href="http://www.unps-gama.info/img">image host</a>. Pages that I need to work on are the upload, contact us, and about pages so far. As of now, they'll just redirect to the 404 page until I get to them.<br />As I have placement tests for college today, I am trying to get as much done as I can before then, <strike>but it could be unlikely that I get the page uploaded and live until then.</strike> I got it uploaded and debugged quickly. There are some alignment issues but good otherwise. Updates soon to follow.
 				</p></div>
 				<div id="about" class="hidden">
 					<h2>
@@ -104,6 +101,7 @@
 					<p>
 						The way this works is fairly simple, what I do is I host web services. If you want to use me for anything, then feel free to contact me at <a href="mailto:c0de@unps-gama.tk">c0de</a>. Most of what I offer is free for anyone, and I can terminate service for anybody, including to the point of not being able to access anything on the GAMA network. If I decide to terminate service however, I will compress any of your files and give you a link. The link is only good for ~48 hours before it will be deleted automatically. Services that I offer by default are listed to the left, these are free for anyone who wants to use them. Depending on your request I might be able to host other things though, just ask.
 					</p>
+					<p>Our privacy policy can be found <a href="javascript:unhide('Privacy');hide('home');hide('about');hide('contact');hide('minecrft')">Here</a>. and our terms of service can be found: (Currently nowhere as we don't have them).</p>
 				</div>
 				<div id="contact" class="hidden">
 					<h2>
@@ -113,10 +111,12 @@
 					<ul>
 						<li>Skype: <a href="skype:alopexlagopus-c0de?chat">alopexlagopus-c0de</a></li>
 						<li>Facebook: <a href="http://facebook.com/G1itch3D" target="_fbgama">G1itch3D</a></li>
-						<li>Email: <a href="mailto:c0de@unps-gama.tk">c0de@unps-gama.tk</a></li>
-						<li>IRC: <a href="irc:irc.unps-gama.tk#minecraft">irc.unps-gama.tk</a> #minecraft</li>
-						<li>TeamSpeak: <a href="teamspeak:unps-gama.tk">unps-gama.tk</a> default channel</li>
+						<li>Email: <a href="mailto:c0de@unps-gama.info">c0de@unps-gama.tk</a></li>
+						<li>TeamSpeak: <a href="teamspeak:unps-gama.info">unps-gama.tk</a> default channel</li>
 					</ul>
+				</div>
+				<div id="Privacy" class="hidden">
+					<!-- START PRIVACY POLICY CODE --><div style="font-family: verdana;"><strong>What information do we collect?</strong> <br /><br />We collect information from you when you register on our site, fill out a form or store files.  <br /><br />When ordering or registering on our site, as appropriate, you may be asked to enter your: name or e-mail address. You may, however, visit our site anonymously.<br /><br />Google, as a third party vendor, uses cookies to serve ads on your site. Google's use of the DART cookie enables it to serve ads to your users based on their visit to your sites and other sites on the Internet. Users may opt out of the use of the DART cookie by visiting the Google ad and content network privacy policy..<br /><br /><strong>What do we use your information for?</strong> <br /><br />Any of the information we collect from you may be used in one of the following ways: <br /><br />; To personalize your experience<br />(your information helps us to better respond to your individual needs)<br /><br /><br />; To administer a contest, promotion, survey or other site feature<br /><br /><br /><br /><strong>How do we protect your information?</strong> <br /><br />We implement a variety of security measures to maintain the safety of your personal information when you enter, submit, or access your personal information. <br /><br /><strong>Do we use cookies?</strong> <br /><br />Yes (Cookies are small files that a site or its service provider transfers to your computers hard drive through your Web browser (if you allow) that enables the sites or service providers systems to recognize your browser and capture and remember certain information<br /><br /> We use cookies to understand and save your preferences for future visits, keep track of advertisements and compile aggregate data about site traffic and site interaction so that we can offer better site experiences and tools in the future.<br /><br /><strong>Do we disclose any information to outside parties?</strong> <br /><br />We do not sell, trade, or otherwise transfer to outside parties your personally identifiable information. This does not include trusted third parties who assist us in operating our website, conducting our business, or servicing you, so long as those parties agree to keep this information confidential. We may also release your information when we believe release is appropriate to comply with the law, enforce our site policies, or protect ours or others rights, property, or safety. However, non-personally identifiable visitor information may be provided to other parties for marketing, advertising, or other uses.<br /><br /><strong>Third party links</strong> <br /><br /> Occasionally, at our discretion, we may include or offer third party products or services on our website. These third party sites have separate and independent privacy policies. We therefore have no responsibility or liability for the content and activities of these linked sites. Nonetheless, we seek to protect the integrity of our site and welcome any feedback about these sites.<br /><br /><strong>California Online Privacy Protection Act Compliance</strong><br /><br />Because we value your privacy we have taken the necessary precautions to be in compliance with the California Online Privacy Protection Act. We therefore will not distribute your personal information to outside parties without your consent.<br /><br /><strong>Childrens Online Privacy Protection Act Compliance</strong> <br /><br />We are in compliance with the requirements of COPPA (Childrens Online Privacy Protection Act), we do not collect any information from anyone under 13 years of age. Our website, products and services are all directed to people who are at least 13 years old or older.<br /><br /><strong>Online Privacy Policy Only</strong> <br /><br />This online privacy policy applies only to information collected through our website and not to information collected offline.<br /><br /><strong>Your Consent</strong> <br /><br />By using our site, you consent to our privacy policy.<br /><br /><strong>Changes to our Privacy Policy</strong> <br /><br />If we decide to change our privacy policy, we will post those changes on this page, and/or update the Privacy Policy modification date below. <br /><br />This policy was last modified on November 2nd, 2012<br /><br /><strong>Contacting Us</strong> <br /><br />If there are any questions regarding this privacy policy you may contact us using the information below. <br /><br />http://unps-gama.info<br />c0de@unps-gama.info</div><!-- END PRIVACY POLICY CODE -->
 				</div>
 				<div id="minecraft" class="hidden">
 					<h4>Server Status:</h4><br />
@@ -146,18 +146,18 @@
 								$status = GetServerStatus($ip, $port);
 								if ($status=="ONLINE") echo "<font color='green'>" . $status . "</font></td></tr>\n";
 								if ($status=="OFFLINE") echo "<font color='red'>" . $status . "</font></td></tr>\n";
-								echo "<tr><td>motd: " . $srvinfo[0] . "</td></tr>\n";
+								echo "<tr><td>motd:".$srvinfo[0]."</td></tr>\n";
 								echo "<tr><td>players online: " . $srvinfo[1] . "</td></tr>\n";
 								echo "<tr><td>max players: " . $srvinfo[2] . "</td></tr>\n";
 							}
 						?><tr><td><hr /></td></tr>
-						<tr><td><img src="http://unps-gama.tk/mcimage.php" alt="server status image" /></td></tr>
+						<tr><td><img src="http://www.unps-gama.info/mcimage.php" alt="server status image" /></td></tr>
 						<tr><td><form action="404.html" method="get"><p>Share this banner:</p>
-						<p>Direct: <input type="text" size="28" name="directlink" value="http://unps-gama.tk/mcimage.php" readonly="readonly" /></p>
-						<p>HTML: <input type="text" size="88" name="html" value="&lt;img src='http://unps-gama.tk/mcimage.php alt='UnPS-GAMA Minecraft server status image' &#47;&gt;" readonly="readonly" /></p>
-						<p>BBCode (for forums): <input type="text" size="58" value="[align=center][img]http://unps-gama.tk/mcimage.php[/img][/align]" readonly="readonly" name="bbcode" /></p></form></td></tr>
+						<p>Direct: <input type="text" size="28" name="directlink" value="http://www.unps-gama.info/mcimage.php" readonly="readonly" /></p>
+						<p>HTML: <input type="text" size="88" name="html" value="&lt;img src='http://www.unps-gama.info/mcimage.php alt='UnPS-GAMA Minecraft server status image' &#47;&gt;" readonly="readonly" /></p>
+						<p>BBCode (for forums): <input type="text" size="58" value="[align=center][img]http://www.unps-gama.info/mcimage.php[/img][/align]" readonly="readonly" name="bbcode" /></p></form></td></tr>
 					</table><br /><hr /><br />
-					<?php
+					<!--<?php/*
 						$choice = '';
 						$map = '';
 						$uniqueid = '';
@@ -209,7 +209,7 @@
 								<h1>Something's not right here... Try using the poll again</h1>";
 							}
 						}
-					?>
+					*/?>-->
 				</div>
 			</div>
 			<div id="aside">
@@ -235,7 +235,7 @@
 					Upload Files (20MB limit)
 				</h3>
 				<p>
-					Files will automatically sort after 5 minutes. If you can't find your file, check <a href="http://unps-gama.tk/upload/index.php">Uploads</a> for your files.
+					Files will automatically sort after 5 minutes. If you can't find your file, check <a href="http://www.unps-gama.info/upload/index.php">Uploads</a> for your files.
 				</p>
 				<form enctype="multipart/form-data" method="post" action="upload.php">
 					<label for="file">Filename:</label>
