@@ -57,7 +57,7 @@
 		<ul>
 			<li><a href="javascript:unhide('home');hide('about');hide('contact');hide('minecraft');hide('Privacy');">Home</a></li>
 			<li><a href="javascript:unhide('about');hide('home');hide('contact');hide('minecraft');hide('Privacy');">About</a></li>
-			<li><a href="http://www.unps-gama.info/img/" target="img">IMGShare</a></li>
+			<li><a href="http://www.img.unps-gama.info/" target="img">IMGShare</a></li>
 			<li><a href="http://www.unps-gama.info/fp/flatpress/" target="blog">Personal Blog</a></li>
 			<li><a href="http://www.unps-gama.info/upload/index.php" target="upload">Uploads</a></li>
 			<li><a href="http://www.unps-gama.info/pox/" target="pox">Proxy</a></li>
@@ -74,7 +74,7 @@
 				<ul>
 					<li><h4>Offered Services:</h4></li>
 					<li><a href="http://teamspeak.com" target="ts">TeamSpeak</a> - unps-gama.tk:9987</li>
-					<li><a href="http://www.unps-gama.info/img" target="img">Image Host</a></li>
+					<li><a href="http://img.unps-gama.info/" target="img">Image Host</a></li>
 					<li><a href="http://en.wikipedia.org/wiki/Secure_Shell" target="ssh">SSH Access</a> - email <a href="mailto:c0de@unps-gama.tk">c0de</a> for info</li>
 					<li><a href="http://en.wikipedia.org/wiki/Email" target="email">EMail</a> (through SSH)</li>
 					<li><a href="http://en.wikipedia.org/wiki/Ftp" target="ftp">FTP</a> (through <a href="http://en.wikipedia.org/wiki/SSH_File_Transfer_Protocol" target="sftp">SFTP</a>)</li>
@@ -122,7 +122,7 @@
 					<h4>Server Status:</h4><br />
 					<table align="center">
 						<?php
-							$ip = 'mc.unps-gama.tk';
+							$ip = 'mc.unps-gama.info';
 							$port = '36565';
 							$result = '';
 							$fp = fsockopen($ip, $port, $errno, $errstr, 5); // Socket for connecting to server
