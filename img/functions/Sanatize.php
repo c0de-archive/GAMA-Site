@@ -23,7 +23,7 @@ function cln_file_name($string) {
 }
 
 function get_ext($name) { 
-	$name = substr(strrchr($key, "."), 1);
+	$name = substr(strrchr($name, "."), 1);
 	return $name;
 }
 ?>
