@@ -57,7 +57,7 @@
 		<ul>
 			<li><a href="#" onclick="javascript:unhide('home');hide('about');hide('contact');">Home</a></li>
 			<li><a href="#" onclick="javascript:unhide('about');hide('home');hide('contact');">About</a></li>
-			<li><a href="http://www.img.unps-gama.info/" target="img">IMGShare</a></li>
+			<li><a href="http://img.unps-gama.info/" target="img">IMGShare</a></li>
 			<li><a href="http://www.unps-gama.info/fp/flatpress/" target="blog">Personal Blog</a></li>
 			<li><a href="http://www.unps-gama.info/upload/index.php" target="upload">Uploads</a></li>
 			<li><a href="http://www.unps-gama.info/pox/" target="pox">Proxy</a></li>
