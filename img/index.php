@@ -43,9 +43,16 @@
 				color: #fff;
 				float: right;
 			}
+			.footer{
+				padding-left: 4%;
+				padding-right: 4%;
+				text-align: center;
+			}
+			* a{ color: #003399;}
+			* a:visited { color: #ff0000;}
 		</style>
 	</head>
-	<body background="https://si0.twimg.com/profile_background_images/468495900/bg.gif" text="white" link="red" vlink="purple">
+	<body background="https://si0.twimg.com/profile_background_images/468495900/bg.gif" text="white">
 		<div align="center">
 			<a href="http://www.unps-gama.info/">
 				<img src="http://unps-gama.info/upload/Pictures/header.png" alt="To UnPS-GAMA" title="To Home" />
@@ -154,4 +161,5 @@ if($count == 1){
 	mysql_close();
 }
 ?>
-</div>
+</div><hr />
+<div class="footer"><a href="http://unps-gama.info">Home</a> <a href="http://unps-gama.info/ToS.html">Terms of Service</a> <a href="http://unps-gama.info/privacy.html">Privacy Policy</a></div>
