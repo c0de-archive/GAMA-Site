@@ -55,16 +55,15 @@
 	</div>
 	<div id="navigation">
 		<ul>
-			<li><a href="#" onclick="javascript:unhide('home');hide('about');hide('contact');hide('minecraft');">Home</a></li>
-			<li><a href="#" onclick="javascript:unhide('about');hide('home');hide('contact');hide('minecraft');">About</a></li>
+			<li><a href="#" onclick="javascript:unhide('home');hide('about');hide('contact');">Home</a></li>
+			<li><a href="#" onclick="javascript:unhide('about');hide('home');hide('contact');">About</a></li>
 			<li><a href="http://www.img.unps-gama.info/" target="img">IMGShare</a></li>
 			<li><a href="http://www.unps-gama.info/fp/flatpress/" target="blog">Personal Blog</a></li>
 			<li><a href="http://www.unps-gama.info/upload/index.php" target="upload">Uploads</a></li>
 			<li><a href="http://www.unps-gama.info/pox/" target="pox">Proxy</a></li>
 			<li><a href="https://github.com/alopexc0de/GAMA-Site" target="_ghgama">GitHub</a></li>
-			<li><a href="#" onclick="javascript:unhide('contact');hide('home');hide('about');hide('minecraft');">Contact Us</a></li>
+			<li><a href="#" onclick="javascript:unhide('contact');hide('home');hide('about');">Contact Us</a></li>
 			<li><a href="http://www.unps-gama.info/short" target="_short">URL Shortner</a></li>
-			<li><a href="#" onclick="javascript:unhide('minecraft');hide('home');hide('about');hide('contact');">Minecraft</a></li>
 			<li><a href="http://unps-gama.info/privacy.html">Privacy Policy</a></li>
 			<li><a href="http://unps-gama.info/ToS.html">Terms of Service</a></li>
 		</ul>
@@ -116,10 +115,10 @@
 						<li>Skype: <a href="skype:alopexlagopus-c0de?chat">alopexlagopus-c0de</a></li>
 					</ul>
 				</div>
-				<div id="minecraft" class="hidden">
+				<!--<div id="minecraft" class="hidden">
 					<h4>Server Status:</h4><br />
 					<table align="center">
-						<?php
+						<?php /*
 							$ip = 'mc.unps-gama.info';
 							$port = '36565';
 							$result = '';
@@ -148,14 +147,14 @@
 								echo "<tr><td>players online: " . $srvinfo[1] . "</td></tr>\n";
 								echo "<tr><td>max players: " . $srvinfo[2] . "</td></tr>\n";
 							}
-						?><tr><td><hr /></td></tr>
+						*/?><tr><td><hr /></td></tr>
 						<tr><td><img src="http://www.unps-gama.info/mcimage.php" alt="server status image" /></td></tr>
 						<tr><td><form action="404.html" method="get"><p>Share this banner:</p>
 						<p>Direct: <input type="text" size="28" name="directlink" value="http://www.unps-gama.info/mcimage.php" readonly="readonly" /></p>
 						<p>HTML: <input type="text" size="88" name="html" value="&lt;img src='http://www.unps-gama.info/mcimage.php alt='UnPS-GAMA Minecraft server status image' &#47;&gt;" readonly="readonly" /></p>
 						<p>BBCode (for forums): <input type="text" size="58" value="[align=center][img]http://www.unps-gama.info/mcimage.php[/img][/align]" readonly="readonly" name="bbcode" /></p></form></td></tr>
 					</table><br /><hr />
-				</div>
+				</div>-->
 			</div>
 			<div id="aside">
 				<script type="text/javascript"><!--
