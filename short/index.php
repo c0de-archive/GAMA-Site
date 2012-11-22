@@ -1,101 +1,88 @@
-<title>URL Shortner</title>
-<script language="javascript" type="text/javascript">
-function showHide(shID) {
-   if (document.getElementById(shID)) {
-      if (document.getElementById(shID+'-show').style.display != 'none') {
-         document.getElementById(shID+'-show').style.display = 'none';
-         document.getElementById(shID).style.display = 'block';
-      }
-      else {
-         document.getElementById(shID+'-show').style.display = 'inline';
-         document.getElementById(shID).style.display = 'none';
-      }
-   }
+<?php 
+require('dbsettings.php'); 
+
+function input($input){
+	if ($input == null) die("No Input Provided, Aborting\r\n<br>");
+	$input = mysql_real_escape_string($input);
+	return $input;
 }
-</script>
-<style type="text/css">
-.api {
-	display: none;
-	border-top: 1px solid #666;
-	border-bottom: 1px solid #666; }
-a.showApi, a.hideApi {
-	text-decoration: none;
-	color: #36f;
-	padding-left: 8px; }
-a.showApi:hover, a.hideApi:hover {
-	border-bottom: 1px dotted #36f; }
-</style>
-<body bgcolor="black" text="greem"><div align="center">
-<img src="http://unps-gama.tk/upload/Pictures/header.png"><br>
-<h4>Welcome to the UnPS-GAMA page shortner</h4>
-<a href="#" id="api-show" class="showApi" onclick="showHide('api');return false;">Existing Short Links</a>
-<div id="api" class="api">
-<?php
-include('getfiles.php');
-echo "<table><tr><td><div align'center'><P>List of links already:</p></div></td></tr><tr><td>" . $thelist . "</td></tr></table>";
+
+function prepOutputText($text) {
+	if ($text == null) die("No Input Provided, Aborting\r\n<br>");
+	$output = htmlentities(stripslashes($text),ENT_QUOTES);
+	return $output;
+}
+
+if(isset($_GET['l'])) {
+	$l = $_GET['l'];
+	$l = input($l);
+	$sql = "SELECT id, link, shortlink FROM $tbl_name WHERE shortlink='$l'";
+	$result = mysql_query($sql);
+	$count = mysql_num_rows($result);
+	if($count == 1){
+		while ($row = mysql_fetch_assoc($result)){ // Attempt to pull all data concerning that one user from table	
+			$id = $row['id'];
+			$link = $row['link'];
+			$short = $row['shortlink'];
+			mysql_close();
+			echo "Redirecting you to your site, please wait...";
+			$link = prepOutputText($link);
+			header("location:".$link);
+		}	
+	}else{
+		echo "Hmmm... It appears that your link doesn't exist in my database. Try again?";
+		header("location:http://unps.us/");
+	}
+}
 ?>
-<a href="#" id="api-hide" class="hideApi" onclick="showHide('api');return false;">Close Me</a>
-</div>
-<br><hr><br>
+<title>URL Shortner</title>
+<link rel="shortcut icon" type="image/ico" href="http://unps-gama.info/favicon.ico" />
+<link rel="shortcut icon" type="image/x-icon" href="http://unps-gama.info/favicon.ico" />
+<body bgcolor="black" text="greem"><div align="center">
+<img src="http://unps-gama.info/upload/Pictures/header.png"><br>
+<h4>Welcome to the UnPS-GAMA link shortner</h4><hr>
 <?php
-include("config.php");
-if(!$_POST['submit'])
-	{
+if(!$_POST['submit']){
 ?>
 <form action="index.php" method="POST">
-  <p>Destination:<br><input name="dest" type="text" size="30" ></p>
+<p>Destination:<br><input name="dest" id="dest" title="Insert URL here" value="Insert URL here" type="text" size="30" ></p>
 <input type="submit" name="submit" value="submit">
 </form>
 
 <?php
 	}
-$dest=$_POST['dest'];
-if($_POST["submit"])
-	{
-		if(isset($_POST['dest']) && $dest != "") 
-			{
-				$myFile = $random.".php";
-				$fh = fopen($myFile, 'w') or die("can't open file");
-				$stringData = '
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<html>
-<head><title>'.$random.'</title>
-<?php
-$currentFile = $_SERVER["PHP_SELF"];
-$parts = Explode(\'/\', $currentFile);
-
-$myFile = "log/".$parts[count($parts) - 1].".log";
-$fh = fopen($myFile, \'a\') or die("can\'t open file");
-$string = $_SERVER[\'REMOTE_ADDR\']."\n";
-fwrite($fh, $string);
-fclose($fh);
-?>
-<meta http-equiv="REFRESH" content="0;url='.$dest.'"></HEAD>
-<BODY>
-Service by '.$pagepath.'
-</BODY>
-</HTML>
-';
-				fwrite($fh, $stringData);
-				fclose($fh);	
-echo '
-Thanks for using '.$pagetitle.' <br>
-your link is available here (right click, copy link):<br>
-<a href='.$pagepath.$random.' target='.$random.'>'.$pagepath.$random.'</a><br>
-<a href="index.php">Back to index</a><br>
-<a href="http://unps-gama.tk">Home</a>
-
-';	
-			}if($dest == ""){
-				echo '
-						Sorry, you are not able to shorten something without a url <br>
-						<a href="index.php">Back to index</a><br>
-						<a href="http://unps-gama.tk">Home</a>
-
-';	
-				
+if($_POST["submit"]){
+	if(isset($_POST['dest'])) {
+		$dest=$_POST['dest'];
+		$dest = input($dest);
+		$sql = "SELECT id, link, shortlink FROM $tbl_name WHERE link='$dest'";
+		$result = mysql_query($sql);
+		$count = mysql_num_rows($result);
+		if($count == 1){
+			while ($row = mysql_fetch_assoc($result)){ // Attempt to pull all data concerning that one user from table	
+				$id = $row['id'];
+				$link = $row['link'];
+				$short = $row['shortlink'];
+				echo "From what I can tell, this particular link was already shortened before.<br>Here's the link: <a href=\"http://unps.us/?l=$short\">http://unps.us/?l=$short</a>";
+			}	
+		}else{
+			$short = substr(number_format(time() * rand(),0,'',''),0,10);
+			$sql="INSERT INTO $tbl_name (link, shortlink) VALUES ('$dest', '$short')";
+			$result=mysql_query($sql);
+			if($result){
+				echo "It appears that I have succeded in making a short link.<br>You'll find it here: <a href=\"http://unps.us/?l=$short\">http://unps.us/?l=$short</a> ";
+			}else {
+				echo "There was a problem trying to register your link - Could be a database error";
+			}
 		}
-
 	}
+	if(!$dest){
+			echo '
+				Sorry, you are not able to shorten something without a url <br>
+				<a href="http://unps.us">Back to index</a><br>
+				<a href="http://unps-gama.info">Home</a>
+			';	
+		}
+}
+mysql_close();
 ?>
