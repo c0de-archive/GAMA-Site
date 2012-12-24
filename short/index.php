@@ -13,6 +13,31 @@ function prepOutputText($text) {
 	return $output;
 }
 
+/*function is_available($url, $timeout = 30) {
+	$ch = curl_init(); // get cURL handle
+	$opts = array(CURLOPT_RETURNTRANSFER => true, // do not output to browser
+				  CURLOPT_URL => $url,            // set URL
+				  CURLOPT_NOBODY => true, 		  // do a HEAD request only
+				  CURLOPT_TIMEOUT => $timeout);   // set timeout
+	curl_setopt_array($ch, $opts); 
+	curl_exec($ch); // do it!
+	$retval = curl_getinfo($ch, CURLINFO_HTTP_CODE) == 200; // check if HTTP OK
+	curl_close($ch); // close handle
+	return $retval;
+}*/
+
+function GetServerStatus($site, $port){
+	$status = array("OFFLINE", "ONLINE");
+	$fp = @fsockopen($site, $port, $errno, $errstr, 2);
+	if (!$fp){
+		return $status[0];
+	} else{ 
+		return $status[1];
+	}
+}
+
+$submit;
+
 if(isset($_GET['l'])) {
 	$l = $_GET['l'];
 	$l = input($l);
@@ -41,11 +66,12 @@ if(isset($_GET['l'])) {
 <body bgcolor="black" text="greem"><div align="center">
 <img src="http://unps-gama.info/upload/Pictures/header.png"><br>
 <h4>Welcome to the UnPS-GAMA link shortner</h4><hr>
+<p>All you gotta do is put a link into the box and click submit</p>
 <?php
 if(!$_POST['submit']){
 ?>
-<form action="index.php" method="POST">
-<p>Destination:<br><input name="dest" id="dest" title="Insert URL here" value="Insert URL here" type="text" size="30" ></p>
+<form id="short" action="index.php" method="POST" >
+<p>Destination:<br><input name="dest" id="dest" class="dest" title="Insert URL here" placeholder="Insert URL here" value="" type="text" size="30" ></p>
 <input type="submit" name="submit" value="submit">
 </form>
 
@@ -66,11 +92,29 @@ if($_POST["submit"]){
 				echo "From what I can tell, this particular link was already shortened before.<br>Here's the link: <a href=\"http://unps.us/?l=$short\">http://unps.us/?l=$short</a>";
 			}	
 		}else{
+			if (strpos($dest, 'http://') === false) {
+				if (strpos($dest, 'https://') === false){
+					$ip = gethostbyname($dest);
+					$dest = 'http://'.$dest;
+				}
+			}
+			if (strpos($dest, 'http://') !== false) {
+				if (strpos($dest, 'https://') !== false){
+					$dest = str_replace("https://", "", $dest);
+					$ip = gethostbyname($dest);
+					$dest = 'https://'.$dest;
+				}
+				$dest = str_replace("http://", "", $dest);
+				$ip = gethostbyname($dest);
+				$dest = 'http://'.$dest;
+			}
+			if(GetServerStatus($ip, 80) != "ONLINE") die("Hmmm it seems that your link is dead.\r\nPlease try again");
 			$short = substr(number_format(time() * rand(),0,'',''),0,10);
+			$short = base_convert($short, 10, 36); 
 			$sql="INSERT INTO $tbl_name (link, shortlink) VALUES ('$dest', '$short')";
 			$result=mysql_query($sql);
 			if($result){
-				echo "It appears that I have succeded in making a short link.<br>You'll find it here: <a href=\"http://unps.us/?l=$short\">http://unps.us/?l=$short</a> ";
+				echo "It appears that I have succeded in making a short link.<br>You'll find it here: <a href=\"http://unps.us/?l=$short\" target=\"$short\">http://unps.us/?l=$short</a> ";
 			}else {
 				echo "There was a problem trying to register your link - Could be a database error";
 			}
