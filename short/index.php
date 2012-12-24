@@ -35,9 +35,9 @@ function prepOutputText($text) { // Takes mysql string and makes it able to be u
 	return $output;
 }
 
-function getServerStatus($ip, $port = 80) { // Tests if host is online or not
-	return @fsockopen($ip, $port, $errnum, $errstr) == false ? 'offline' : 'online';
-} 
+/*function getServerStatus($ip, $port = 80) { // Tests if host is online or not
+	return @fsockopen($ip, $port, $errnum, $errstr) == true ? 'online' : 'offline';
+}*/ 
 
 $submit; // Declare this since my logs are annoying me to no end x.x
 
@@ -112,7 +112,8 @@ if(isset($_GET['l'])) { // if there is a link...
 							$ip = gethostbyname($dest); // Get IP address of link
 							$dest = 'http://'.$dest; // Re-add http:// to link
 						}
-						if(GetServerStatus($ip, 80) != "online") die("Hmmm it seems that your link is dead.\r\nPlease try again"); // Check to see if the host is alive
+						// GetServerStatus is buggy so it's gone for the time being
+						//if(GetServerStatus($ip, 80) != 'online') die("Hmmm it seems that your link is dead.\r\nPlease try again"); // Check to see if the host is alive
 						$short = substr(number_format(time() * rand(),0,'',''),0,10); // Create a random number 10 digits long
 						$short = base_convert($short, 10, 36); // Convert the 10 digit random number into Base36
 						$sql="INSERT INTO $tbl_name (link, shortlink) VALUES ('$dest', '$short')"; // Try to add the link and short link into table
