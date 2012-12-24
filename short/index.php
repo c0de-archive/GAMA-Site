@@ -64,7 +64,7 @@ if(isset($_GET['l'])) { // if there is a link...
 }
 ?>
 
-<body>
+<body id="content">
 	<div class="content" id="content">
 		<img src="http://unps-gama.info/upload/Pictures/header.png" alt="Header image" /><br />
 		<h4>Welcome to the UnPS-GAMA link shortner</h4><hr />
