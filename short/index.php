@@ -65,7 +65,6 @@ if(isset($_GET['l'])) { // if there is a link...
 ?>
 
 <body id="content">
-	<div class="content" id="content">
 		<img src="http://unps-gama.info/upload/Pictures/header.png" alt="Header image" /><br />
 		<h4>Welcome to the UnPS-GAMA link shortner</h4><hr />
 		<p>All you gotta do is put a link into the box and click submit</p>
@@ -135,6 +134,5 @@ if(isset($_GET['l'])) { // if there is a link...
 				}
 		mysql_close(); // Close any mysql connections still open
 		?>
-	</div>
 </body>
 </html>
