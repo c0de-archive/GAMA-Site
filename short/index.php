@@ -4,6 +4,8 @@ $_SESSION = array();
 
 include("captcha.php");
 $_SESSION['captcha'] = captcha();
+$code = $_SESSION['captcha']['code'];
+setcookie("foxes", $code, time()+120);
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -50,8 +52,6 @@ function checkRemoteFile($url)
     }
 }
 
-$submit; // Declare this since my logs are annoying me to no end x.x
-
 if(isset($_GET['l'])) { // if there is a link...
 	$l = $_GET['l']; // Bring the link into a variable
 	$l = input($l); // Clean said variable to be used in mysql
@@ -86,7 +86,6 @@ if(isset($_GET['l'])) { // if there is a link...
 			<img src="<?php echo $_SESSION['captcha']['image_src']; ?>" alt="CAPTCHA security code" />
 			<br />
 			<input name="captcha" id="captcha" class="captcha" title="Insert text from image above" placeholder="Insert text from image above" value="" type="text" size="30" />
-			
 			<input type="submit" name="submit" value="submit" />
 		</form>
 
@@ -94,7 +93,8 @@ if(isset($_GET['l'])) { // if there is a link...
 			if($_POST["submit"]){ // If submit button was pressed...
 				if(!isset($_POST['captcha'])) die('You didn\'t enter the captcha');
 				$captcha = $_POST['captcha'];
-				if ($captcha != $_SESSION['captcha']['code']) die('You entered the wrong captcha');
+				if (!isset($_COOKIE['foxes'])) die('Please allow cookies');
+				if ($captcha != $_COOKIE['foxes']) die('You entered the wrong captcha');
 				if(isset($_POST['dest'])) { // If the text box has something in it
 					$dest=$_POST['dest']; // Pull that into a variable
 					if (strpos(strtolower($dest), 'http://') === false) { // Simple test to see if http:// not part of the link
