@@ -1,3 +1,11 @@
+<?php
+session_start();
+$_SESSION = array();
+
+include("captcha.php");
+$_SESSION['captcha'] = captcha();
+
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -75,11 +83,18 @@ if(isset($_GET['l'])) { // if there is a link...
 		<form id="short" title="short" action="index.php" method="POST" >
 			<input name="dest" id="dest" class="dest" title="Insert URL here" placeholder="Insert URL here" value="" type="text" size="50" />
 			<br /><p></p>
+			<img src="<?php echo $_SESSION['captcha']['image_src']; ?>" alt="CAPTCHA security code" />
+			<br />
+			<input name="captcha" id="captcha" class="captcha" title="Insert text from image above" placeholder="Insert text from image above" value="" type="text" size="30" />
+			
 			<input type="submit" name="submit" value="submit" />
 		</form>
 
 		<?php
 			if($_POST["submit"]){ // If submit button was pressed...
+				if(!isset($_POST['captcha'])) die('You didn\'t enter the captcha');
+				$captcha = $_POST['captcha'];
+				if ($captcha != $_SESSION['captcha']['code']) die('You entered the wrong captcha');
 				if(isset($_POST['dest'])) { // If the text box has something in it
 					$dest=$_POST['dest']; // Pull that into a variable
 					if (strpos(strtolower($dest), 'http://') === false) { // Simple test to see if http:// not part of the link
