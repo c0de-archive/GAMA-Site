@@ -144,6 +144,6 @@ if(isset($_GET['l'])) { // if there is a link...
 				}
 		mysql_close(); // Close any mysql connections still open
 		?>
-	<div class="footer"><a href="http://unps-gama.info">Home</a> <a href="http://unps-gama.info/ToS.html">Terms of Service</a> <a href="http://unps-gama.info/privacy.html">Privacy Policy</a></div>
+	<div class="footer"><br /><hr /><p><a href="http://unps-gama.info">Home</a> <a href="http://unps-gama.info/ToS.html">Terms of Service</a> <a href="http://unps-gama.info/privacy.html">Privacy Policy</a></p></div>
 </body>
 </html>
