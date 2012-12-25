@@ -8,16 +8,8 @@
 	<meta name="author" content="David Todd" />
 	<link rel="shortcut icon" type="image/ico" href="http://unps-gama.info/favicon.ico" />
 	<link rel="shortcut icon" type="image/x-icon" href="http://unps-gama.info/favicon.ico" />
+	<link rel="stylesheet" href="style.css" />
 	
-	<style type="text/css">
-		#content{ 
-			text-align: center;
-			background: #000;
-			color: #090;
-			padding: 5px;
-			float: center;
-		}
-	</style>
 </head>
 
 <?php 
@@ -35,9 +27,20 @@ function prepOutputText($text) { // Takes mysql string and makes it able to be u
 	return $output;
 }
 
-/*function getServerStatus($ip, $port = 80) { // Tests if host is online or not
-	return @fsockopen($ip, $port, $errnum, $errstr) == true ? 'online' : 'offline';
-}*/ 
+function checkRemoteFile($url)
+{
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL,$url);
+    // don't download content
+    curl_setopt($ch, CURLOPT_NOBODY, 1);
+    curl_setopt($ch, CURLOPT_FAILONERROR, 1);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    if(curl_exec($ch)!==FALSE){
+        return true;
+    }else{
+        return false;
+    }
+}
 
 $submit; // Declare this since my logs are annoying me to no end x.x
 
@@ -66,24 +69,24 @@ if(isset($_GET['l'])) { // if there is a link...
 
 <body id="content">
 		<img src="http://unps-gama.info/upload/Pictures/header.png" alt="Header image" /><br />
-		<h4>Welcome to the UnPS-GAMA link shortner</h4><hr />
+		<h4>Welcome to the UnPS-GAMA link shortner</h4>
 		<p>All you gotta do is put a link into the box and click submit</p>
 	
-		<?php
-			if(!$_POST['submit']){ // If the submit button was not pressed show the form
-		?>
-	
 		<form id="short" title="short" action="index.php" method="POST" >
-			<p>Destination:<br />
-			<input name="dest" id="dest" class="dest" title="Insert URL here" placeholder="Insert URL here" value="" type="text" size="30" /></p>
+			<input name="dest" id="dest" class="dest" title="Insert URL here" placeholder="Insert URL here" value="" type="text" size="50" />
+			<br /><p></p>
 			<input type="submit" name="submit" value="submit" />
 		</form>
 
 		<?php
-			}
 			if($_POST["submit"]){ // If submit button was pressed...
 				if(isset($_POST['dest'])) { // If the text box has something in it
 					$dest=$_POST['dest']; // Pull that into a variable
+					if (strpos(strtolower($dest), 'http://') === false) { // Simple test to see if http:// not part of the link
+						if (strpos(strtolower($dest), 'https://') === false){ // Simple test to see if https:// not part of the link passing the above check
+							$dest = 'http://'.$dest; // Add http:// to link 
+						}
+					}
 					$dest = input($dest); // Clean the variable for mysql
 					$sql = "SELECT id, link, shortlink FROM $tbl_name WHERE link='$dest'"; // Check the table if the link was posted before
 					$result = mysql_query($sql); // mysql stuff
@@ -96,30 +99,13 @@ if(isset($_GET['l'])) { // if there is a link...
 							echo "From what I can tell, this particular link was already shortened before.<br>Here's the link: <a href=\"http://unps.us/?l=$short\" target=\"$short\">http://unps.us/?l=$short</a>"; // Return link that's already in table
 						}	
 					}else{ // If no row is returned, it is assumed that the link isn't there
-						if (strpos(strtolower($dest), 'http://') === false) { // Simple test to see if http:// not part of the link
-							if (strpos(strtolower($dest), 'https://') === false){ // Simple test to see if https:// not part of the link passing the above check
-								$ip = gethostbyname($dest); // Get IP address of link
-								$dest = 'http://'.$dest; // Add http:// to link 
-							}
-						}
-						if (strpos(strtolower($dest), 'http://') !== false) { // Simple test to see if http:// is part of the link
-							if (strpos(strtolower($dest), 'https://') !== false){ // Simple test to see if https:// is part of the link failing the above check
-								$dest = str_replace("https://", "", $dest); // If https:// exists, remove it
-								$ip = gethostbyname($dest); // Get IP address of link
-								$dest = 'https://'.$dest; // Re-add https:// to link
-							}
-							$dest = str_replace("http://", "", $dest); // if http:// exists, remove it
-							$ip = gethostbyname($dest); // Get IP address of link
-							$dest = 'http://'.$dest; // Re-add http:// to link
-						}
-						// GetServerStatus is buggy so it's gone for the time being
-						//if(GetServerStatus($ip, 80) != 'online') die("Hmmm it seems that your link is dead.\r\nPlease try again"); // Check to see if the host is alive
+						if(checkRemoteFile($dest) !== true) die("Hmmm it seems that your link is dead.\r\nPlease try again"); // Check to see if the host is alive
 						$short = substr(number_format(time() * rand(),0,'',''),0,10); // Create a random number 10 digits long
 						$short = base_convert($short, 10, 36); // Convert the 10 digit random number into Base36
 						$sql="INSERT INTO $tbl_name (link, shortlink) VALUES ('$dest', '$short')"; // Try to add the link and short link into table
 						$result=mysql_query($sql); // mysql stuff
 						if($result){ // If the link is added to the table
-							echo "It appears that I have succeded in making a short link.<br>You'll find it here: <a href=\"http://unps.us/?l=$short\" target=\"$short\">http://unps.us/?l=$short</a> ";
+							echo "It appears that I have succeded in making a short link.<br>You'll find it here (right click, copy link): <a href=\"http://unps.us/?l=$short\" target=\"$short\">http://unps.us/?l=$short</a> ";
 						}else { // If the link is not added to the table
 							echo "There was a problem trying to register your link - Could be a database error";
 						}
