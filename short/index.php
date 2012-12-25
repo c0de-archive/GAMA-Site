@@ -20,6 +20,14 @@ setcookie("foxes", $code, time()+120);
 	<link rel="shortcut icon" type="image/x-icon" href="http://unps-gama.info/favicon.ico" />
 	<link rel="stylesheet" href="style.css" />
 	
+	<style type="text/css">
+		.footer{
+			padding-left: 4%;
+			padding-right: 4%;
+			text-align: center;
+		}
+	</style>
+	
 </head>
 
 <?php 
@@ -136,5 +144,6 @@ if(isset($_GET['l'])) { // if there is a link...
 				}
 		mysql_close(); // Close any mysql connections still open
 		?>
+	<div class="footer"><a href="http://unps-gama.info">Home</a> <a href="http://unps-gama.info/ToS.html">Terms of Service</a> <a href="http://unps-gama.info/privacy.html">Privacy Policy</a></div>
 </body>
 </html>
