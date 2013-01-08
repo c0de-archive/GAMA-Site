@@ -1,68 +1,159 @@
-#container
+BODY /* applies global body style, same as using inside <body> tag */
+{
+	background: #000;
+}
+
+img
+{
+	max-width: 80%;
+}
+
+#container /* Contains everything */
 {
 	margin: 0 auto;
 	width: 100%;
-	background: #fff;
+	background: #000;
 }
 
-#header
+/* Begin stuff for header */
+
+#header-bg-bg /* The background of the background of the header */
 {
-	text-align: center;
-	background: #ccc;
-	padding: 5px;
+	background: #333;
+	width: 100%;
+	float: left;
+	border:0px solid gray; 
+	resize:none; 
+	outline:0; 
+	padding:2px; 
+	border-top-right-radius:20px; 
+	border-top-left-radius:20px; 
+	-webkit-box-shadow:0px 0px 16px 1px gray;
 }
 
-#header h1 { margin: 0; }
+#header-bg /* The background of the header */
+{
+	margin-left: 12%;
+	margin-right: 10%;
+	width: 1060px;
+	background: #444;
+	border:0px solid gray; 
+	resize:none; 
+	outline:0; 
+	border-radius:80px; 
+	-webkit-box-shadow:0px 0px 20px 1px gray;
+}
 
-#navigation
+#header /* The header - Transparent image */
+{
+	margin-left: 0%;
+	margin-right: 0%;
+	text-align: center;
+	float: center;
+	padding: 0px;
+}
+
+/* End stuff for header, begin stuff for navigation */
+
+#navigation-bg
 {
 	float: left;
 	width: 100%;
 	background: #333;
-	text-align: center;
+	border:0px solid gray; 
+	resize:none; 
+	outline:0; 
+	padding:2px; 
+	border-bottom-left-radius:20px; 
+	border-bottom-right-radius:20px;
+	-webkit-box-shadow:0px 0px 16px 1px gray;
 }
 
-#navigation ul
+#navigation /* Navigation menu -- Such a pain to center it to the header */
+{
+	float: center;
+	width: 100%;
+	text-align: center;
+	padding: 0px 8%; 
+}
+
+#navigation ul /* Formatting to center text in list */
 {
 	margin: 0;
-	padding: 0;
 }
 
-#navigation ul li
+#navigation ul li /* Formatting to render list as bar */
 {
 	list-style-type: none;
 	display: inline;
-	text-align: center;
 }
 
-#navigation li a
+#navigation li a /* Add some coolness to the links and change text size to fit */
 {
-	text-align: center;
-	display: block;
+	font-size: 18px;
 	float: left;
 	padding: 5px 10px;
 	color: #fff;
 	text-decoration: none;
 	border-right: 1px solid #fff;
+	border-left: 1px solid #fff;
+	-webkit-transition: all 0.35s ease;
+	-moz-transition: all 0.35s ease;
+	-o-transition: all 0.35s ease;
+	-ms-transition: all 0.35s ease;
+	transition: all 0.35s ease;
 }
 
-#navigation li a:hover { background: #383; }
+#navigation li a:hover  /* Create the purple halo with blue background effect on mouse:hover */
+{ 
+	text-align: center;
+	background: #009999;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 15px rgba(179, 51, 229, 0.9) !important;
+	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 15px rgba(179, 51, 229, 0.9) !important;
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 15px rgba(179, 51, 229, 0.9) !important;
+	border:0px solid gray; 
+	resize:none;  
+	outline:0; 
+	padding: 5px 10px;
+	border-right: 1px solid #fff;
+	border-left: 1px solid #fff;
+}
 
-#content-container1
+/* End navigation, begin cc1 or left side */
+
+#content-container1 /* Allows left side of page to shrink or grow depending on window size */
 {
 	float: left;
 	width: 100%;
-	background: #fff url(layout-three-liquid-background1.gif) repeat-y 20% 0;
+	background: #777677 url(left.gif) repeat-y 20% 0;
+	border:0px solid gray; 
+	resize:none; 
+	outline:0; 
+	padding:2px;
+	border-top-right-radius:20px; 
+	border-top-left-radius:20px; 
+	-webkit-box-shadow:0px 0px 16px 1px gray;
 }
 
-#content-container2
+/* Begin cc2 or right side */
+
+#content-container2 /* Allows right side of page to shrink or grow depending on window size */
 {
 	float: left;
 	width: 100%;
-	background: url(layout-three-liquid-background2.gif) repeat-y 80% 0;
+	background: url(right.gif) repeat-y 80% 0;
+	border:0px solid gray; 
+	resize:none; 
+	outline:0; 
+	padding:2px;
+	border-top-right-radius:20px; 
+	border-top-left-radius:20px; 
+	-webkit-box-shadow:0px 0px 16px 1px gray;
 }
 
-#section-navigation
+/* Begin left panel navigation - (Services Offered) */
+
+#section-navigation /* Basic aligning stuff */
 {
 	float: left;
 	width: 16%;
@@ -71,30 +162,195 @@
 	display: inline;
 }
 
-#section-navigation ul
+#section-navigation ul /* Draw a box with rounded corners and shadow around the list */
 {
 	margin: 0;
 	padding: 0;
+	border:0px solid gray; 
+	resize:none; 
+	outline:0; 
+	padding:5px; 
+	border-radius:30px; 
+	-webkit-box-shadow:0px 0px 20px 1px gray;
+	float: center;
+	border-color: #B333E5;
+	background-color:#777;
+	color:#ffffff; 
 }
 
-#section-navigation ul li
+#section-navigation ul li /* Format the list, similar to navigation above */
 {
 	margin: 0 0 1em;
 	padding: 0;
 	list-style-type: none;
 }
 
-#content
+#section-navigation ul li h4 /* center <h4> tags */
+{
+	text-align: center;
+	padding: 0;
+}
+
+#section-navigation ul li img
+{
+	border:0px solid #F8DAE2; 
+	resize:none; 
+	outline:0; 
+	padding:0; 
+	border-radius:15px; 
+	-webkit-box-shadow:0px 0px 18px 1px #443377;
+	float: center;
+	border-color: #F8DAE2;
+}
+
+/* End left panel navigation, begin main content or center content */
+
+#content /* To the right of #section-navigation this is the main part of page*/
 {
 	float: left;
 	width: 56%;
-	padding: 20px 0;
-	margin: 0 0 0 2%;
+	padding: 18px 8px;
+	margin: 0 0 0 1.34%;
 }
 
-#content h2 { margin: 0; }
+#content h2 /* Format a transparent box with rounded edges around colored bolded <h2> tags with shadow */
+{ 
+	margin: 0;
+	padding: 0px;
+	text-align: center;
+	border-radius:10px; 
+	-webkit-box-shadow:0px 0px 8px 1px #333;
+	color: #443377;
+	text-shadow: 0 0 0.3em #87F;
+	font-weight: 900;
+}
 
-#aside
+/* Begin content post stuff - renders posts */
+
+.content-post-wrapper { /* Responsible for outer design on left and right sides along with shadows on the posts */
+	border:0px solid #b333e5; 
+	resize:none; 
+	outline:0; 
+	padding:5px; 
+	border-radius:15px; 
+	-webkit-box-shadow:0px 0px 18px 1px gray;
+	float: center;
+	border-color: #B333E5;
+	background-color:#444;
+	color:#ffffff; 
+	text-align: left;
+	padding: 1px 6px;
+	-moz-box-shadow:    2px 2px 2px 3px #999;
+    -webkit-box-shadow: 0px 0px 18px 1px gray, 2px 2px 2px 3px #999;
+    box-shadow:         2px 2px 2px 3px #999;
+}
+
+#content-post /* Basic box with rounded corners */
+{
+	border:0px solid #b333e5; 
+	resize:none; 
+	outline:0; 
+	padding:5px; 
+	border-radius:15px; 
+	-webkit-box-shadow:0px 0px 18px 1px gray;
+	float: center;
+	border-color: #B333E5;
+	background-color:#444;
+	color:#ffffff; 
+}
+
+#content-post p /* Make the text to the left with a little bit of spacing for readibility */
+{
+	text-align: left;
+	padding: 1px 6px;
+}
+
+#content-post h3 /* Format <h3> tags to center top of post with a font size of 16 */
+{
+	text-align: center;
+	padding: 0px;
+	font-size: 16px;
+	top: 100%;
+}
+
+#content-post p:last-child:after { /* Adds the 'Φ' to the right corner of posts */ 
+       content: "\03A6"; /* capital Phi */
+       font-size: 130%;
+       padding-left: 10px;
+       float: right;
+       position: relative;
+       top: 15px;
+}
+
+#content-foot
+{
+	position: relative;
+	top: 100%;
+	bottom: auto;
+	width: 100%;
+	border:0px solid #fff; 
+	resize:none; 
+	outline:0; 
+	padding:5px; 
+	border-radius:15px; 
+	-webkit-box-shadow:0px 0px 18px 1px gray;
+	float: center;
+	border-color: #B333E5;
+	background-color:#444;
+	color:#ffffff; 
+}
+
+#content-foot p
+{
+	text-align: right;
+	padding: 1px 6px;
+}
+
+/* Begin content post links - Still WIP */
+
+#content-post a /* Draw box around link */
+{
+	border:0px solid gray; 
+	resize:none; 
+	outline:0; 
+	padding:2px; 
+	border-radius:2px; 
+	-webkit-box-shadow:0px 0px 2px 1px gray;
+	text-decoration: none;
+	-webkit-transition: all 0.35s ease;
+	-moz-transition: all 0.35s ease;
+	-o-transition: all 0.35s ease;
+	-ms-transition: all 0.35s ease;
+	transition: all 0.35s ease;
+}
+
+#content-post a:hover /* Change box to oval and change unvisited link color */
+{
+	border:0px solid gray; 
+	resize:none; 
+	background: #444; 
+	color: blue;
+	outline:0; 
+	padding:2px; 
+	border-radius:10px; 
+	-webkit-box-shadow:0px 0px 16px 1px gray;
+}
+
+#content-post a:visited /* Change box to oval and change visited link color */
+{
+	border:0px solid gray; 
+	resize:none; 
+	background: #444;
+	color: red;
+	outline:0; 
+	padding:2px; 
+	border-radius:10px; 
+	-webkit-box-shadow:0px 0px 16px 1px gray;
+}
+
+/* End content post stuff, begin right panel - Still WIP */
+
+#aside /* Everything on the right side of page */
 {
 	float: right;
 	width: 16%;
@@ -103,13 +359,76 @@
 	display: inline;
 }
 
-#aside h3 { margin: 0; }
+#aside ul
+{
+	margin: 0;
+	padding: 0;
+	border:0px solid gray; 
+	resize:none; 
+	outline:0; 
+	padding:5px; 
+	border-radius:30px; 
+	-webkit-box-shadow:0px 0px 20px 1px gray;
+	float: center;
+	border-color: #B333E5;
+	background-color:#777;
+	color:#ffffff;
+}
 
-#footer
+#aside ul li /* Format the list, similar to navigation above */
+{
+	margin: 0 0 1em;
+	padding: 0;
+	list-style-type: none;
+}
+
+/*#aside h3 { margin: 0; } /* fix spacing for right-side <h3> tags */
+
+/* End right panel, begin footer - Still WIP */
+
+#footer /* Very bottom of document - small alignment and fitting to keep everything fluid */
 {
 	clear: both;
-	background: #ccc;
+	background: #aaa;
 	text-align: right;
-	padding: 5px;
-	height: 1%;
+	padding: 5px 0px;
+	margin: 10px auto;
 }
+
+/* End main formatting, begin misc formatting */
+
+/* -------------------------------------------------------------------------- */
+
+#ads
+{
+	padding: 0;
+	text-align: center;
+}
+
+/* Begin noads for when ads are blocked or JS disabled - Still WIP */
+
+#noa { /* Shows up inside <noscript> tag - draws a bordered box */
+   padding: 5px 10px;
+   margin: 10px;
+   border: 1px dashed #fff;
+   text-align: center;
+   float: center;
+   color: #ffe;
+   border-radius:10px; 
+   -webkit-box-shadow:0px 0px 16px 1px gray;
+   -moz-box-shadow: 0 0 0 4px #ff0030, 2px 1px 4px 4px rgba(10,10,0,.5);
+}
+
+/* End noads, begin text highlight coloring */
+
+::-moz-selection {
+       background-color: #009999;
+       color: #fff;
+}
+
+::selection {
+       background-color: #009999;
+       color: #fff;
+}
+
+/* End text highlight coloring */
