@@ -1,8 +1,25 @@
 <?php
 	session_start();
 	
+	/* -----------------------------------------------------------
+	 *
+	 * UnPS-GAMA Image Host
+	 * Copyright (c) 2013 UnPS-GAMATechnologies
+	 * Author: David Todd (c0de) of http://www.unps-gama.info
+	 *
+	 * -----------------------------------------------------------
+	 * 							TODO:
+	 *
+	 * Image tag sorting
+	 * Properly align image in post box
+	 * JavaScript fo show bigger image if clicked 
+	 * Convert to mysqli
+	 *
+	 * -----------------------------------------------------------
+	 */
+	
 	$thelist = '';
-	$img = 'meow.png';
+	$img = '';
 	$id = '';
 	$location = '';
 	$type = '';
@@ -20,7 +37,7 @@
 			$sql = "SELECT id, name, location, type, size, time, comment, username, tags FROM $tbl_name WHERE username='$uname'";
 			$result = mysql_query($sql);
 			$count = mysql_num_rows($result);
-			if($count == 1){
+			if($count >= 1){
 				$i = 0;
 				while ($row = mysql_fetch_assoc($result)){
 					$id = $row['id'];
@@ -52,7 +69,7 @@
 			$sql = "SELECT id, name, location, type, size, time, comment, username, tags FROM $tbl_name WHERE 'tags' LIKE '$tag'";
 			$result = mysql_query($sql);
 			$count = mysql_num_rows($result);
-			if($count == 1){
+			if($count >= 1){
 				$i = 0;
 				while ($row = mysql_fetch_assoc($result)){
 					$id = $row['id'];
@@ -153,7 +170,7 @@
 		if($handle = opendir('Pictures')){
 			while(false != ($file = readdir($handle))){
 				if($file != "." && $file != ".." && $file != ".htaccess"){
-					$thelist .= '<a href="http://img.unps-gama.info/?img='.$file.'">'.$file.'</a></font><br />';
+					$thelist .= '<a href="?img='.$file.'">'.$file.'</a></font><br />';
 				}
 			}
 			closedir($handle);
