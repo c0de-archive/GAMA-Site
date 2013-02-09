@@ -10,8 +10,9 @@
 	 * -----------------------------------------------------------
 	 * 							TODO:
 	 *
-	 * Image tag sorting
+	 * Image tag sorting - Single tag sorting possible
 	 * Properly align image in post box
+	 * Search with multiple terms
 	 * JavaScript fo show bigger image if clicked 
 	 * Convert to mysqli
 	 *
@@ -66,7 +67,7 @@
 			echo "<center><h4>Pictures uploaded with the tag: ".$_GET['tag'].":</h4>";
 			require('dbsettings.php');
 			$tag = sanitize($_GET['tag']); 
-			$sql = "SELECT id, name, location, type, size, time, comment, username, tags FROM $tbl_name WHERE 'tags' LIKE '$tag'";
+			$sql = "SELECT id, name, location, type, size, time, comment, username, tags FROM $tbl_name WHERE tags LIKE '%$tag%'";
 			$result = mysql_query($sql);
 			$count = mysql_num_rows($result);
 			if($count >= 1){
@@ -81,7 +82,7 @@
 					$comment = $row['comment'];
 					$username = $row['username'];
 					$tags = $row['tags'];
-					echo "<a href=\"?img=$img\">$img</a> - $time - $size - Username: <a href=\"?uname=$username\">$username</a><br />";
+					echo "<a href=\"?img=$img\">$img</a> - $time - $size - Uploader: <a href=\"?uname=$username\">$username</a><br />";
 				}
 			}
 			echo "</center><br /><hr /><br />";
