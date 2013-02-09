@@ -1,11 +1,134 @@
-<html prefix="og: http://ogp.me/ns#">
+<?php
+	session_start();
+	session_unset(); 
+	session_destroy();
+	$thelist = '';
+	$img = 'meow.png';
+	$id = '';
+	$location = '';
+	$type = '';
+	$size = '';
+	$time = '';
+	$comment = '';
+	$username = '';
+	$tags = '';
+	$noimg = false;
+	
+	function sanitize($input){
+		if ($input == null) die("Sanatize() - No Input Provided, Aborting\r\n<br>");
+		$output = strip_tags($input);
+		$output = stripslashes($output);
+		$output = mysql_real_escape_string($output);
+		$output = strtolower($output);
+		return $output;
+	}
+	
+	function imgstuff(){
+		if (empty($_GET['img']) || $_GET['img'] == null || $_GET['img'] == ''){
+			$img = '';
+		}else{
+			$img = $_GET["img"]; // get the image
+		}
+		if(!empty($img) || $img != null || $img != ''){
+			require('dbsettings.php');
+			$img = sanitize($img); // clean image string
+			$sql = "SELECT id, name, location, type, size, time, comment, username, tags FROM $tbl_name WHERE name='$img' LIMIT 1;";
+			$result = mysql_query($sql);
+			$row = mysql_fetch_assoc($result);
+			if ($row){
+				$_SESSION['noimg'] = false;
+				$_SESSION['id'] = $row['id'];
+				$_SESSION['img'] = $row['name'];
+				$_SESSION['location'] = $row['location'];
+				$_SESSION['type'] = $row['type'];
+				$_SESSION['size'] = $row['size'];
+				$_SESSION['time'] = $row['time'];
+				$_SESSION['comment'] = $row['comment'];
+				$_SESSION['username'] = $row['username'];
+				$_SESSION['tags'] = $row['tags'];
+				echo "<img id='the_pic' class='fit' src=\"".$_SESSION['location']."/$img\" /><br /><p></p>";
+				//echo "$id<br>$img<br>$location<br>$type<br>$size<br>$time<br>$comment<br>$username<br>$tags\n";
+				mysql_close();
+			}else{
+				$_SESSION['noimg'] = true;
+				echo "<center><h3>That image was not found in our database D:</h3></center>";
+			}
+		}else{
+			noimg();
+			$_SESSION['noimg'] = true;
+		}
+	}
+	
+	function headstuff(){
+		echo "<meta property='og:title' content='$img' />\n";
+		echo "<meta property='og:url' content='http://img.unps-gama.info/index.php?img=$img' />\n";
+		echo "<meta property='og:image' content='http://img.unps-gama.info/$location/$img' />\n";
+		echo "<meta property='og:description' content='http://img.unps-gama.info/$comment' />\n";
+	}
+	
+	function textstuff(){
+		if($_SESSION['noimg'] == false){
+			echo "<div align=\"left\">\n";
+			echo "<h3>Image Name:</h3><code> - ".$_SESSION['img']."</code>\n";
+			echo "<h3>Image Type:</h3><code> - ".$_SESSION['type']."</code>\n";
+			echo "<h3>Image Size:</h3><code> - ".$_SESSION['size']."</code>\n";
+			echo "<h3>Time Uploaded:</h3><code> - ".$_SESSION['time']."</code>\n";
+			echo "<h3>Username:</h3><code> - ".$_SESSION['username']."</code>\n";
+			echo "<h3>Comment:</h3><code> - ".$_SESSION['comment']."</code>\n";
+			echo "<h3>Tags:</h3><code> - ".$_SESSION['tags']."</code>\n";
+			echo "</div>";
+		}
+	}
+	
+	function noimg(){
+		$thelist = '';
+		//include('getfiles.php');
+		echo "
+			<p>
+				Please specify an image with the url: 
+				<code>
+					img.unps-gama.info/?img=(IMGAGE STUFF HERE)
+				</code>
+			</p>
+			<center>
+				<table>
+					<tr>
+						<td>
+							<center>List of files:</center>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							$thelist
+						</td>
+					</tr>
+				</table>
+			</center>
+		";
+	}
+	
+	function title(){
+		if(empty($img) || $img = null || $img = ''){ 
+			return;
+		}else{
+			return " - Now Showing: ".$img;
+		}
+	}
+?>
+							
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" prefix="og: http://ogp.me/ns#">
 	<head>
-		<meta name="description" content="UnPS-GAMA IMGSHARE" />
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+		<meta name="description" content="Image Host for UnProfessional Standards" />
 		<meta name="keywords" content="GAMA,UnPS,upstandards,unps-gama,gama-unps,unps,gama,davitech,davitodd" />
 		<meta name="author" content="David Todd" />
-		<link rel="shortcut icon" type="image/ico" href="http://unps-gama.info/favicon.ico" />
-		<link rel="shortcut icon" type="image/x-icon" href="http://unps-gama.info/favicon.ico" />
-		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<?php //headstuff(); ?>
+		<title>UnPS-GAMA Image Host<?php echo title(); ?></title>
+		<link rel="shortcut icon" type="image/ico" href="favicon.ico" />
+		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+		<link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+		<script src="jquery.js"></script>
 		<script type="text/javascript" language="JavaScript">
 			function set_body_height(){
 				var wh = $(window).height();
@@ -16,150 +139,115 @@
 				$(window).bind('resize', function() { set_body_height(); });
 			});
 		</script>
-		<style>
-			* {
-				padding: 0;
-				margin: 0;
-			}
+		<style type="text/css">
 			.fit {
 				max-width: 100%;
 				max-height: 100%;
 			}
-			.center {
-				display: block;
-				margin: auto;
-			}
-			.image{
-				text-align: center;
-				max-width: 100%;
-				max-height: 100%;
-				color: #fff;
-				float: center;
-			}
-			.info{
-				text-align: right;
-				max-width: 100%;
-				max-height: 100%;
-				color: #fff;
-				float: right;
-			}
-			.footer{
-				padding-left: 4%;
-				padding-right: 4%;
-				text-align: center;
-			}
-			* a{ color: #003399;}
-			* a:visited { color: #ff0000;}
 		</style>
 	</head>
-	<body background="https://si0.twimg.com/profile_background_images/468495900/bg.gif" text="white">
-		<div align="center">
-			<a href="http://www.unps-gama.info/">
-				<img src="http://unps-gama.info/upload/Pictures/header.png" alt="To UnPS-GAMA" title="To Home" />
-			</a>
-		<br>
-
-<?php
-function sanatize($input){
-	if ($input == null) die("Sanatize() - No Input Provided, Aborting\r\n<br>");
-	$output = strip_tags($input);
-	$output = stripslashes($output);
-	$output = mysql_real_escape_string($output);
-	$output = strtolower($output);
-	return $output;
-}
-
-$img = $_GET["img"]; // get the image
-if(isset($img) || $img != null || $img != ''){
-require('dbsettings.php');
-
-$img = sanatize($img); // clean image string
-
-$sql = "SELECT id, name, location, type, size, time, comment, username FROM $tbl_name WHERE name='$img'";
-$result = mysql_query($sql);
-$count = mysql_num_rows($result);
-if($count == 1){
-	$i = 0;
-	while ($row = mysql_fetch_assoc($result)){ // Attempt to pull all data concerning that one user from table	
-		$id = $row['id'];
-		$img = $row['name'];
-		$location = $row['location'];
-		$type = $row['type'];
-		$size = $row['size'];
-		$time = $row['time'];
-		$comment = $row['comment'];
-		$username = $row['username'];
-
-		echo "<meta property='og:title' content='". $img ."' />\n";
-		echo "<meta property='og:url' content='http://img.unps-gama.info/index.php?img=". $img ."' />\n";
-		echo "<meta property='og:image' content='http://img.unps-gama.info/". $location."/".$img ."' />\n";
-		echo "<meta property='og:description' content='http://img.unps-gama.info/". $comment ."' />\n";
-		$title = " - Now Showing: " . $img;
-		echo "<title>GAMA IMGShare" . $title ."</title>\n";
-		echo "
-						<table id=\"image\">
-							<tr>
-								<td><img id='the_pic' class='fit' src=\"$location/$img\" /></td>
-								<td>
-									<table id=\"info\">
-							<tr>
-								<td>
-									Currently Viewing: $img
-								</td>
-							</tr>
-							<tr>
-								<td>
-									Image Type: $type
-								</td>
-							</tr>
-							<tr>
-								<td>
-									Image Size: $size
-								</td>
-							</tr>
-							<tr>
-								<td>
-									Time/Date Posted: $time
-								</td>
-							</tr>
-							<tr>
-								<td>
-									Poster's Username: $username
-								</td>
-							</tr>
-							<tr>
-								<td>
-									Poster's Comment: $comment
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<a href=\"index.php\">Back to index</a>
-								</td>
-							</tr>
-						</table>
-								</td>
-							</tr>
-						</table>
+	<body>
+		<div id="page_wrap">
+			<div id="header">
+				<img src="header.png" alt="Header image"/>
+			</div>
+			<div id="main_navi">
+				<ul class="left">
+					<li><a href="http://www.unps-gama.info">Home</a></li>
+					<li><a href="http://unps.us" target="_unps">Shortener</a></li>
+					<li><a href="http://p.unps.us" target="_pro">Projects</a></li>
+					<li><a href="https://github.com/alopexc0de/GAMA-Site" target="_git">GitHub</a></li>
+					<li><a href="http://www.unps-gama.info/ToS.html">Terms of Service</a></li>
+					<li><a href="http://www.unos-gama.info/privacy.html">Privacy Policy</a></li>
+				</ul>
+		
+				<ul class="right">
+					<li class="twitter"><a href="http://twitter.com/upstandards" title="Follow UnPS on twitter">TWITTER</a></li>
+				</ul>	
+			</div>
+			<div class="clear"></div>
+			<div id="container">
+				<div id="main">
+					<div class="sticky">
+						New design underway :D
+					</div>
+					<div class="post">
+						<div class="entry">
+							<?php 
+								imgstuff();
+							?>
+						</div>
+					</div>
+				</div>
+				<div id="sidebar">
+					<ul>
+						<li class="widget widget_text">
+							<div class="textwidget">
+								<span>
+									ADS GO HERE
+									<script type="text/javascript">
+										//<!--
+										google_ad_client = "ca-pub-6762927271223365";
+										/* sidebar ads */
+										google_ad_slot = "1523932882";
+										google_ad_width = 120;
+										google_ad_height = 240;
+										//-->
+									</script>
+									<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+								</span>
+							</div>
+						</li>
+					</ul>
+					<br />
+					<ul>
+						<li class="widget widget_text">
+							<div class="textwidget">
+								<span>
+									Social Media Buttons Here
+								</span>
+							</div>
+						</li>
+					</ul>
+					<?php
+					if($_SESSION['noimg'] == false){
+						echo "
+						<br />
+						<ul>
+							<li class=\"widget widget_text\">
+								<div class=\"textwidget\">
+									";
+						textstuff();
+						echo "
+								</div>
+							</li>
+						</ul>
 						";
-		mysql_close();
-	}	
-}}else{
-	include('getfiles.php');
-	echo "
-		<title>GAMA IMGShare</title>
-		<img src='zen1.png' align='left'>
-		<p>You didn't specify an image. This is an image hoster.
-		<img src='zen1.png' align='right'> 
-		<br />
-		Please specify an image with the url: <font color='blue'><code>img.unps-gama.info/?img=(IMGAGE STUFF HERE)</code></font></p>
-		<br />
-		<h4>Want to upload pictures?</h4>
-		<a href='imgup.php'>Image Uploader Here</a><br />
-		<hr />";
-		echo "<table><tr><td><P>List of files:</p></td></tr><tr><td>" . $thelist . "</td></tr></table>";
-	mysql_close();
-}
-?>
-</div><hr />
-<div class="footer"><a href="http://unps-gama.info">Home</a> <a href="http://unps-gama.info/ToS.html">Terms of Service</a> <a href="http://unps-gama.info/privacy.html">Privacy Policy</a></div>
+					}else{
+						echo "
+						<br />
+						<ul>
+							<li class=\"widget widget_text\">
+								<div class=\"textwidget\">
+									<h4>Want to upload pictures?</h4>
+									<a href='imgup.php'>Image Uploader Here</a>
+								</div>
+							</li>
+						</ul>
+						";
+					}
+					?>
+				</div>
+			</div>
+		</div>
+		<div id="footer">
+			<div class="footer_wrapper">
+				<div class="footer_left">
+					<p>
+						<a href="http://www.unps-gama.info/privacy.html">Privacy Policy</a> - <a href="http://www.unps-gama.info/ToS.html">Terms of Service</a> - Modified <a href="http://imotta.cn/wordpress/pyrmont-theme-v2-for-wordpress.html">Pyrmont V2</a> - <strong>Copyright &copy; 2012-2013 UnPS-GAMA</strong> 
+					</p>
+				</div>
+			</div>
+		</div><!-- end footer -->
+	</body>
+</html>
