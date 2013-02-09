@@ -1,7 +1,6 @@
 <?php
 	session_start();
-	session_unset(); 
-	session_destroy();
+	
 	$thelist = '';
 	$img = 'meow.png';
 	$id = '';
@@ -12,7 +11,65 @@
 	$comment = '';
 	$username = '';
 	$tags = '';
-	$noimg = false;
+	
+	function uname(){
+		if(!empty($_GET['uname'])){ // Show list of pictures uploaded by certain username
+			echo "<center><h4>Pictures uploaded from Username: ".$_GET['uname'].":</h4>";
+			require('dbsettings.php');
+			$uname = sanitize($_GET['uname']); 
+			$sql = "SELECT id, name, location, type, size, time, comment, username, tags FROM $tbl_name WHERE username='$uname'";
+			$result = mysql_query($sql);
+			$count = mysql_num_rows($result);
+			if($count == 1){
+				$i = 0;
+				while ($row = mysql_fetch_assoc($result)){
+					$id = $row['id'];
+					$img = $row['name'];
+					$location = $row['location'];
+					$type = $row['type'];
+					$size = $row['size'];
+					$time = $row['time'];
+					$comment = $row['comment'];
+					$username = $row['username'];
+					$tags = $row['tags'];
+					echo "<a href=\"?img=$img\">$img</a> - $time - $size - Tags: ";
+					$tags = explode(" ", $tags);
+					foreach($tags as $tag){
+						echo "<a href=\"?tag=$tag\">$tag</a> "; // For future use - catagorize by tag
+					}
+					echo "<br />";
+				}
+			}
+			echo "</center><br /><hr /><br />";
+		}
+	}
+	
+	function tag(){
+		if(!empty($_GET['tag'])){ // Show list of pictures according to one tag - maybe multiple tags in the future
+			echo "<center><h4>Pictures uploaded with the tag: ".$_GET['tag'].":</h4>";
+			require('dbsettings.php');
+			$tag = sanitize($_GET['tag']); 
+			$sql = "SELECT id, name, location, type, size, time, comment, username, tags FROM $tbl_name WHERE 'tags' LIKE '$tag'";
+			$result = mysql_query($sql);
+			$count = mysql_num_rows($result);
+			if($count == 1){
+				$i = 0;
+				while ($row = mysql_fetch_assoc($result)){
+					$id = $row['id'];
+					$img = $row['name'];
+					$location = $row['location'];
+					$type = $row['type'];
+					$size = $row['size'];
+					$time = $row['time'];
+					$comment = $row['comment'];
+					$username = $row['username'];
+					$tags = $row['tags'];
+					echo "<a href=\"?img=$img\">$img</a> - $time - $size - Username: <a href=\"?uname=$username\">$username</a><br />";
+				}
+			}
+			echo "</center><br /><hr /><br />";
+		}
+	}
 	
 	function sanitize($input){
 		if ($input == null) die("Sanatize() - No Input Provided, Aborting\r\n<br>");
@@ -24,6 +81,8 @@
 	}
 	
 	function imgstuff(){
+		uname();
+		tag();
 		if (empty($_GET['img']) || $_GET['img'] == null || $_GET['img'] == ''){
 			$img = '';
 		}else{
@@ -60,10 +119,10 @@
 	}
 	
 	function headstuff(){
-		echo "<meta property='og:title' content='$img' />\n";
-		echo "<meta property='og:url' content='http://img.unps-gama.info/index.php?img=$img' />\n";
-		echo "<meta property='og:image' content='http://img.unps-gama.info/$location/$img' />\n";
-		echo "<meta property='og:description' content='http://img.unps-gama.info/$comment' />\n";
+		echo "<meta property=\"og:title\" content=\"".$_SESSION['img']."\" />\n";
+		echo "		<meta property=\"og:url\" content=\"http://img.unps-gama.info/index.php?img=".$_SESSION['img']."\" />\n";
+		echo "		<meta property=\"og:image\" content=\"http://img.unps-gama.info/".$_SESSION['location']."/".$_SESSION['img']."\" />\n";
+		echo "		<meta property=\"og:description\" content=\"".$_SESSION['comment']."\" />\n";
 	}
 	
 	function textstuff(){
@@ -73,16 +132,32 @@
 			echo "<h3>Image Type:</h3><code> - ".$_SESSION['type']."</code>\n";
 			echo "<h3>Image Size:</h3><code> - ".$_SESSION['size']."</code>\n";
 			echo "<h3>Time Uploaded:</h3><code> - ".$_SESSION['time']."</code>\n";
-			echo "<h3>Username:</h3><code> - ".$_SESSION['username']."</code>\n";
+			echo "<h3>Username:</h3><code> - ";
+			$username = $_SESSION['username'];
+			echo "<a href=\"?uname=$username\">$username</a>"; // For future use - catagorize by username
+			echo "</code>\n";
 			echo "<h3>Comment:</h3><code> - ".$_SESSION['comment']."</code>\n";
-			echo "<h3>Tags:</h3><code> - ".$_SESSION['tags']."</code>\n";
+			echo "<h3>Tags:</h3><code> - ";
+			$tags = $_SESSION['tags'];
+			$tags = explode(" ", $tags);
+			foreach($tags as $tag){
+				echo "<a href=\"?tag=$tag\">$tag</a> "; // For future use - catagorize by tag
+			}
+			echo "</code>\n";
 			echo "</div>";
 		}
 	}
 	
 	function noimg(){
-		$thelist = '';
-		//include('getfiles.php');
+		$thelist = ''; //'<a href="http://localhost/img/?img=meow.png">meow.png</a> Last Modified: <font align="right" color="green">2/8/2013 11:37PM</font><br />';
+		if($handle = opendir('Pictures')){
+			while(false != ($file = readdir($handle))){
+				if($file != "." && $file != ".." && $file != ".htaccess"){
+					$thelist .= '<a href="http://img.unps-gama.info/?img='.$file.'">'.$file.'</a></font><br />';
+				}
+			}
+			closedir($handle);
+		}
 		echo "
 			<p>
 				Please specify an image with the url: 
@@ -94,12 +169,12 @@
 				<table>
 					<tr>
 						<td>
-							<center>List of files:</center>
+							<center>List of Uploaded Pictures:</center>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							$thelist
+							<center>$thelist</center>
 						</td>
 					</tr>
 				</table>
@@ -109,13 +184,12 @@
 	
 	function title(){
 		if(empty($img) || $img = null || $img = ''){ 
-			return;
+			echo "";
 		}else{
-			return " - Now Showing: ".$img;
+			echo " - Now Showing: ".$img;
 		}
 	}
-?>
-							
+?>						
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" prefix="og: http://ogp.me/ns#">
 	<head>
@@ -123,8 +197,8 @@
 		<meta name="description" content="Image Host for UnProfessional Standards" />
 		<meta name="keywords" content="GAMA,UnPS,upstandards,unps-gama,gama-unps,unps,gama,davitech,davitodd" />
 		<meta name="author" content="David Todd" />
-		<?php //headstuff(); ?>
-		<title>UnPS-GAMA Image Host<?php echo title(); ?></title>
+		<?php headstuff(); ?>
+		<title>UnPS-GAMA Image Host<?php title(); ?></title>
 		<link rel="shortcut icon" type="image/ico" href="favicon.ico" />
 		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 		<link rel="stylesheet" href="style.css" type="text/css" media="screen" />
@@ -151,6 +225,7 @@
 			<div id="header">
 				<img src="header.png" alt="Header image"/>
 			</div>
+			
 			<div id="main_navi">
 				<ul class="left">
 					<li><a href="http://www.unps-gama.info">Home</a></li>
@@ -158,18 +233,20 @@
 					<li><a href="http://p.unps.us" target="_pro">Projects</a></li>
 					<li><a href="https://github.com/alopexc0de/GAMA-Site" target="_git">GitHub</a></li>
 					<li><a href="http://www.unps-gama.info/ToS.html">Terms of Service</a></li>
-					<li><a href="http://www.unos-gama.info/privacy.html">Privacy Policy</a></li>
+					<li><a href="http://www.unps-gama.info/privacy.html">Privacy Policy</a></li>
 				</ul>
 		
 				<ul class="right">
 					<li class="twitter"><a href="http://twitter.com/upstandards" title="Follow UnPS on twitter">TWITTER</a></li>
 				</ul>	
 			</div>
+			
 			<div class="clear"></div>
+			
 			<div id="container">
 				<div id="main">
 					<div class="sticky">
-						New design underway :D
+						Tagging System is still WIP
 					</div>
 					<div class="post">
 						<div class="entry">
@@ -179,6 +256,7 @@
 						</div>
 					</div>
 				</div>
+				
 				<div id="sidebar">
 					<ul>
 						<li class="widget widget_text">
@@ -248,6 +326,6 @@
 					</p>
 				</div>
 			</div>
-		</div><!-- end footer -->
+		</div>
 	</body>
 </html>
