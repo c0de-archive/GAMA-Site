@@ -89,6 +89,41 @@
 		}
 	}
 	
+	function search(){
+		if(!empty($_GET['search']) && $_GET['submit'] == "Search"){ // Show list of pictures according to search term
+			$search = sanitize($_GET['search']);
+			$search = explode(" ", $search);
+			echo "<center><h4>Pictures found using search terms: ";
+			foreach ($search as $searches){
+				echo $searches." ";
+			}
+			echo ":</h4>";
+			require('dbsettings.php');
+			$sql = "SELECT id, name, location, type, size, time, comment, username, tags FROM $tbl_name WHERE tags LIKE '%".$search[0]."%'";
+			for($i=1; $i<count($search); $i++){
+				$sql = $sql." AND tags LIKE '%".$search[$i]."%'";
+			}
+			$result = mysql_query($sql);
+			$count = mysql_num_rows($result);
+			if($count >= 1){
+				$i = 0;
+				while ($row = mysql_fetch_assoc($result)){
+					$id = $row['id'];
+					$img = $row['name'];
+					$location = $row['location'];
+					$type = $row['type'];
+					$size = $row['size'];
+					$time = $row['time'];
+					$comment = $row['comment'];
+					$username = $row['username'];
+					$tags = $row['tags'];
+					echo "<a href=\"?img=$img\">$img</a> - $time - $size - Uploader: <a href=\"?uname=$username\">$username</a><br />";
+				}
+			}
+			echo "</center><br /><hr /><br />";
+		}
+	}
+	
 	function sanitize($input){
 		if ($input == null) die("Sanatize() - No Input Provided, Aborting\r\n<br>");
 		$output = strip_tags($input);
@@ -101,6 +136,7 @@
 	function imgstuff(){
 		uname();
 		tag();
+		search();
 		if (empty($_GET['img']) || $_GET['img'] == null || $_GET['img'] == ''){
 			$img = '';
 		}else{
@@ -264,7 +300,7 @@
 			<div id="container">
 				<div id="main">
 					<div class="sticky">
-						Tagging System is still WIP
+						Tagging and Search Systems are still WIP
 					</div>
 					<div class="post">
 						<div class="entry">
@@ -276,6 +312,17 @@
 				</div>
 				
 				<div id="sidebar">
+					<ul>
+						<li class="widget widget_search">
+							<div id="search">
+								<form action="index.php" method="get" name="search" id="search">
+									<input name="search" id="search" type="text" placeholder="Search" />
+									<input id="submit" name="submit" type="submit" value="Search" />
+								</form>
+							</div>
+						</li>
+					</ul>
+					<br />
 					<ul>
 						<li class="widget widget_text">
 							<div class="textwidget">
