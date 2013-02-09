@@ -166,58 +166,134 @@ div#main div.post div.entry{
 	padding:10px 20px 0;
 }
 
-div#main div.post div.entry p{margin-bottom:20px;}
-div#main div.post div.entry code{font-family:"Courier New", mono;background-color:#181818;border-left:1px solid #2a2e2f;color:#197b30;display:block;padding:5px 10px;}
-div#main div.post div.entry table{margin-bottom:20px;border-collapse:collapse;border:1px solid #2a2e2f;background-color:#181818;color:#999;}
-div#main div.post div.entry table td,div#main div.post div.entry table th{border:1px solid #2a2e2f;padding:2px 5px;}
+div#main div.post div.entry p{
+	margin-bottom:20px;
+}
 
-div#footer{color:#666;font-size:12px;background:url(images/footer_bg.gif) repeat-x;}
-div#footer div.footer_wrapper{width:960px;margin:0 auto;padding:18px 0;}
-div#footer div.footer_left{float:left;width:600px;}
-div#footer div.footer_left a{color:#ccc;text-decoration:none;}
+div#main div.post div.entry code{
+	font-family:"Courier New", mono;
+	background-color:#181818;
+	border-left:1px solid #2a2e2f;
+	color:#197b30;
+	display:block;
+	padding:5px 10px;
+}
+
+div#main div.post div.entry table{
+	margin-bottom:20px;
+	border-collapse:collapse;
+	border:1px solid #2a2e2f;
+	background-color:#181818;
+	color:#999;
+}
+
+div#main div.post div.entry table td,div#main div.post div.entry table th{
+	border:1px solid #2a2e2f;
+	padding:2px 5px;
+}
+
+div#sidebar{
+	width:270px;
+	float:left;
+	display:inline;
+	margin-top:30px;
+	margin-bottom:30px;
+	overflow:hidden;
+	color:#aaa;
+	font-size:12px;
+	background-color:#131313;
+}
+
+div#sidebar ul{background-color:#131313;}
+
+div#sidebar ul li h2{
+	background:url(images/sidebar_title_bg.gif) no-repeat;
+	background-position:left bottom;
+	font-size:16px;
+	line-height:30px;
+	color:#ccc;
+	background-color:#101010;
+	font-weight:400;
+	padding:5px 10px;
+}
+
+div#sidebar ul li.widget,div#sidebar ul li.widget_text{
+	background:url(images/sidebar_list_bg.gif) no-repeat left bottom;
+	border:1px solid #1f2223;
+	text-align:center;
+}
+	
+div#sidebar ul br{
+	background-color:000;
+	color:000;
+}
+
+div#sidebar ul li.widget h2 a{color:#ccc;}
+
+.textwidget{
+	line-height:16px;
+	padding:10px 26px;
+}
+
+.textwidget p{
+	margin-bottom:10px;
+	line-height:16px;
+}
+
+.textwidget a,.textwidget p a{
+	color:#009999;
+	text-decoration:none;
+}
+
+.textwidget a:visited,.textwidget p a:visited{
+	color:purple;
+	text-decoration:none;
+}
+
+.textwidget a:hover,.textwidget p a:hover{
+	color:#FF9E35;
+	text-decoration:underline;
+}
+
+div#footer{
+	color:#666;
+	font-size:12px;
+	background:url(images/footer_bg.gif) repeat-x;
+}
+
+div#footer div.footer_wrapper{	
+	width:960px;
+	margin:0 auto;
+	padding:18px 0;
+}
+
+div#footer div.footer_left{
+	float:left;
+	width:600px;
+}
+
+div#footer div.footer_left a{
+	color:#ccc;
+	text-decoration:none;
+}
+
 div#footer div.footer_left a:hover{color:#fff;}
 
-div#sidebar{width:270px;float:left;display:inline;margin-top:30px;margin-bottom:30px;overflow:hidden;color:#aaa;font-size:12px;background-color:#131313;}
-div#sidebar ul{background-color:#131313;}
-div#sidebar ul li h2{background:url(images/sidebar_title_bg.gif) no-repeat;background-position:left bottom;font-size:16px;line-height:30px;color:#ccc;background-color:#101010;font-weight:400;padding:5px 10px;}
-div#sidebar ul li.widget,div#sidebar ul li.widget_archive,div#sidebar ul li.widget_categories,div#sidebar ul li.widget_search,div#sidebar ul li.widget_tag_cloud div,div#sidebar ul li.widget_text{background:url(images/sidebar_list_bg.gif) no-repeat left bottom;border:1px solid #1f2223;text-align:center;}
-div#sidebar ul br{background-color:000;color:000;}
-div#sidebar ul li.widget h2 a{color:#ccc;}
-.textwidget{line-height:16px;padding:10px 26px;}
-.textwidget p{margin-bottom:10px;line-height:16px;}
-.textwidget a,.textwidget p a{color:#009999;text-decoration:none;}
-.textwidget a:visited,.textwidget p a:visited{color:purple;text-decoration:none;}
-.textwidget a:hover,.textwidget p a:hover{color:#FF9E35;text-decoration:underline;}
-
-div.submit_button span.key{float:left;margin-left:10px;padding-top:6px;font-size:12px;line-height:16px;color:#333;}
-.nocomments{color:#ccc;font-size:16px;}
-.aligncenter,div.aligncenter{display:block;margin-left:auto;margin-right:auto;}
-.alignleft{float:left;}
-.alignright{float:right;}
-img.alignleft{display:inline;margin-bottom:2px;margin-right:6px;padding:3px;}
-img.alignright{display:inline;margin-bottom:2px;margin-left:6px;padding:3px;}
-.wp-caption{border:1px solid #1f2223;text-align:center;background-color:#0d0d0d;padding-top:4px;-moz-border-radius:3px;-khtml-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;margin:10px;}
-.wp-caption img{border:0 none;margin:0;padding:0;}
-.wp-caption p.wp-caption-text{font-size:12px;line-height:17px;color:#ccc;margin:0;padding:0 4px 5px;}
-div#main div.post div.entry div.wp-caption p{margin-bottom:3px;padding:5px;}
-ul.archiveslist{color:#ccc;font-size:13px;}
-div#main div.post div.entry ul.archiveslist li a{color:#ccc;}
-div#main div.post div.entry ul.archiveslist li a:hover{color:#FF9E35;}
-.linkpage{background-color:#131313;padding:10px 15px;}
-.linkpage ul{list-style-type:none;}
-.linkpage ul li{float:left;margin-bottom:10px;}
-.linkpage ul li ul li{float:left;width:130px;text-align:center;line-height:180%;background-color:#202020;margin:5px 12px;}
-.linkpage ul li ul li a{color:#ccc;display:block;text-decoration:none;border:1px solid #1f2223;font-size:12px;}
-.linkpage ul li ul li a:hover{background-color:#0d0d0d;border:1px solid #1f2223;color:#FF9E35;}
-.linkpage ul li h3{margin-bottom:5px;margin-left:12px;}
-div.strong{color:#fff;font-size:18px;margin-bottom:25px;padding:10px 0;}
-div.strong .keyword{color:#FF9E35;}
 html,body,#page_wrap{height:100%;}
-body > #page_wrap{height:auto;min-height:100%;}
+
+body > #page_wrap{
+	height:auto;
+	min-height:100%;
+}
+
 #container{padding-bottom:48px;}
-#footer{position:relative;margin-top:-48px;height:48px;clear:both;}
-div.fmimage{float:left;width:300px;}
-div.fmclear{clear:both;}
+
+#footer{
+	position:relative;
+	margin-top:-48px;
+	height:48px;
+	clear:both;
+}
 
 ::-moz-selection {
        background-color: #009999;
