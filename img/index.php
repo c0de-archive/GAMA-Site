@@ -10,11 +10,14 @@
 	 * -----------------------------------------------------------
 	 * 							TODO:
 	 *
-	 * Image tag sorting - Single tag sorting possible
 	 * Properly align image in post box
-	 * Search with multiple terms
+	 * DONE - Make better uploader - better naming, autotag username and filename
 	 * JavaScript fo show bigger image if clicked 
+	 * Fix Last Modified for uploaded files
+	 * Picture Thumbnail for uname, tag, and search
+	 * Multiple tags without search?
 	 * Convert to mysqli
+	 * Classes?
 	 *
 	 * -----------------------------------------------------------
 	 */
@@ -30,9 +33,11 @@
 	$username = '';
 	$tags = '';
 	
+	// GET functions
+	
 	function uname(){
 		if(!empty($_GET['uname'])){ // Show list of pictures uploaded by certain username
-			echo "<center><h4>Pictures uploaded from Username: ".$_GET['uname'].":</h4>";
+			echo "<center><h4>Pictures uploaded from Username: ".$_GET['uname'].":</h4></center><br />";
 			require('dbsettings.php');
 			$uname = sanitize($_GET['uname']); 
 			$sql = "SELECT id, name, location, type, size, time, comment, username, tags FROM $tbl_name WHERE username='$uname'";
@@ -50,7 +55,7 @@
 					$comment = $row['comment'];
 					$username = $row['username'];
 					$tags = $row['tags'];
-					echo "<a href=\"?img=$img\">$img</a> - $time - $size - Tags: ";
+					echo "[THUMBNAIL] - <a href=\"?img=$img\">$img</a> - $time - $size - Tags: ";
 					$tags = explode(" ", $tags);
 					foreach($tags as $tag){
 						echo "<a href=\"?tag=$tag\">$tag</a> "; // For future use - catagorize by tag
@@ -58,13 +63,13 @@
 					echo "<br />";
 				}
 			}
-			echo "</center><br /><hr /><br />";
+			echo "<br /><hr /><br />";
 		}
 	}
 	
 	function tag(){
 		if(!empty($_GET['tag'])){ // Show list of pictures according to one tag - maybe multiple tags in the future
-			echo "<center><h4>Pictures uploaded with the tag: ".$_GET['tag'].":</h4>";
+			echo "<center><h4>Pictures uploaded with the tag: ".$_GET['tag'].":</h4></center><br />";
 			require('dbsettings.php');
 			$tag = sanitize($_GET['tag']); 
 			$sql = "SELECT id, name, location, type, size, time, comment, username, tags FROM $tbl_name WHERE tags LIKE '%$tag%'";
@@ -82,10 +87,10 @@
 					$comment = $row['comment'];
 					$username = $row['username'];
 					$tags = $row['tags'];
-					echo "<a href=\"?img=$img\">$img</a> - $time - $size - Uploader: <a href=\"?uname=$username\">$username</a><br />";
+					echo "[THUMBNAIL] - <a href=\"?img=$img\">$img</a> - $time - $size - Uploader: <a href=\"?uname=$username\">$username</a><br />";
 				}
 			}
-			echo "</center><br /><hr /><br />";
+			echo "<br /><hr /><br />";
 		}
 	}
 	
@@ -97,7 +102,7 @@
 			foreach ($search as $searches){
 				echo $searches." ";
 			}
-			echo ":</h4>";
+			echo ":</h4></center><br />";
 			require('dbsettings.php');
 			$sql = "SELECT id, name, location, type, size, time, comment, username, tags FROM $tbl_name WHERE tags LIKE '%".$search[0]."%'";
 			for($i=1; $i<count($search); $i++){
@@ -117,12 +122,122 @@
 					$comment = $row['comment'];
 					$username = $row['username'];
 					$tags = $row['tags'];
-					echo "<a href=\"?img=$img\">$img</a> - $time - $size - Uploader: <a href=\"?uname=$username\">$username</a><br />";
+					echo "[THUMBNAIL] - <a href=\"?img=$img\">$img</a> - $time - $size - Uploader: <a href=\"?uname=$username\">$username</a><br />";
 				}
 			}
-			echo "</center><br /><hr /><br />";
+			echo "<br /><hr /><br />";
 		}
 	}
+	
+	function upload(){
+		if(isset($_GET['upload'])){
+			$max_file_size="4096";
+			$file_uploads="1";
+			$websitename="UnPS-GAMA Image Host Uploader";
+			$allow_types=array("jpg","gif","png","bmp","JPEG","JPG","GIF","PNG");
+			echo "
+				<center>
+				<form name=\"uploadform\" action=\"index.php\" method=\"post\" enctype=\"multipart/form-data\">
+				<table>
+					<tr>
+						<td colspan=\"2\">
+							<h3>Upload Pictures Here</h3>
+							<pre>All fields required</pre>
+						</td>
+					</tr>
+					<tr>
+						<td colspan=\"2\" class=\"upload_info\">
+							<b>Allowed Types:</b> jpg, gif, png, bmp<br />
+							<b>Max size per file:</b> 4 MB.
+						</td>
+					</tr>
+					<tr>
+						<td class=\"table_body\" width=\"30%\"><b>Select File:</b> </td>
+						<td class=\"table_body\" width=\"70%\"><input type=\"file\" name=\"file\" id=\"file\" size=\"70\" /></td>
+					</tr>
+					<tr>
+						<td class=\"table_body\" width=\"30%\"><b>Your Name: </b></td>
+						<td class=\"table_body\" width=\"70%\"><input type=\"text\" name=\"username\" id=\"username\" size=\"70\" /></td>
+					</tr>
+					<tr>
+						<td class=\"table_body\" width=\"30%\"><b>Comment: </b></td>
+						<td class=\"table_body\" width=\"70%\"><input type=\"text\" name=\"comment\" id=\"comment\" size=\"70\" /></td>
+					</tr>
+					<tr>
+						<td class=\"table_body\" width=\"30%\"><b>Tags</b> (spaces only):</td>
+						<td class=\"table_body\" width=\"70%\"><input type=\"text\" name=\"tags\" id=\"tags\" size=\"70\" /></td>
+					</tr>
+					<tr>
+						<td colspan=\"2\">
+							<input type=\"hidden\" name=\"submit\" value=\"true\" />
+							<input type=\"reset\" name=\"reset\" value=\" Reset Form \" onclick=\"window.location.reload(true);\" /> &nbsp;
+							<input type=\"submit\" value=\" Upload \" /> 
+						</td>
+					</tr>
+				</table>
+				</form>
+				</center>
+				<hr /><br />
+			";
+		}
+		if(isset($_POST['submit'])){
+			if(!isset($_POST['username']) || !isset($_POST['comment']) || !isset($_POST['tags'])) die("Please fill in the form completly");
+			require('dbsettings.php');
+			
+			$location = 'Pictures'; 
+			$extensions = array('png', 'gif', 'jpg', 'jpeg', 'bmp'); 
+			$short = substr(number_format(time() * mt_rand(),0,'',''),0,10); 
+			$short = base_convert($short, 10, 36); 
+			
+			$upusername = $_POST['username'];
+			$upcomment = $_POST['comment'];
+			$tags = $_POST['tags'];
+			$name = $_FILES["file"]["name"]; 
+			$type = $_FILES["file"]["type"];
+			$size = ($_FILES["file"]["size"] / 1024); // get size of file in Kb
+			
+			$name = cln_file_name($name);
+			$type = sanitize($type);
+			$size = sanitize($size); 
+			$upcomment = comment($upcomment);
+			$tags = sanitize($tags);
+			$upusername = sanitize($upusername);
+			
+			$size = round($size, 2)." Kb";
+			$time = date("D jS F Y g:i:s a T");
+			
+			$file_ext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
+			if(!in_array($file_ext, $extensions))die("Wrong or no file extension"); // stop the upload if it's wrong
+			$name = $short.".".$file_ext;
+			
+			if (($_FILES["file"]["size"] < 400000)){
+				if ($_FILES["file"]["error"] > 0){
+					echo "Return Code: " . $_FILES["file"]["error"] . "<br />";
+				}else{
+					if (file_exists("Pictures/" . $name)){
+						echo $name." already exists. ";
+					}else{
+						if(preg_match('/php/i', $name) || preg_match('/phtml/i', $name) || preg_match('/htaccess/i', $name)){
+							echo $name." is not allowed, sorry about that...";
+						}else{
+							$sql="INSERT INTO $tbl_name (name, location, type, size, time, comment, username, tags) VALUES ('$name', '$location', '$type', '$size', '$time', '$upcomment', '$upusername', '$tags')";
+							$result=mysql_query($sql);
+							if($result){
+								move_uploaded_file($_FILES["file"]["tmp_name"], "Pictures/" . $name);
+								echo "Stored at: <a href='?img=$name' target='_$name'>". $name."</a>";
+							}else {
+								echo "There was a problem trying to upload your file - Could be a database error";
+							}
+						}
+					}
+				}
+			}else{
+				die("File too big!");
+			}
+		}
+	}
+	
+	// END OF GET FUNCTIONS
 	
 	function sanitize($input){
 		if ($input == null) die("Sanatize() - No Input Provided, Aborting\r\n<br>");
@@ -133,10 +248,28 @@
 		return $output;
 	}
 	
+	function comment($input){
+		if ($input == null) die("Sanatize() - No Input Provided, Aborting\r\n<br>");
+		$output = strip_tags($input);
+		$output = stripslashes($output);
+		$output = mysql_real_escape_string($output);
+		return $output;
+	}
+	
+	function cln_file_name($string) {
+		$cln_filename_find=array("/\.[^\.]+$/", "/[^\d\w\s-]/", "/\s\s+/", "/[-]+/", "/[_]+/");
+		$cln_filename_repl=array("", ""," ", "-", "_");
+		$string=preg_replace($cln_filename_find, $cln_filename_repl, $string);
+		return trim($string);
+	}
+	
+	// MAIN PROGRAM
+	
 	function imgstuff(){
 		uname();
 		tag();
 		search();
+		upload();
 		if (empty($_GET['img']) || $_GET['img'] == null || $_GET['img'] == ''){
 			$img = '';
 		}else{
@@ -172,14 +305,18 @@
 		}
 	}
 	
-	function headstuff(){
-		echo "<meta property=\"og:title\" content=\"".$_SESSION['img']."\" />\n";
-		echo "		<meta property=\"og:url\" content=\"http://img.unps-gama.info/index.php?img=".$_SESSION['img']."\" />\n";
-		echo "		<meta property=\"og:image\" content=\"http://img.unps-gama.info/".$_SESSION['location']."/".$_SESSION['img']."\" />\n";
-		echo "		<meta property=\"og:description\" content=\"".$_SESSION['comment']."\" />\n";
+	// END OF MAIN PROGRAM
+	
+	function headstuff(){ // Sets the meta tags - WIP/iffy
+		if(isset($_SESSION['img'])){
+			echo "<meta property=\"og:title\" content=\"".$_SESSION['img']."\" />\n";
+			echo "		<meta property=\"og:url\" content=\"http://img.unps-gama.info/index.php?img=".$_SESSION['img']."\" />\n";
+			echo "		<meta property=\"og:image\" content=\"http://img.unps-gama.info/".$_SESSION['location']."/".$_SESSION['img']."\" />\n";
+			echo "		<meta property=\"og:description\" content=\"".$_SESSION['comment']."\" />\n";
+		}
 	}
 	
-	function textstuff(){
+	function textstuff(){ // Sets up right side box of info under the other sidebars
 		if($_SESSION['noimg'] == false){
 			echo "<div align=\"left\">\n";
 			echo "<h3>Image Name:</h3><code> - ".$_SESSION['img']."</code>\n";
@@ -202,8 +339,9 @@
 		}
 	}
 	
-	function noimg(){
-		$thelist = ''; //'<a href="http://localhost/img/?img=meow.png">meow.png</a> Last Modified: <font align="right" color="green">2/8/2013 11:37PM</font><br />';
+	function noimg(){ // Shown in place of the image if one isn't available
+		$thelist = '';
+		// Last Modified not working, so removed for the time being
 		if($handle = opendir('Pictures')){
 			while(false != ($file = readdir($handle))){
 				if($file != "." && $file != ".." && $file != ".htaccess"){
@@ -237,10 +375,10 @@
 	}
 	
 	function title(){
-		if(empty($img) || $img = null || $img = ''){ 
+		if(!isset($_SESSION['img'])){ 
 			echo "";
 		}else{
-			echo " - Now Showing: ".$img;
+			echo " - Now Showing: ".$_SESSION['img'];
 		}
 	}
 ?>						
@@ -300,7 +438,7 @@
 			<div id="container">
 				<div id="main">
 					<div class="sticky">
-						Tagging and Search Systems are still WIP
+						Tagging is WIP  -----  Need Thumbnails
 					</div>
 					<div class="post">
 						<div class="entry">
@@ -315,7 +453,7 @@
 					<ul>
 						<li class="widget widget_search">
 							<div id="search">
-								<form action="index.php" method="get" name="search" id="search">
+								<form action="" method="get" name="search" id="search">
 									<input name="search" id="search" type="text" placeholder="Search" />
 									<input id="submit" name="submit" type="submit" value="Search" />
 								</form>
@@ -366,20 +504,17 @@
 							</li>
 						</ul>
 						";
-					}else{
-						echo "
-						<br />
+					}
+					?>
+					<br />
 						<ul>
-							<li class=\"widget widget_text\">
-								<div class=\"textwidget\">
+							<li class="widget widget_text">
+								<div class="textwidget">
 									<h4>Want to upload pictures?</h4>
-									<a href='imgup.php'>Image Uploader Here</a>
+									<a href='?upload'>Image Uploader Here</a>
 								</div>
 							</li>
 						</ul>
-						";
-					}
-					?>
 				</div>
 			</div>
 		</div>
