@@ -5,15 +5,14 @@
 	 *
 	 * UnPS-GAMA Image Host
 	 * Copyright (c) 2013 UnPS-GAMATechnologies
-	 * Author: David Todd (c0de) of http://www.unps-gama.info
+	 * Author: David Todd (c0de) of http://www.unps-gama.info and http://unps.us
 	 *
 	 * -----------------------------------------------------------
 	 * 							TODO:
 	 *
-	 * Properly align image in post box
-	 * DONE - Make better uploader - better naming, autotag username and filename
 	 * JavaScript fo show bigger image if clicked 
-	 * Fix Last Modified for uploaded files
+	 * Thumbnails for image list on main page (100px x 100px)
+	 * Fix headstuff() and title()
 	 * Picture Thumbnail for uname, tag, and search
 	 * Multiple tags without search?
 	 * Convert to mysqli
@@ -95,7 +94,7 @@
 	}
 	
 	function search(){
-		if(!empty($_GET['search']) && $_GET['submit'] == "Search"){ // Show list of pictures according to search term
+		if(!empty($_GET['search'])){ // Show list of pictures according to search term
 			$search = sanitize($_GET['search']);
 			$search = explode(" ", $search);
 			echo "<center><h4>Pictures found using search terms: ";
@@ -203,14 +202,17 @@
 			$tags = sanitize($tags);
 			$upusername = sanitize($upusername);
 			
+			//$notspace = array("\,", ".", "/", "\\", ":", "-", "_", "+", "=", "~", "#", "&", "");
+			//$tags = preg_replace($notspace, " ", $tags);
+			
 			$size = round($size, 2)." Kb";
-			$time = date("D jS F Y g:i:s a T");
+			$time = date("d/j/y - g:i:s a");
 			
 			$file_ext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
 			if(!in_array($file_ext, $extensions))die("Wrong or no file extension"); // stop the upload if it's wrong
 			$name = $short.".".$file_ext;
 			
-			if (($_FILES["file"]["size"] < 400000)){
+			if (($_FILES["file"]["size"] < 4000000000)){
 				if ($_FILES["file"]["error"] > 0){
 					echo "Return Code: " . $_FILES["file"]["error"] . "<br />";
 				}else{
@@ -224,7 +226,7 @@
 							$result=mysql_query($sql);
 							if($result){
 								move_uploaded_file($_FILES["file"]["tmp_name"], "Pictures/" . $name);
-								echo "Stored at: <a href='?img=$name' target='_$name'>". $name."</a>";
+								echo "Stored at: <a href='?img=$name'>". $name."</a>";
 							}else {
 								echo "There was a problem trying to upload your file - Could be a database error";
 							}
@@ -258,7 +260,7 @@
 	
 	function cln_file_name($string) {
 		$cln_filename_find=array("/\.[^\.]+$/", "/[^\d\w\s-]/", "/\s\s+/", "/[-]+/", "/[_]+/");
-		$cln_filename_repl=array("", ""," ", "-", "_");
+		$cln_filename_repl=array("", "", " ", "-", "_");
 		$string=preg_replace($cln_filename_find, $cln_filename_repl, $string);
 		return trim($string);
 	}
@@ -266,10 +268,12 @@
 	// MAIN PROGRAM
 	
 	function imgstuff(){
+		// My little cheat to be able to display all the different items in the same area
 		uname();
 		tag();
 		search();
 		upload();
+		// Basically all my functions are used as part of one big one, but more organized into smaller sections
 		if (empty($_GET['img']) || $_GET['img'] == null || $_GET['img'] == ''){
 			$img = '';
 		}else{
@@ -292,7 +296,7 @@
 				$_SESSION['comment'] = $row['comment'];
 				$_SESSION['username'] = $row['username'];
 				$_SESSION['tags'] = $row['tags'];
-				echo "<img id='the_pic' class='fit' src=\"".$_SESSION['location']."/$img\" /><br /><p></p>";
+				echo "<center><img id='the_pic' class='fit' src=\"".$_SESSION['location']."/$img\" /><br /></center>";
 				//echo "$id<br>$img<br>$location<br>$type<br>$size<br>$time<br>$comment<br>$username<br>$tags\n";
 				mysql_close();
 			}else{
@@ -374,7 +378,7 @@
 		";
 	}
 	
-	function title(){
+	function title(){ // Suffers same problem as headstuff()
 		if(!isset($_SESSION['img'])){ 
 			echo "";
 		}else{
@@ -384,13 +388,34 @@
 ?>						
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" prefix="og: http://ogp.me/ns#">
+<!--
+	 * -----------------------------------------------------------
+	 *
+	 * UnPS-GAMA Image Host
+	 * Copyright (c) 2013 UnPS-GAMATechnologies
+	 * Author: David Todd (c0de) of http://www.unps-gama.info and http://unps.us
+	 *
+	 * -----------------------------------------------------------
+	 * 							TODO:
+	 *
+	 * JavaScript fo show bigger image if clicked 
+	 * Thumbnails for image list on main page (100px x 100px)
+	 * Fix headstuff() and title()
+	 * Picture Thumbnail for uname, tag, and search
+	 * Multiple tags without search?
+	 * Convert to mysqli
+	 * Classes?
+	 *
+	 * -----------------------------------------------------------
+	 *
+-->
 	<head>
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 		<meta name="description" content="Image Host for UnProfessional Standards" />
 		<meta name="keywords" content="GAMA,UnPS,upstandards,unps-gama,gama-unps,unps,gama,davitech,davitodd" />
 		<meta name="author" content="David Todd" />
-		<?php headstuff(); ?>
-		<title>UnPS-GAMA Image Host<?php title(); ?></title>
+		<?php //headstuff(); ?>
+		<title>UnPS-GAMA Image Host<?php //title(); ?></title>
 		<link rel="shortcut icon" type="image/ico" href="favicon.ico" />
 		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 		<link rel="stylesheet" href="style.css" type="text/css" media="screen" />
@@ -438,7 +463,7 @@
 			<div id="container">
 				<div id="main">
 					<div class="sticky">
-						Tagging is WIP  -----  Need Thumbnails
+						Head meta tags and title not working properly
 					</div>
 					<div class="post">
 						<div class="entry">
@@ -455,7 +480,7 @@
 							<div id="search">
 								<form action="" method="get" name="search" id="search">
 									<input name="search" id="search" type="text" placeholder="Search" />
-									<input id="submit" name="submit" type="submit" value="Search" />
+									<input id="submit" name="submit" type="submit" value=" Search " />
 								</form>
 							</div>
 						</li>
@@ -529,3 +554,4 @@
 		</div>
 	</body>
 </html>
+<?php session_unset(); session_destroy(); ?>
