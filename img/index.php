@@ -13,6 +13,7 @@
 	 * JavaScript fo show bigger image if clicked 
 	 * Recently Uploaded Pictures on sidebar
 	 * Automatic thumbnail generation - genthumb() (100px x 100px)
+	 * Force Spaces in tags
 	 * Fix headstuff() and title()
 	 * Multiple tags without search?
 	 * Classes?
@@ -425,9 +426,9 @@
 	 *
 	 * JavaScript fo show bigger image if clicked 
 	 * Recently Uploaded Pictures on sidebar
-	 * DONE - Thumbnails for image list on main page (100px x 100px)
+	 * Automatic thumbnail generation - genthumb() (100px x 100px)
+	 * Force spaces on tags
 	 * Fix headstuff() and title()
-	 * DONE - Picture Thumbnail for uname, tag, and search
 	 * Multiple tags without search?
 	 * Classes?
 	 *
@@ -471,6 +472,7 @@
 			<div id="main_navi">
 				<ul class="left">
 					<li><a href="http://www.unps-gama.info">Home</a></li>
+					<li><a href="../img">Images</a></li>
 					<li><a href="http://unps.us" target="_unps">Shortener</a></li>
 					<li><a href="http://p.unps.us" target="_pro">Projects</a></li>
 					<li><a href="https://github.com/alopexc0de/GAMA-Site" target="_git">GitHub</a></li>
@@ -510,7 +512,7 @@
 							</div>
 						</li>
 					</ul>
-					<br />
+					<!--<br /> Might not keep this
 					<ul>
 						<li class="widget widget_text">
 							<div class="textwidget">
@@ -523,14 +525,14 @@
 										google_ad_slot = "1523932882";
 										google_ad_width = 120;
 										google_ad_height = 240;
-										//-->
+										//- ->
 									</script>
 									<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
 								</span>
 							</div>
 						</li>
-					</ul>
-					<br />
+					</ul>-->
+					<!--<br /> Might not keep this
 					<ul>
 						<li class="widget widget_text">
 							<div class="textwidget">
@@ -539,38 +541,41 @@
 								</span>
 							</div>
 						</li>
-					</ul>
-					<!-- This is what I want the end result of the recently uploaded pictures to look like
+					</ul>-->
+					<!-- This is what I want the end result of the recently uploaded pictures to look like- ->
 					<br />
 					<ul>
 						<li class="widget widget_text">
 							<div class="textwidget">
 								<h3>Recently Uploaded Pictures</h3><br />
-								<a href="?img=3gyvry5.gif"><img src="thumbs/3gyvry5.gif" alt="3gyvry5.gif" title="3gyvry5.gif"/></a>
+								<a href="?img=1607vhu.png"><img src="thumbs/1607vhu.png" alt="1607vhu.png" title="1607vhu.png"/></a>
 								<a href="?img=icbqp9.jpg"><img src="thumbs/icbqp9.jpg" alt="icbqp9.jpg" title="icbqp9.jpg"/></a>
 							</div>
 						</li>
 					</ul>
-					---------- Make what's commented below resemble (in output) what happens above
+					<!-------- Make what's commented below resemble (in output) what happens above-->
 					<br />
 					<ul>
 						<li class="widget widget_text">
 							<div class="textwidget">
-								<h3>Recently Uploaded Pictures</h3>
-								<p>Broken</p>
+								<h3>Recently Uploaded Pictures</h3><br />
 								<?php // Not currently working
-									/*$sql = "SELECT id, name FROM `recentpics` WHERE id = 1";
-									$result = mysql_query($sql);
-									$row = mysql_fetch_assoc($result);
+									require('dbsettings.php');
+									$sql = "SELECT * FROM `recentpics` WHERE `id` = 1";
+									if(!$result = $db->query($sql)){
+										die('There was an error running the query [' . $db->error . ']');
+									}
+									$row = $result->fetch_assoc();
 									if ($row){
 										$name = $row['name'];
 										$name = explode("-", $name);
 										foreach($name as $names){
-											echo '<a href="?img='.$names.'"><img src="thumbs/'.$names.'"></a>';
+											//echo '<a href="?img='.$names.'"><img src="thumbs/'.$names.'"></a>';
+											echo '<a href="?img='.$names.'"><img src="thumbs/'.$names.'" alt="'.$names.'" title="'.$names.'"/></a>'."\n		";
 										}
 									}else{
 										echo "Error getting images from database";
-									}*/
+									}
 								?>
 							</div>
 						</li>
