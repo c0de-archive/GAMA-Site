@@ -12,11 +12,9 @@
 	 *
 	 * JavaScript fo show bigger image if clicked 
 	 * Recently Uploaded Pictures on sidebar
-	 * DONE - Thumbnails for image list on main page (100px x 100px)
+	 * Automatic thumbnail generation - genthumb() (100px x 100px)
 	 * Fix headstuff() and title()
-	 * DONE = Picture Thumbnail for uname, tag, and search
 	 * Multiple tags without search?
-	 * DONE - Convert to mysqli
 	 * Classes?
 	 *
 	 * -----------------------------------------------------------
@@ -32,6 +30,7 @@
 	$comment = '';
 	$username = '';
 	$tags = '';
+	$_SESSION['noimg'] = ''; 
 	
 	// GET functions
 	
@@ -234,6 +233,8 @@
 								//$result=mysql_query($sql);
 								//if($result){
 									move_uploaded_file($_FILES["file"]["tmp_name"], "Pictures/" . $name);
+									$donefile = 'Pictures/'.$name;
+									genthumb($donefile);
 									echo "Stored at: <a href='?img=$name'>". $name."</a>";
 								//}else{
 								//	echo "There was a problem uploading this file.";
@@ -243,7 +244,6 @@
 							}else{
 								echo "There was a problem trying to upload your file - Could be a database error";
 							}
-							$result->free();
 						}
 					}
 				}
@@ -254,6 +254,10 @@
 	}
 	
 	// END OF GET FUNCTIONS
+	
+	function genthumb($input){
+		echo "Placeholder for automatic 100x100px thumbnail generation of new pictures<br />\n";
+	}
 	
 	function sanitize($input){
 		if ($input == null) die("Sanatize() - No Input Provided, Aborting\r\n<br>");
@@ -370,7 +374,8 @@
 		if($handle = opendir('Pictures')){
 			while(false != ($file = readdir($handle))){
 				if($file != "." && $file != ".." && $file != ".htaccess"){
-					$thelist .= '<a href="?img='.$file.'"><img src="thumbs/'.$file.'" alt="Thumbnail for '.$file.'" /><br /> └ '.$file.'</a></font><br /><p></p>'."\n";
+					//$thelist .= '<a href="?img='.$file.'"><img src="thumbs/'.$file.'" alt="Thumbnail for '.$file.'" /><br /> └ '.$file.'</a></font><br /><p></p>'."\n";
+					$thelist .= "-".$file;
 				}
 			}
 			closedir($handle);
@@ -383,18 +388,17 @@
 				</code>
 			</p>
 			<center>
-				<table>
-					<tr>
-						<td>
-							<center>List of Uploaded Pictures:</center>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<center>$thelist</center>
-						</td>
-					</tr>
-				</table>
+			<h4>Uploaded Pictures:</h4>
+		";
+		$thelist = explode("-", $thelist);
+		foreach($thelist as $pics){
+			if($pics == '' || $pics == null){
+				echo '';
+			}else{
+				echo '<a href="?img='.$pics.'"><img src="thumbs/'.$pics.'" alt="'.$pics.'" title="'.$pics.'"/></a>'."\n		";
+			}
+		}
+		echo"
 			</center>
 		";
 	}
@@ -425,7 +429,6 @@
 	 * Fix headstuff() and title()
 	 * DONE - Picture Thumbnail for uname, tag, and search
 	 * Multiple tags without search?
-	 * DONE - Convert to mysqli
 	 * Classes?
 	 *
 	 * -----------------------------------------------------------
@@ -537,6 +540,18 @@
 							</div>
 						</li>
 					</ul>
+					<!-- This is what I want the end result of the recently uploaded pictures to look like
+					<br />
+					<ul>
+						<li class="widget widget_text">
+							<div class="textwidget">
+								<h3>Recently Uploaded Pictures</h3><br />
+								<a href="?img=3gyvry5.gif"><img src="thumbs/3gyvry5.gif" alt="3gyvry5.gif" title="3gyvry5.gif"/></a>
+								<a href="?img=icbqp9.jpg"><img src="thumbs/icbqp9.jpg" alt="icbqp9.jpg" title="icbqp9.jpg"/></a>
+							</div>
+						</li>
+					</ul>
+					---------- Make what's commented below resemble (in output) what happens above
 					<br />
 					<ul>
 						<li class="widget widget_text">
@@ -551,7 +566,7 @@
 										$name = $row['name'];
 										$name = explode("-", $name);
 										foreach($name as $names){
-											echo '<a href="?img='.$names.'">'.$names.'</a> ';
+											echo '<a href="?img='.$names.'"><img src="thumbs/'.$names.'"></a>';
 										}
 									}else{
 										echo "Error getting images from database";
