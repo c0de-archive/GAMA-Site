@@ -11,11 +11,12 @@
 	 * 							TODO:
 	 *
 	 * JavaScript fo show bigger image if clicked 
-	 * Thumbnails for image list on main page (100px x 100px)
+	 * Recently Uploaded Pictures on sidebar
+	 * DONE - Thumbnails for image list on main page (100px x 100px)
 	 * Fix headstuff() and title()
-	 * Picture Thumbnail for uname, tag, and search
+	 * DONE = Picture Thumbnail for uname, tag, and search
 	 * Multiple tags without search?
-	 * Convert to mysqli
+	 * DONE - Convert to mysqli
 	 * Classes?
 	 *
 	 * -----------------------------------------------------------
@@ -39,30 +40,32 @@
 			echo "<center><h4>Pictures uploaded from Username: ".$_GET['uname'].":</h4></center><br />";
 			require('dbsettings.php');
 			$uname = sanitize($_GET['uname']); 
-			$sql = "SELECT id, name, location, type, size, time, comment, username, tags FROM $tbl_name WHERE username='$uname'";
-			$result = mysql_query($sql);
-			$count = mysql_num_rows($result);
-			if($count >= 1){
-				$i = 0;
-				while ($row = mysql_fetch_assoc($result)){
-					$id = $row['id'];
-					$img = $row['name'];
-					$location = $row['location'];
-					$type = $row['type'];
-					$size = $row['size'];
-					$time = $row['time'];
-					$comment = $row['comment'];
-					$username = $row['username'];
-					$tags = $row['tags'];
-					echo "[THUMBNAIL] - <a href=\"?img=$img\">$img</a> - $time - $size - Tags: ";
-					$tags = explode(" ", $tags);
-					foreach($tags as $tag){
-						echo "<a href=\"?tag=$tag\">$tag</a> "; // For future use - catagorize by tag
-					}
-					echo "<br />";
-				}
+			$sql = 'SELECT * FROM `share` WHERE `username` = "'.$uname.'"';
+			
+			if(!$result = $db->query($sql)){
+				die('There was an error running the query [' . $db->error . ']');
 			}
-			echo "<br /><hr /><br />";
+			
+			while($row = $result->fetch_assoc()){
+				$_SESSION['noimg'] = 'uname';
+				$id = $row['id'];
+				$img = $row['name'];
+				$location = $row['location'];
+				$type = $row['type'];
+				$size = $row['size'];
+				$time = $row['time'];
+				$comment = $row['comment'];
+				$username = $row['username'];
+				$tags = $row['tags'];
+				echo "<center><a href=\"?img=$img\"><img src=\"thumbs/$img\" alt=\"Thumbnail of $img\" align=\"middle\"></a><br /><a href=\"?img=$img\">$img</a> - $time - $size <br /> Tags: ";
+				$tags = explode(" ", $tags);
+				foreach($tags as $tag){
+					echo "<a href=\"?tag=$tag\">$tag</a> "; // For future use - catagorize by tag
+				}
+				echo "</center><br />";
+			}
+			$result->free();
+			//echo "<br /><hr /><br />";
 		}
 	}
 	
@@ -71,25 +74,27 @@
 			echo "<center><h4>Pictures uploaded with the tag: ".$_GET['tag'].":</h4></center><br />";
 			require('dbsettings.php');
 			$tag = sanitize($_GET['tag']); 
-			$sql = "SELECT id, name, location, type, size, time, comment, username, tags FROM $tbl_name WHERE tags LIKE '%$tag%'";
-			$result = mysql_query($sql);
-			$count = mysql_num_rows($result);
-			if($count >= 1){
-				$i = 0;
-				while ($row = mysql_fetch_assoc($result)){
-					$id = $row['id'];
-					$img = $row['name'];
-					$location = $row['location'];
-					$type = $row['type'];
-					$size = $row['size'];
-					$time = $row['time'];
-					$comment = $row['comment'];
-					$username = $row['username'];
-					$tags = $row['tags'];
-					echo "[THUMBNAIL] - <a href=\"?img=$img\">$img</a> - $time - $size - Uploader: <a href=\"?uname=$username\">$username</a><br />";
-				}
+			$sql = 'SELECT * FROM `share` WHERE `tags` LIKE "%'.$tag.'%"';
+			
+			if(!$result = $db->query($sql)){
+				die('There was an error running the query [' . $db->error . ']');
 			}
-			echo "<br /><hr /><br />";
+			
+			while($row = $result->fetch_assoc()){
+				$_SESSION['noimg'] = 'tag';
+				$id = $row['id'];
+				$img = $row['name'];
+				$location = $row['location'];
+				$type = $row['type'];
+				$size = $row['size'];
+				$time = $row['time'];
+				$comment = $row['comment'];
+				$username = $row['username'];
+				$tags = $row['tags'];
+				echo "<center><a href=\"?img=$img\"><img src=\"thumbs/$img\" alt=\"Thumbnail of $img\" align=\"middle\"></a> <br /> <a href=\"?img=$img\">$img</a> - $time - $size - Uploader: <a href=\"?uname=$username\">$username</a><br /></center><br />";
+			}
+			$result->free();
+			//echo "<br /><hr /><br />";
 		}
 	}
 	
@@ -103,28 +108,29 @@
 			}
 			echo ":</h4></center><br />";
 			require('dbsettings.php');
-			$sql = "SELECT id, name, location, type, size, time, comment, username, tags FROM $tbl_name WHERE tags LIKE '%".$search[0]."%'";
+			$sql = "SELECT * FROM `share` WHERE `tags` LIKE '%".$search[0]."%'";
 			for($i=1; $i<count($search); $i++){
-				$sql = $sql." AND tags LIKE '%".$search[$i]."%'";
+				$sql = $sql." AND `tags` LIKE '%".$search[$i]."%'";
 			}
-			$result = mysql_query($sql);
-			$count = mysql_num_rows($result);
-			if($count >= 1){
-				$i = 0;
-				while ($row = mysql_fetch_assoc($result)){
-					$id = $row['id'];
-					$img = $row['name'];
-					$location = $row['location'];
-					$type = $row['type'];
-					$size = $row['size'];
-					$time = $row['time'];
-					$comment = $row['comment'];
-					$username = $row['username'];
-					$tags = $row['tags'];
-					echo "[THUMBNAIL] - <a href=\"?img=$img\">$img</a> - $time - $size - Uploader: <a href=\"?uname=$username\">$username</a><br />";
-				}
+			if(!$result = $db->query($sql)){
+				die('There was an error running the query [' . $db->error . ']');
 			}
-			echo "<br /><hr /><br />";
+	
+			while($row = $result->fetch_assoc()){
+				$_SESSION['noimg'] = 'search';
+				$id = $row['id'];
+				$img = $row['name'];
+				$location = $row['location'];
+				$type = $row['type'];
+				$size = $row['size'];
+				$time = $row['time'];
+				$comment = $row['comment'];
+				$username = $row['username'];
+				$tags = $row['tags'];
+				echo "<center><a href=\"?img=$img\"><img src=\"thumbs/$img\" alt=\"Thumbnail of $img\" align=\"middle\"></a><br /> <a href=\"?img=$img\">$img</a> - $time - $size - Uploader: <a href=\"?uname=$username\">$username</a><br /></center>";
+			}
+			$result->free();
+			//echo "<br /><hr /><br />";
 		}
 	}
 	
@@ -136,7 +142,7 @@
 			$allow_types=array("jpg","gif","png","bmp","JPEG","JPG","GIF","PNG");
 			echo "
 				<center>
-				<form name=\"uploadform\" action=\"index.php\" method=\"post\" enctype=\"multipart/form-data\">
+				<form name=\"uploadform\" action=\"\" method=\"post\" enctype=\"multipart/form-data\">
 				<table>
 					<tr>
 						<td colspan=\"2\">
@@ -222,14 +228,22 @@
 						if(preg_match('/php/i', $name) || preg_match('/phtml/i', $name) || preg_match('/htaccess/i', $name)){
 							echo $name." is not allowed, sorry about that...";
 						}else{
-							$sql="INSERT INTO $tbl_name (name, location, type, size, time, comment, username, tags) VALUES ('$name', '$location', '$type', '$size', '$time', '$upcomment', '$upusername', '$tags')";
-							$result=mysql_query($sql);
-							if($result){
-								move_uploaded_file($_FILES["file"]["tmp_name"], "Pictures/" . $name);
-								echo "Stored at: <a href='?img=$name'>". $name."</a>";
-							}else {
+							$sql="INSERT INTO `share` (name, location, type, size, time, comment, username, tags) VALUES ('$name', '$location', '$type', '$size', '$time', '$upcomment', '$upusername', '$tags')";
+							if($result = $db->query($sql)){
+								//$sql = "UPDATE `recentpics` SET name = '-$name' WHERE id = 1"; // Not currently working
+								//$result=mysql_query($sql);
+								//if($result){
+									move_uploaded_file($_FILES["file"]["tmp_name"], "Pictures/" . $name);
+									echo "Stored at: <a href='?img=$name'>". $name."</a>";
+								//}else{
+								//	echo "There was a problem uploading this file.";
+								//}
+							}elseif(!$result = $db->query($sql)){
+								die('There was a problem trying to upload your file - [' . $db->error . ']');
+							}else{
 								echo "There was a problem trying to upload your file - Could be a database error";
 							}
+							$result->free();
 						}
 					}
 				}
@@ -243,18 +257,20 @@
 	
 	function sanitize($input){
 		if ($input == null) die("Sanatize() - No Input Provided, Aborting\r\n<br>");
+		include('dbsettings.php');
 		$output = strip_tags($input);
 		$output = stripslashes($output);
-		$output = mysql_real_escape_string($output);
+		$output = $db->real_escape_string($output);
 		$output = strtolower($output);
 		return $output;
 	}
 	
 	function comment($input){
 		if ($input == null) die("Sanatize() - No Input Provided, Aborting\r\n<br>");
+		include('dbsettings.php');
 		$output = strip_tags($input);
 		$output = stripslashes($output);
-		$output = mysql_real_escape_string($output);
+		$output = $db->real_escape_string($output);
 		return $output;
 	}
 	
@@ -282,9 +298,11 @@
 		if(!empty($img) || $img != null || $img != ''){
 			require('dbsettings.php');
 			$img = sanitize($img); // clean image string
-			$sql = "SELECT id, name, location, type, size, time, comment, username, tags FROM $tbl_name WHERE name='$img' LIMIT 1;";
-			$result = mysql_query($sql);
-			$row = mysql_fetch_assoc($result);
+			$sql = "SELECT * FROM `share` WHERE `name` = '$img' LIMIT 1";
+			if(!$result = $db->query($sql)){
+				die('There was an error running the query [' . $db->error . ']');
+			};
+			$row = $result->fetch_assoc();
 			if ($row){
 				$_SESSION['noimg'] = false;
 				$_SESSION['id'] = $row['id'];
@@ -298,14 +316,17 @@
 				$_SESSION['tags'] = $row['tags'];
 				echo "<center><img id='the_pic' class='fit' src=\"".$_SESSION['location']."/$img\" /><br /></center>";
 				//echo "$id<br>$img<br>$location<br>$type<br>$size<br>$time<br>$comment<br>$username<br>$tags\n";
-				mysql_close();
 			}else{
 				$_SESSION['noimg'] = true;
 				echo "<center><h3>That image was not found in our database D:</h3></center>";
 			}
+			$result->free();
 		}else{
-			noimg();
-			$_SESSION['noimg'] = true;
+			if($_SESSION['noimg'] == 'search' || $_SESSION['noimg'] == 'tag' || $_SESSION['noimg'] == 'uname'){
+			}else{
+				noimg();
+				$_SESSION['noimg'] = true;
+			}
 		}
 	}
 	
@@ -349,7 +370,7 @@
 		if($handle = opendir('Pictures')){
 			while(false != ($file = readdir($handle))){
 				if($file != "." && $file != ".." && $file != ".htaccess"){
-					$thelist .= '<a href="?img='.$file.'">'.$file.'</a></font><br />';
+					$thelist .= '<a href="?img='.$file.'"><img src="thumbs/'.$file.'" alt="Thumbnail for '.$file.'" /><br /> └ '.$file.'</a></font><br /><p></p>'."\n";
 				}
 			}
 			closedir($handle);
@@ -399,11 +420,12 @@
 	 * 							TODO:
 	 *
 	 * JavaScript fo show bigger image if clicked 
-	 * Thumbnails for image list on main page (100px x 100px)
+	 * Recently Uploaded Pictures on sidebar
+	 * DONE - Thumbnails for image list on main page (100px x 100px)
 	 * Fix headstuff() and title()
-	 * Picture Thumbnail for uname, tag, and search
+	 * DONE - Picture Thumbnail for uname, tag, and search
 	 * Multiple tags without search?
-	 * Convert to mysqli
+	 * DONE - Convert to mysqli
 	 * Classes?
 	 *
 	 * -----------------------------------------------------------
@@ -463,10 +485,10 @@
 			<div id="container">
 				<div id="main">
 					<div class="sticky">
-						Head meta tags and title not working properly
+						Thumbnails need work
 					</div>
 					<div class="post">
-						<div class="entry">
+						<div class="entry"><!-- Begin image stuff php -->
 							<?php 
 								imgstuff();
 							?>
@@ -515,6 +537,30 @@
 							</div>
 						</li>
 					</ul>
+					<br />
+					<ul>
+						<li class="widget widget_text">
+							<div class="textwidget">
+								<h3>Recently Uploaded Pictures</h3>
+								<p>Broken</p>
+								<?php // Not currently working
+									/*$sql = "SELECT id, name FROM `recentpics` WHERE id = 1";
+									$result = mysql_query($sql);
+									$row = mysql_fetch_assoc($result);
+									if ($row){
+										$name = $row['name'];
+										$name = explode("-", $name);
+										foreach($name as $names){
+											echo '<a href="?img='.$names.'">'.$names.'</a> ';
+										}
+									}else{
+										echo "Error getting images from database";
+									}*/
+								?>
+							</div>
+						</li>
+					</ul>
+					<!-- textstuff is right under here (not shown unless picture is viewed though) -->
 					<?php
 					if($_SESSION['noimg'] == false){
 						echo "
