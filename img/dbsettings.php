@@ -7,6 +7,9 @@ $db_name=""; // Database name
 $tbl_name=""; // Table name 
 
 // Connect to server and select database.
-mysql_connect("$host", "$username", "$password")or die("Unable to connect to database server - check dbsettings.php"); 
-mysql_select_db("$db_name")or die("Unable to connect to database - check dbsettings.php");
+$db = new mysqli($host, $username, $password, $db_name);
+
+if($db->connect_errno > 0){
+    die('Unable to connect to database [' . $db->connect_error . '] - Check dbsettings.php');
+}
 ?>
