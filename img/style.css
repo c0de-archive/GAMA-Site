@@ -160,14 +160,54 @@ div#main div.sticky{
 }
 
 div#main div.post div.entry{
-	overflow:hidden;
+	
 	width:618px;
 	font-size:13px;
-	padding:10px 20px 0;
+	padding:10px 10px;
+}
+
+div#main div.post div.entry img{
+	max-width: 100%;
+	max-height: 100%;
+	padding: 2px;
+	float:center;
+	text-align:center;
 }
 
 div#main div.post div.entry p{
 	margin-bottom:20px;
+}
+
+div#main div.post div.entry a{
+	color:#009999;
+	text-decoration:none;
+}
+
+div#main div.post div.entry a:visited{
+	color:purple;
+	text-decoration:none;
+}
+
+div#main div.post div.entry a:hover{
+	color:#FF9E35;
+	text-decoration:underline;
+}
+
+div#main div.post div.entry a img{
+	-webkit-transition: all 0.25s ease;
+	-moz-transition: all 0.25s ease;
+	-o-transition: all 0.25s ease;
+	-ms-transition: all 0.25s ease;
+	transition: all 0.25s ease;
+}
+
+div#main div.post div.entry a:hover img{
+	color:#FF9E35;
+	border-color:#FF9E35;
+	border-style:inset;
+	border-width:1px;
+	border-radius:6px; 
+	-webkit-box-shadow:0px 0px 8px 1px #333;
 }
 
 div#main div.post div.entry code{
@@ -185,6 +225,7 @@ div#main div.post div.entry table{
 	border:1px solid #2a2e2f;
 	background-color:#181818;
 	color:#999;
+	text-align:center;
 }
 
 div#main div.post div.entry table td,div#main div.post div.entry table th{
@@ -217,10 +258,48 @@ div#sidebar ul li h2{
 	padding:5px 10px;
 }
 
-div#sidebar ul li.widget,div#sidebar ul li.widget_text{
+div#sidebar ul li.widget,div#sidebar ul li.widget_search,div#sidebar ul li.widget_text{
 	background:url(images/sidebar_list_bg.gif) no-repeat left bottom;
 	border:1px solid #1f2223;
 	text-align:center;
+}
+
+div#sidebar ul li.widget_text a img{
+	-webkit-transition: all 0.25s ease;
+	-moz-transition: all 0.25s ease;
+	-o-transition: all 0.25s ease;
+	-ms-transition: all 0.25s ease;
+	transition: all 0.25s ease;
+}
+
+div#sidebar ul li.widget_text a:hover img{
+	border-color:#FF9E35;
+	border-style:inset;
+	border-width:1px;
+	border-radius:6px; 
+	-webkit-box-shadow:0px 0px 8px 1px #333;
+}
+
+div#sidebar div#search{
+	float:center;
+	text-align:center;
+	padding-top:15px;
+	padding-bottom:15px;
+}
+
+div#sidebar div#search form#searchform .searchinput{
+	color:#666;
+	font-size:13px;
+	width:165px;
+	border:0;
+}
+
+div#sidebar div#search form#searchform .button{
+	background:url(images/mag.gif) no-repeat;
+	height:25px;
+	width:25px;
+	border:0;
+	cursor:pointer;
 }
 	
 div#sidebar ul br{
