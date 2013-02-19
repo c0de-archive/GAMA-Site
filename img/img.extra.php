@@ -3,7 +3,7 @@
 	/*------------------------------------------
 	 * Img.Extra.php - Extra main functions
 	 * 
-	 * Copyright (c) 2013 David Todd(c0de) of http://www.unps-gama.info and http://unps.us 
+	 * Copyright (c) 2013 David Todd (c0de) of http://www.unps-gama.info and http://unps.us 
 	 * for use with the image host (http://img.unps-gama.info)
 	 *------------------------------------------
 	 */
@@ -42,15 +42,24 @@
 	
 	function noimg(){ // Shown in place of the image if one isn't available
 		$thelist = '';
-		// Last Modified not working, so removed for the time being
+		$thethumbs = '';
+		$_SESSION['thethumbs'] = '';
 		if($handle = opendir('Pictures')){
 			while(false != ($file = readdir($handle))){
 				if($file != "." && $file != ".." && $file != ".htaccess"){
-					//$thelist .= '<a href="?img='.$file.'"><img src="thumbs/'.$file.'" alt="Thumbnail for '.$file.'" /><br /> └ '.$file.'</a></font><br /><p></p>'."\n";
 					$thelist .= "-".$file;
 				}
 			}
 			closedir($handle);
+		}
+		if($thumbs = opendir('thumbs')){
+			while(false != ($fiel = readdir($thumbs))){
+				// Test if thumbnail exists if not show nothumb.png
+				if($fiel != "." && $fiel != ".." && $fiel != ".htaccess"){
+					$thethumbs .= "-".$fiel;
+				}
+			}
+			closedir($thumbs);
 		}
 		echo "
 			<p>
@@ -63,11 +72,16 @@
 			<h4>Uploaded Pictures:</h4>
 		";
 		$thelist = explode("-", $thelist);
+		$thethumbs = explode("-", $thethumbs);
 		foreach($thelist as $pics){
 			if($pics == '' || $pics == null){
 				echo '';
-			}else{
-				echo '<a href="?img='.$pics.'"><img src="thumbs/'.$pics.'" alt="'.$pics.'" title="'.$pics.'"/></a>'."\n		";
+			}else{ // Checks if there is a thumbnail for the image, if not show nothumb.png
+				if(in_array($pics, $thethumbs)){
+					echo '<a href="?img='.$pics.'"><img src="thumbs/'.$pics.'" alt="'.$pics.'" title="'.$pics.'"/></a>'."\n		";
+				}else{
+					echo '<a href="?img='.$pics.'"><img src="nothumb.png" alt="'.$pics.'" title="'.$pics.'"/></a>'."\n		";
+				}
 			}
 		}
 		echo"
