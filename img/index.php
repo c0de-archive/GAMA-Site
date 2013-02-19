@@ -12,7 +12,7 @@
 	 *
 	 * JavaScript fo show bigger image if clicked 
 	 * Recently Uploaded Pictures on sidebar - Frontend DONE - Backend Needed (upload)
-	 * DONE -  Automatic thumbnail generation - genthumb() (100px x 100px)
+	 * DONE - Automatic detection of missing or nonexistant thumbnails (either replace with nothumb.png or generate new one on spot)
 	 * Force Spaces in tags
 	 * Fix headstuff() and title()
 	 * Multiple tags without search?
@@ -61,7 +61,7 @@
 	 *
 	 * JavaScript fo show bigger image if clicked 
 	 * Recently Uploaded Pictures on sidebar - Frontend DONE - Backend Needed (upload)
-	 * DONE - Automatic thumbnail generation - genthumb() (100px x 100px)
+	 * DONE - Automatic detection of missing or nonexistant thumbnails (either replace with nothumb.png or generate new one on spot)
 	 * Force spaces on tags
 	 * Fix headstuff() and title()
 	 * Multiple tags without search?
@@ -131,7 +131,7 @@
 				</div> <!-- End MainWide -->
 				<div id="main">
 					<div class="sticky">
-						Recent Pictures needs a backend - Frontend complete
+						Fix headstuff and title
 					</div> <!-- End Sticky -->
 					<div class="post">
 						<div class="entry"><!-- Begin image stuff php -->
@@ -200,7 +200,8 @@
 										$name = explode("-", $name);
 										foreach($name as $names){
 											//echo '<a href="?img='.$names.'"><img src="thumbs/'.$names.'"></a>';
-											echo '<a href="?img='.$names.'"><img src="thumbs/'.$names.'" alt="'.$names.'" title="'.$names.'"/></a>'."\n		";
+											echo '<a href="?img='.$names.'"><img src="nothumb.png" alt="'.$names.'" title="'.$names.'"/></a>'."\n		";
+											//echo '<a href="?img='.$names.'"><img src="thumbs/'.$names.'" alt="'.$names.'" title="'.$names.'"/></a>'."\n		";
 										}
 									}else{
 										echo "Error getting images from database";
