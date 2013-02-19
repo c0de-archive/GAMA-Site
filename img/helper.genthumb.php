@@ -68,7 +68,7 @@
 		//imagejpeg($dimg,$dest,100);
 	}
 	
-	function createThumbs(){ // Generates a thumbnail for every image in the Pictures directory
+	function createThumbs(){ // Generates a thumbnail for every image in the Pictures directory - Resource heavy
 	$pathToImages = 'Pictures/';
 	$pathToThumbs = 'thumbs/';
 	$dir = opendir( $pathToImages );
@@ -123,19 +123,20 @@
 		switch(strtolower($stype)) {
 			case 'gif':
 				imagegif($dimg, "{$pathToThumbs}{$fname}" ,100);
-				echo ". Done. <img src='C:\\users\\c0de\\Desktop\\thumbs\\$fname'><br>\n";
+				echo ". Done. <img src='thumbs/$fname'><br>\n";
 				break;
 			case 'jpg':
 				imagejpeg($dimg, "{$pathToThumbs}{$fname}" ,100);
-				echo ". Done. <img src='C:\\users\\c0de\\Desktop\\thumbs\\$fname'><br>\n";
+				echo ". Done. <img src='thumbs/$fname'><br>\n";
 				break;
 			case 'png':
 				imagepng($dimg, "{$pathToThumbs}{$fname}" ,9);
-				echo ". Done. <img src='C:\\users\\c0de\\Desktop\\thumbs\\$fname'><br>\n";
+				echo ". Done. <img src='thumbs/$fname'><br>\n";
 				break;
 		}
 	}
 	closedir( $dir );
+	die("<script>alert('All thumbnails have been refreshed.');</script>");
 }
 
 ?>
