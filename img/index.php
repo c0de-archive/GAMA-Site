@@ -1,5 +1,6 @@
 <?php
 	session_start();
+	$pst = microtime(true);
 	
 	/* -----------------------------------------------------------
 	 *
@@ -14,7 +15,7 @@
 	 * Recently Uploaded Pictures on sidebar - Frontend DONE - Backend Needed (upload)
 	 * DONE - Automatic detection of missing or nonexistant thumbnails (either replace with nothumb.png or generate new one on spot)
 	 * Force Spaces in tags
-	 * Fix headstuff() and title()
+	 * Fix headstuff() and title() without raping the html by putting the tags in the wrong places
 	 * Multiple tags without search?
 	 * Classes? - Might just go as far as to seperate the functions
 	 * Temporarly dropped support for bitmap files until I learn how to generate those
@@ -28,10 +29,10 @@
 	require('img.extra.php'); // Img.Extra.php - Extra main functions
 	require('img.main.php'); // Img.Main.php - Main program
 	
-	// If thumbnails don't preexist{
-	// 		createThumbs(); // Found inside helper.genthumb.php
-	// 		die("<script>alert('New thumbnails generated. Reload the page.');</script>");
-	// }
+	// Refresh the thumbnails on the fly - secretpassword123 will of course be changed when put online
+	if(!empty($_GET['generatenewthumbnailsformeprettyplease']) && $_GET['generatenewthumbnailsformeprettyplease'] == 'secretpassword123'){
+		createThumbs();
+	}
 	
 	// Declare variables so it doesn't complain to me later x.x
 	$thelist = '';
@@ -63,7 +64,7 @@
 	 * Recently Uploaded Pictures on sidebar - Frontend DONE - Backend Needed (upload)
 	 * DONE - Automatic detection of missing or nonexistant thumbnails (either replace with nothumb.png or generate new one on spot)
 	 * Force spaces on tags
-	 * Fix headstuff() and title()
+	 * Fix headstuff() and title() without raping the html by putting the tags in the wrong places
 	 * Multiple tags without search?
 	 * Classes? - Might just go as far as to seperate the functions
 	 * Temporarly dropped support for bitmap files until I learn how to generate those
@@ -196,11 +197,25 @@
 									}
 									$row = $result->fetch_assoc();
 									if ($row){
+										$thethumbs = '';
+										if($thumbs = opendir('thumbs')){
+											while(false != ($fiel = readdir($thumbs))){
+												// Test if thumbnail exists if not show nothumb.png
+												if($fiel != "." && $fiel != ".." && $fiel != ".htaccess"){
+													$thethumbs .= "-".$fiel;
+												}
+											}
+											closedir($thumbs);
+										}
+										$thethumbs = explode("-", $thethumbs);
 										$name = $row['name'];
 										$name = explode("-", $name);
 										foreach($name as $names){
-											//echo '<a href="?img='.$names.'"><img src="thumbs/'.$names.'"></a>';
-											echo '<a href="?img='.$names.'"><img src="nothumb.png" alt="'.$names.'" title="'.$names.'"/></a>'."\n		";
+											if(in_array($names, $thethumbs)){
+												echo '<a href="?img='.$names.'"><img src="thumbs/'.$names.'" alt="'.$names.'" title="'.$names.'"/></a>'."\n		";
+											}else{
+												echo '<a href="?img='.$names.'"><img src="nothumb.png" alt="'.$names.'" title="'.$names.'"/></a>'."\n		";
+											}
 											//echo '<a href="?img='.$names.'"><img src="thumbs/'.$names.'" alt="'.$names.'" title="'.$names.'"/></a>'."\n		";
 										}
 									}else{
@@ -243,9 +258,14 @@
 			<div class="footer_wrapper">
 				<div class="footer_left">
 					<p>
-						<a href="http://www.unps-gama.info/privacy.html">Privacy Policy</a> - <a href="http://www.unps-gama.info/ToS.html">Terms of Service</a> - Modified <a href="http://imotta.cn/wordpress/pyrmont-theme-v2-for-wordpress.html">Pyrmont V2</a> - <strong>Copyright &copy; 2012-2013 UnPS-GAMA</strong> 
+						<a href="http://www.unps-gama.info/privacy.html">Privacy Policy</a> - <a href="http://www.unps-gama.info/ToS.html">Terms of Service</a> - Modified <a href="http://imotta.cn/wordpress/pyrmont-theme-v2-for-wordpress.html">Pyrmont V2</a> - <strong>Copyright &copy; 2012-2013 UnPS-GAMA</strong>
 					</p>
 				</div> <!-- End Footer_Left -->
+				<div class="footer_right">
+					<p>
+						<?php echo "Page generated in: ".round(number_format(microtime(true)-$pst,6), 4)." Seconds"; ?>
+					</p>
+				</div> <!-- End Footer_Right -->
 			</div> <!-- End Footer_Wrapper -->
 		</div> <!-- End Footer -->
 	</body>
