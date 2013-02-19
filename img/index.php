@@ -11,12 +11,13 @@
 	 * 							TODO:
 	 *
 	 * JavaScript fo show bigger image if clicked 
-	 * Recently Uploaded Pictures on sidebar - OUTPUT DONE - FIX INPUT (upload)
-	 * Automatic thumbnail generation - genthumb() (100px x 100px)
+	 * Recently Uploaded Pictures on sidebar - Frontend DONE - Backend Needed (upload)
+	 * DONE -  Automatic thumbnail generation - genthumb() (100px x 100px)
 	 * Force Spaces in tags
 	 * Fix headstuff() and title()
 	 * Multiple tags without search?
-	 * Classes?
+	 * Classes? - Might just go as far as to seperate the functions
+	 * Temporarly dropped support for bitmap files until I learn how to generate those
 	 *
 	 * -----------------------------------------------------------
 	 */
@@ -26,6 +27,11 @@
 	require('helper.genthumb.php'); // Helper.GenThumb.php - Function for generating thumbnails on upload
 	require('img.extra.php'); // Img.Extra.php - Extra main functions
 	require('img.main.php'); // Img.Main.php - Main program
+	
+	// If thumbnails don't preexist{
+	// 		createThumbs(); // Found inside helper.genthumb.php
+	// 		die("<script>alert('New thumbnails generated. Reload the page.');</script>");
+	// }
 	
 	// Declare variables so it doesn't complain to me later x.x
 	$thelist = '';
@@ -54,12 +60,13 @@
 	 * 							TODO:
 	 *
 	 * JavaScript fo show bigger image if clicked 
-	 * Recently Uploaded Pictures on sidebar - OUTPUT DONE - FIX INPUT (upload)
-	 * Automatic thumbnail generation - genthumb() (100px x 100px)
+	 * Recently Uploaded Pictures on sidebar - Frontend DONE - Backend Needed (upload)
+	 * DONE - Automatic thumbnail generation - genthumb() (100px x 100px)
 	 * Force spaces on tags
 	 * Fix headstuff() and title()
 	 * Multiple tags without search?
-	 * Classes?
+	 * Classes? - Might just go as far as to seperate the functions
+	 * Temporarly dropped support for bitmap files until I learn how to generate those
 	 *
 	 * -----------------------------------------------------------
 	 *
@@ -96,7 +103,7 @@
 		<div id="page_wrap">
 			<div id="header">
 				<img src="header.png" alt="Header image"/>
-			</div>
+			</div> <!-- End Header -->
 			
 			<div id="main_navi">
 				<ul class="left">
@@ -112,26 +119,26 @@
 				<ul class="right">
 					<li class="twitter"><a href="http://twitter.com/upstandards" title="Follow UnPS on twitter">TWITTER</a></li>
 				</ul>	
-			</div>
+			</div> <!-- End Navbar -->
 			
 			<div class="clear"></div>
 			
 			<div id="container">
 				<div id="main">
 					<div class="sticky">
-						Thumbnails need work
-					</div>
+						Recent Pictures needs a backend - Frontend complete
+					</div> <!-- End Sticky -->
 					<div class="post">
 						<div class="entry"><!-- Begin image stuff php -->
 							<?php 
 								imgstuff();
 							?>
-						</div>
-					</div>
-				</div>
+						</div> <!-- End Entry -->
+					</div> <!-- End Post -->
+				</div> <!-- End Main -->
 				
 				<div id="sidebar">
-					<ul>
+					<ul> <!-- Searchbar -->
 						<li class="widget widget_search">
 							<div id="search">
 								<form action="" method="get" name="search" id="search">
@@ -141,7 +148,7 @@
 							</div>
 						</li>
 					</ul>
-					<!--<br /> Might not keep this
+					<!--<br /> Might not keep this - Ads
 					<ul>
 						<li class="widget widget_text">
 							<div class="textwidget">
@@ -161,7 +168,7 @@
 							</div>
 						</li>
 					</ul>-->
-					<!--<br /> Might not keep this
+					<!--<br /> Might not keep this - Social Media Buttons
 					<ul>
 						<li class="widget widget_text">
 							<div class="textwidget">
@@ -171,20 +178,8 @@
 							</div>
 						</li>
 					</ul>-->
-					<!-- This is what I want the end result of the recently uploaded pictures to look like- ->
 					<br />
-					<ul>
-						<li class="widget widget_text">
-							<div class="textwidget">
-								<h3>Recently Uploaded Pictures</h3><br />
-								<a href="?img=1607vhu.png"><img src="thumbs/1607vhu.png" alt="1607vhu.png" title="1607vhu.png"/></a>
-								<a href="?img=icbqp9.jpg"><img src="thumbs/icbqp9.jpg" alt="icbqp9.jpg" title="icbqp9.jpg"/></a>
-							</div>
-						</li>
-					</ul>
-					<!-------- Make what's commented below resemble (in output) what happens above-->
-					<br />
-					<ul>
+					<ul> <!-- Recent Pictures -->
 						<li class="widget widget_text">
 							<div class="textwidget">
 								<h3>Recently Uploaded Pictures</h3><br />
@@ -210,7 +205,7 @@
 						</li>
 					</ul>
 					<!-- textstuff is right under here (not shown unless picture is viewed though) -->
-					<?php
+					<?php // Image info
 					if($_SESSION['noimg'] == false){
 						echo "
 						<br />
@@ -227,26 +222,26 @@
 					}
 					?>
 					<br />
-						<ul>
-							<li class="widget widget_text">
-								<div class="textwidget">
-									<h4>Want to upload pictures?</h4>
-									<a href='?upload'>Image Uploader Here</a>
-								</div>
-							</li>
-						</ul>
-				</div>
-			</div>
-		</div>
+					<ul> <!-- Upload -->
+						<li class="widget widget_text">
+							<div class="textwidget">
+								<h4>Want to upload pictures?</h4>
+								<a href='?upload'>Image Uploader Here</a>
+							</div>
+						</li>
+					</ul>
+				</div> <!-- End Sidebar -->
+			</div> <!-- End Container -->
+		</div> <!-- End Page_Wrap -->
 		<div id="footer">
 			<div class="footer_wrapper">
 				<div class="footer_left">
 					<p>
 						<a href="http://www.unps-gama.info/privacy.html">Privacy Policy</a> - <a href="http://www.unps-gama.info/ToS.html">Terms of Service</a> - Modified <a href="http://imotta.cn/wordpress/pyrmont-theme-v2-for-wordpress.html">Pyrmont V2</a> - <strong>Copyright &copy; 2012-2013 UnPS-GAMA</strong> 
 					</p>
-				</div>
-			</div>
-		</div>
+				</div> <!-- End Footer_Left -->
+			</div> <!-- End Footer_Wrapper -->
+		</div> <!-- End Footer -->
 	</body>
 </html>
-<?php session_unset(); session_destroy(); ?>
+<?php session_unset(); session_destroy();  // To stop carrying over of unneeded info ?>
