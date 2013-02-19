@@ -124,6 +124,11 @@
 			<div class="clear"></div>
 			
 			<div id="container">
+				<div id="mainwide" class="ad">
+					<div class="post"><!-- 925x120px seems optimal -->
+						<img src="./add.png" alt="This is a placeholder for ads" />
+					</div> <!-- End Post -->
+				</div> <!-- End MainWide -->
 				<div id="main">
 					<div class="sticky">
 						Recent Pictures needs a backend - Frontend complete
