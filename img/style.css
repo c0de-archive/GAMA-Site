@@ -127,11 +127,29 @@ div#main_navi ul.right li.twitter a:hover{
 	color:#0af;
 }
 
+div#mainwide{
+	width:945px;
+	float:left;
+	display:inline;
+	margin:20px 25px 00px 10px;
+}
+
+div#mainwide div.post{
+	background-color:#131313;
+	border:1px solid #1f2223;
+	color:#ccc;
+	line-height:22px;
+	text-align:center;
+	float:center;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+
 div#main{
 	width:650px;
 	float:left;
 	display:inline;
-	margin:30px 25px 30px 10px;
+	margin:20px 25px 30px 10px;
 }
 
 div#main div.post{
@@ -237,7 +255,7 @@ div#sidebar{
 	width:270px;
 	float:left;
 	display:inline;
-	margin-top:30px;
+	margin-top:20px;
 	margin-bottom:30px;
 	overflow:hidden;
 	color:#aaa;
