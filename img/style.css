@@ -376,6 +376,10 @@ div#footer div.footer_left a{
 
 div#footer div.footer_left a:hover{color:#fff;}
 
+div#footer div.footer_right{
+	float:right;
+}
+
 html,body,#page_wrap{height:100%;}
 
 body > #page_wrap{
