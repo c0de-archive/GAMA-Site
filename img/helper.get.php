@@ -3,7 +3,7 @@
 	/*------------------------------------------
 	 * Helper.Get.php - Holds the functions for get - uname, tag, search, and upload
 	 * 
-	 * Copyright (c) 2013 David Todd(c0de) of http://www.unps-gama.info and http://unps.us 
+	 * Copyright (c) 2013 David Todd (c0de) of http://www.unps-gama.info and http://unps.us 
 	 * for use with the image host (http://img.unps-gama.info)
 	 *------------------------------------------
 	 */
@@ -112,7 +112,7 @@
 			$max_file_size="4096";
 			$file_uploads="1";
 			$websitename="UnPS-GAMA Image Host Uploader";
-			$allow_types=array("jpg","gif","png","bmp","JPEG","JPG","GIF","PNG");
+			$allow_types=array("jpg","gif","png","JPEG","JPG","GIF","PNG");
 			echo "
 				<center>
 				<form name=\"uploadform\" action=\"\" method=\"post\" enctype=\"multipart/form-data\">
@@ -125,7 +125,7 @@
 					</tr>
 					<tr>
 						<td colspan=\"2\" class=\"upload_info\">
-							<b>Allowed Types:</b> jpg, gif, png, bmp<br />
+							<b>Allowed Types:</b> jpg, gif, png<br />
 							<b>Max size per file:</b> 4 MB.
 						</td>
 					</tr>
@@ -163,7 +163,7 @@
 			require('dbsettings.php');
 			
 			$location = 'Pictures'; 
-			$extensions = array('png', 'gif', 'jpg', 'jpeg', 'bmp'); 
+			$extensions = array('png', 'gif', 'jpg', 'jpeg'); 
 			$short = substr(number_format(time() * mt_rand(),0,'',''),0,10); 
 			$short = base_convert($short, 10, 36); 
 			
@@ -206,7 +206,7 @@
 							if($result = $db->query($sql)){
 								move_uploaded_file($_FILES["file"]["tmp_name"], "Pictures/" . $name);
 								$donefile = 'Pictures/'.$name;
-								genthumb($donefile);
+								genthumb($name);
 								echo "Stored at: <a href='?img=$name'>". $name."</a>";
 							}elseif(!$result = $db->query($sql)){
 								die('There was a problem trying to upload your file - [' . $db->error . ']');
