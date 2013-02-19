@@ -3,7 +3,7 @@
 	/*------------------------------------------
 	 * Img.Main.php - Main program
 	 * 
-	 * Copyright (c) 2013 David Todd(c0de) of http://www.unps-gama.info and http://unps.us 
+	 * Copyright (c) 2013 David Todd (c0de) of http://www.unps-gama.info and http://unps.us 
 	 * for use with the image host (http://img.unps-gama.info)
 	 *------------------------------------------
 	 */
@@ -40,7 +40,6 @@
 				$_SESSION['username'] = $row['username'];
 				$_SESSION['tags'] = $row['tags'];
 				echo "<center><img id='the_pic' class='fit' src=\"".$_SESSION['location']."/$img\" /><br /></center>";
-				//echo "$id<br>$img<br>$location<br>$type<br>$size<br>$time<br>$comment<br>$username<br>$tags\n";
 			}else{
 				$_SESSION['noimg'] = true;
 				echo "<center><h3>That image was not found in our database D:</h3></center>";

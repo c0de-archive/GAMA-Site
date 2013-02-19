@@ -77,7 +77,7 @@
 			if($pics == '' || $pics == null){
 				echo '';
 			}else{ // Checks if there is a thumbnail for the image, if not show nothumb.png
-				if(in_array($pics, $thethumbs)){
+				if(in_array($pics, $thethumbs)){ // Totally figured out how to use in_array by looking at default php scripts (Thank you wingrep :3)
 					echo '<a href="?img='.$pics.'"><img src="thumbs/'.$pics.'" alt="'.$pics.'" title="'.$pics.'"/></a>'."\n		";
 				}else{
 					echo '<a href="?img='.$pics.'"><img src="nothumb.png" alt="'.$pics.'" title="'.$pics.'"/></a>'."\n		";

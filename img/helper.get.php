@@ -211,7 +211,7 @@
 							}elseif(!$result = $db->query($sql)){
 								die('There was a problem trying to upload your file - [' . $db->error . ']');
 							}else{
-								echo "There was a problem trying to upload your file - Could be a database error";
+								echo "There was a problem trying to upload your file - Could be a server error";
 							}
 						}
 					}

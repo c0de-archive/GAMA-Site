@@ -3,7 +3,7 @@
 	/*------------------------------------------
 	 * Helper.Clean.php - Holds the functions for cleaning input and output
 	 * 
-	 * Copyright (c) 2013 David Todd(c0de) of http://www.unps-gama.info and http://unps.us 
+	 * Copyright (c) 2013 David Todd (c0de) of http://www.unps-gama.info and http://unps.us 
 	 * for use with the image host (http://img.unps-gama.info)
 	 *------------------------------------------
 	 */
