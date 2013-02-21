@@ -38,7 +38,6 @@
 				echo "</center><br />";
 			}
 			$result->free();
-			//echo "<br /><hr /><br />";
 		}
 	}
 	
@@ -67,7 +66,6 @@
 				echo "<center><a href=\"?img=$img\"><img src=\"thumbs/$img\" alt=\"Thumbnail of $img\" align=\"middle\"></a> <br /> <a href=\"?img=$img\">$img</a> - $time - $size - Uploader: <a href=\"?uname=$username\">$username</a><br /></center><br />";
 			}
 			$result->free();
-			//echo "<br /><hr /><br />";
 		}
 	}
 	
@@ -103,7 +101,6 @@
 				echo "<center><a href=\"?img=$img\"><img src=\"thumbs/$img\" alt=\"Thumbnail of $img\" align=\"middle\"></a><br /> <a href=\"?img=$img\">$img</a> - $time - $size - Uploader: <a href=\"?uname=$username\">$username</a><br /></center>";
 			}
 			$result->free();
-			//echo "<br /><hr /><br />";
 		}
 	}
 	
