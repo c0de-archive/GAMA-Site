@@ -81,9 +81,9 @@
 			echo "		<meta property=\"og:url\" content=\"http://img.unps-gama.info/index.php?img=".$_GET['img']."\" />\n";
 			echo "		<meta property=\"og:image\" content=\"http://img.unps-gama.info/Pictures/".$_GET['img']."\" />\n";
 			echo "		<meta property=\"og:description\" content=\"".$_GET['img']."\" />\n";
-			echo "		<title>UnPS-GAMA Image Host - Now Showing: ".$_GET['img']."</title>";
+			echo "		<title>UnPS-GAMA Image Host - Now Showing: ".$_GET['img']."</title>\n";
 		}else{
-			echo "<title>UnPS-GAMA Image Host</title>";
+			echo "<title>UnPS-GAMA Image Host</title>\n";
 		}
 		?>
 		<link rel="shortcut icon" type="image/ico" href="favicon.ico" />
