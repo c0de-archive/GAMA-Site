@@ -13,9 +13,8 @@
 	 *
 	 * JavaScript fo show bigger image if clicked 
 	 * Recently Uploaded Pictures on sidebar - Frontend DONE - Backend Needed (upload)
-	 * DONE - Automatic detection of missing or nonexistant thumbnails (either replace with nothumb.png or generate new one on spot)
 	 * Force Spaces in tags
-	 * Fix headstuff() and title() without raping the html by putting the tags in the wrong places
+	 * DONE - Fix headstuff() and title() without raping the html by putting the tags in the wrong places
 	 * Multiple tags without search?
 	 * Classes? - Might just go as far as to seperate the functions
 	 * Temporarly dropped support for bitmap files until I learn how to generate those
@@ -62,9 +61,8 @@
 	 *
 	 * JavaScript fo show bigger image if clicked 
 	 * Recently Uploaded Pictures on sidebar - Frontend DONE - Backend Needed (upload)
-	 * DONE - Automatic detection of missing or nonexistant thumbnails (either replace with nothumb.png or generate new one on spot)
 	 * Force spaces on tags
-	 * Fix headstuff() and title() without raping the html by putting the tags in the wrong places
+	 * DONE - Fix headstuff() and title() without raping the html by putting the tags in the wrong places
 	 * Multiple tags without search?
 	 * Classes? - Might just go as far as to seperate the functions
 	 * Temporarly dropped support for bitmap files until I learn how to generate those
@@ -77,8 +75,17 @@
 		<meta name="description" content="Image Host for UnProfessional Standards" />
 		<meta name="keywords" content="GAMA,UnPS,upstandards,unps-gama,gama-unps,unps,gama,davitech,davitodd" />
 		<meta name="author" content="David Todd" />
-		<?php //headstuff(); ?>
-		<title>UnPS-GAMA Image Host<?php //title(); ?></title>
+		<?php
+		if(isset($_GET['img']) && !empty($_GET['img'])){
+			echo "<meta property=\"og:title\" content=\"".$_GET['img']."\" />\n";
+			echo "		<meta property=\"og:url\" content=\"http://img.unps-gama.info/index.php?img=".$_GET['img']."\" />\n";
+			echo "		<meta property=\"og:image\" content=\"http://img.unps-gama.info/Pictures/".$_GET['img']."\" />\n";
+			echo "		<meta property=\"og:description\" content=\"".$_GET['img']."\" />\n";
+			echo "		<title>UnPS-GAMA Image Host - Now Showing: ".$_GET['img']."</title>";
+		}else{
+			echo "<title>UnPS-GAMA Image Host</title>";
+		}
+		?>
 		<link rel="shortcut icon" type="image/ico" href="favicon.ico" />
 		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 		<link rel="stylesheet" href="style.css" type="text/css" media="screen" />
@@ -126,7 +133,7 @@
 			
 			<div id="container">
 				<div id="mainwide" class="ad">
-					<div class="post"><!-- 925x120px seems optimal -->
+					<div class="post"><!-- 925x96px seems optimal -->
 						<img src="./add.png" alt="This is a placeholder for ads" />
 					</div> <!-- End Post -->
 				</div> <!-- End MainWide -->
