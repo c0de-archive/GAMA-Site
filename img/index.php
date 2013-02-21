@@ -14,7 +14,6 @@
 	 * JavaScript fo show bigger image if clicked 
 	 * Recently Uploaded Pictures on sidebar - Frontend DONE - Backend Needed (upload)
 	 * Force Spaces in tags
-	 * DONE - Fix headstuff() and title() without raping the html by putting the tags in the wrong places
 	 * Multiple tags without search?
 	 * Classes? - Might just go as far as to seperate the functions
 	 * Temporarly dropped support for bitmap files until I learn how to generate those
@@ -62,7 +61,6 @@
 	 * JavaScript fo show bigger image if clicked 
 	 * Recently Uploaded Pictures on sidebar - Frontend DONE - Backend Needed (upload)
 	 * Force spaces on tags
-	 * DONE - Fix headstuff() and title() without raping the html by putting the tags in the wrong places
 	 * Multiple tags without search?
 	 * Classes? - Might just go as far as to seperate the functions
 	 * Temporarly dropped support for bitmap files until I learn how to generate those
@@ -139,7 +137,7 @@
 				</div> <!-- End MainWide -->
 				<div id="main">
 					<div class="sticky">
-						Fix headstuff and title
+						Force spaces on tags
 					</div> <!-- End Sticky -->
 					<div class="post">
 						<div class="entry"><!-- Begin image stuff php -->
