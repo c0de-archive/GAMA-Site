@@ -240,15 +240,12 @@ div#main div.post div.entry code{
 div#main div.post div.entry table{
 	margin-bottom:20px;
 	border-collapse:collapse;
-	border:1px solid #2a2e2f;
-	background-color:#181818;
 	color:#999;
 	text-align:center;
 }
 
 div#main div.post div.entry table td,div#main div.post div.entry table th{
-	border:1px solid #2a2e2f;
-	padding:2px 5px;
+	padding:1px;
 }
 
 div#sidebar{
