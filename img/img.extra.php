@@ -7,15 +7,6 @@
 	 * for use with the image host (http://img.unps-gama.info)
 	 *------------------------------------------
 	 */
-
-	function headstuff(){ // Sets the meta tags - WIP/iffy
-		if(isset($_SESSION['img'])){
-			echo "<meta property=\"og:title\" content=\"".$_SESSION['img']."\" />\n";
-			echo "		<meta property=\"og:url\" content=\"http://img.unps-gama.info/index.php?img=".$_SESSION['img']."\" />\n";
-			echo "		<meta property=\"og:image\" content=\"http://img.unps-gama.info/".$_SESSION['location']."/".$_SESSION['img']."\" />\n";
-			echo "		<meta property=\"og:description\" content=\"".$_SESSION['comment']."\" />\n";
-		}
-	}
 	
 	function textstuff(){ // Sets up right side box of info under the other sidebars
 		if($_SESSION['noimg'] == false){
@@ -41,17 +32,7 @@
 	}
 	
 	function noimg(){ // Shown in place of the image if one isn't available
-		$thelist = '';
 		$thethumbs = '';
-		$_SESSION['thethumbs'] = '';
-		if($handle = opendir('Pictures')){
-			while(false != ($file = readdir($handle))){
-				if($file != "." && $file != ".." && $file != ".htaccess"){
-					$thelist .= "-".$file;
-				}
-			}
-			closedir($handle);
-		}
 		if($thumbs = opendir('thumbs')){
 			while(false != ($fiel = readdir($thumbs))){
 				// Test if thumbnail exists if not show nothumb.png
@@ -69,32 +50,38 @@
 				</code>
 			</p>
 			<center>
-			<h4>Uploaded Pictures:</h4>
+			<h4>Uploaded Pictures:</h4><br />
 		";
-		$thelist = explode("-", $thelist);
 		$thethumbs = explode("-", $thethumbs);
-		foreach($thelist as $pics){
-			if($pics == '' || $pics == null){
-				echo '';
-			}else{ // Checks if there is a thumbnail for the image, if not show nothumb.png
-				if(in_array($pics, $thethumbs)){ // Totally figured out how to use in_array by looking at default php scripts (Thank you wingrep :3)
-					echo '<a href="?img='.$pics.'"><img src="thumbs/'.$pics.'" alt="'.$pics.'" title="'.$pics.'"/></a>'."\n		";
+		// The following code has a bunch of whitespaces in it to make the html look nice when its source is looked at
+		$output = "	<table cellspacing=\"0\" cellpadding=\"0\" width=\"520\"  border=\"0\">\n";
+		$output .= "				<tr>\n";
+		$dir = opendir("Pictures");
+		$counter = 0;
+		while (false !== ($fname = readdir($dir))){
+			if ($fname != '.' && $fname != '..'){
+				$output .= "					<td>";
+				if(in_array($fname, $thethumbs)){ // Totally figured out how to use in_array by looking at default php scripts (Thank you wingrep :3)
+					$output .= '<a href="?img='.$fname.'"><img src="thumbs/'.$fname.'" alt="'.$fname.'" title="'.$fname.'"/></a>';
 				}else{
-					echo '<a href="?img='.$pics.'"><img src="nothumb.png" alt="'.$pics.'" title="'.$pics.'"/></a>'."\n		";
+					$output .= '<a href="?img='.$fname.'"><img src="nothumb.png" alt="'.$fname.'" title="'.$fname.'"/></a>';
+				}
+				//$output .= "<img src='thumbs/$fname' alt='$fname' title='$fname' border=\"0\" />";
+				$output .= "</td>\n";
+				$counter += 1;
+				if ($counter % 5 == 0){ 
+					$output .= "				</tr><tr>\n"; 
 				}
 			}
 		}
+		closedir( $dir );
+		$output .= "				</tr>\n";
+		$output .= "			</table>		";
+		// End of weird whitespaces
+		echo $output;
 		echo"
 			</center>
 		";
 	}
 	
-	function title(){ // Suffers same problem as headstuff()
-		if(!isset($_SESSION['img'])){ 
-			echo "";
-		}else{
-			echo " - Now Showing: ".$_SESSION['img'];
-		}
-	}
-
 ?>
