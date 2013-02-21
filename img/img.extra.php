@@ -66,7 +66,6 @@
 				}else{
 					$output .= '<a href="?img='.$fname.'"><img src="nothumb.png" alt="'.$fname.'" title="'.$fname.'"/></a>';
 				}
-				//$output .= "<img src='thumbs/$fname' alt='$fname' title='$fname' border=\"0\" />";
 				$output .= "</td>\n";
 				$counter += 1;
 				if ($counter % 5 == 0){ 
