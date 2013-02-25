@@ -12,7 +12,7 @@
 	 * 							TODO:
 	 *
 	 * JavaScript fo show bigger image if clicked 
-	 * Recently Uploaded Pictures on sidebar - Frontend DONE - Backend Needed (upload)
+	 * DONE - Recently Uploaded Pictures on sidebar
 	 * Force Spaces in tags
 	 * Multiple tags without search?
 	 * Classes? - Might just go as far as to seperate the functions
@@ -59,7 +59,7 @@
 	 * 							TODO:
 	 *
 	 * JavaScript fo show bigger image if clicked 
-	 * Recently Uploaded Pictures on sidebar - Frontend DONE - Backend Needed (upload)
+	 * DONE - Recently Uploaded Pictures on sidebar
 	 * Force spaces on tags
 	 * Multiple tags without search?
 	 * Classes? - Might just go as far as to seperate the functions
