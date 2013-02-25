@@ -199,14 +199,40 @@
 							echo $name." is not allowed, sorry about that...";
 						}else{
 							// Somehow bump one of the images from the recently upload table and add new image in its place
-							$sql="INSERT INTO `share` (name, location, type, size, time, comment, username, tags) VALUES ('$name', '$location', '$type', '$size', '$time', '$upcomment', '$upusername', '$tags')";
+							$sql = "SELECT `name` FROM `recentpics` WHERE `id` = '1'";
 							if($result = $db->query($sql)){
-								move_uploaded_file($_FILES["file"]["tmp_name"], "Pictures/" . $name);
-								$donefile = 'Pictures/'.$name;
-								genthumb($name);
-								echo "Stored at: <a href='?img=$name'>". $name."</a>";
+								$row = $result->fetch_assoc();
+								if ($row){
+									$rpics = explode('-', $row['name']);
+									$rpics = $rpics[1].'-'.$name;	
+									$sql = "DELETE FROM `recentpics` WHERE `id` = 1";
+									if($result = $db->query($sql)){
+										$sql = "INSERT INTO `recentpics` (id, name) VALUES ('1', '$rpics')";
+										if($result = $db->query($sql)){
+											$sql="INSERT INTO `share` (name, location, type, size, time, comment, username, tags) VALUES ('$name', '$location', '$type', '$size', '$time', '$upcomment', '$upusername', '$tags')";
+											if($result = $db->query($sql)){
+												move_uploaded_file($_FILES["file"]["tmp_name"], "Pictures/" . $name);
+												$donefile = 'Pictures/'.$name;
+												genthumb($name);
+												echo "Stored at: <a href='?img=$name'>". $name."</a>";
+											}elseif(!$result = $db->query($sql)){
+												echo 'There was a problem trying to upload your file - [' . $db->error . ']';
+											}else{
+												echo "There was a problem trying to upload your file - Could be a server error";
+											}
+										}elseif(!$result = $db->query($sql)){
+											echo 'There was a problem trying to upload your file - [ '.$db->error.' ]';
+										}else{
+											echo "There was a problem trying to upload your file - Could be a server error";
+										}
+									}elseif(!$result = $db->query($sql)){
+										echo 'There was a problem trying to upload your file - [ '.$db->error.' ]';
+									}else{
+										echo "There was a problem trying to upload your file - Could be a server error";
+									}
+								}
 							}elseif(!$result = $db->query($sql)){
-								die('There was a problem trying to upload your file - [' . $db->error . ']');
+								echo 'There was a problem trying to upload your file - [ '.$db->error.' ]';
 							}else{
 								echo "There was a problem trying to upload your file - Could be a server error";
 							}
