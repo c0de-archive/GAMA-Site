@@ -2,6 +2,7 @@
 
 	/*------------------------------------------
 	 * Helper.GenThumb.php - Function for generating thumbnails on upload
+	 * Copied from http://webcheatsheet.com/php/create_thumbnail_images.php and modified for my use
 	 * 
 	 * Copyright (c) 2013 David Todd (c0de) of http://www.unps-gama.info and http://unps.us 
 	 * for use with the image host (http://img.unps-gama.info)
@@ -40,7 +41,7 @@
 		$h_height = $nh/2;
 		$w_height = $nw/2;
  
-		if($w> $h){ // Debating weather or not to keep the cropping
+		if($w> $h){ // Debating whether or not to keep the cropping
 			$adjusted_width = $w / $hm;
 			$half_width = $adjusted_width / 2;
 			$int_width = $half_width - $w_height;
@@ -106,7 +107,7 @@
 		$h_height = $nh/2;
 		$w_height = $nw/2;
  
-		if($w> $h){ // Debating weather or not to keep the cropping
+		if($w> $h){ // Debating whether or not to keep the cropping
 			$adjusted_width = $w / $hm;
 			$half_width = $adjusted_width / 2;
 			$int_width = $half_width - $w_height;
