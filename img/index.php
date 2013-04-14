@@ -12,13 +12,21 @@
 	 * 							TODO:
 	 *
 	 * JavaScript fo show bigger image if clicked 
-	 * DONE - Recently Uploaded Pictures on sidebar
+	 * Optomize Upload - Uses 4 mysql calls to upload 1 file
 	 * Force Spaces in tags
 	 * Multiple tags without search?
 	 * Classes? - Might just go as far as to seperate the functions
 	 * Temporarly dropped support for bitmap files until I learn how to generate those
+	 * unps.us picture redirection support? (unps.us/?i=name.ext redirect to img.unps-gama.info/?img=name.ext) 
+	 * New idea for recent pictures: Instead of using one row in db and array tricks, use multiple rows and order by dateposted in decending order - $sql = "SELECT * FROM `recentpics` ORDER BY `dateposted` DESC LIMIT 2"; - Should reduce upload sql queries to only two.
 	 *
 	 * -----------------------------------------------------------
+	 *
+	 * For unps.us short image link support
+	 * if(isset($_GET['i']) && !empty($_GET['i'])){
+	 * 	header('location:http://img.unps-gama.info/?img='.$_GET['i']);
+	 * }
+	 *
 	 */
 		
 	require('helper.get.php'); // Helper.Get.php - Holds the functions for get - uname, tag, search, and upload
@@ -56,16 +64,23 @@
 	 * Author: David Todd (c0de) of http://www.unps-gama.info and http://unps.us
 	 *
 	 * -----------------------------------------------------------
-	 * 							TODO:
+	 *                           TODO:
 	 *
 	 * JavaScript fo show bigger image if clicked 
-	 * DONE - Recently Uploaded Pictures on sidebar
+	 * Optomize Upload - Uses 4 mysql calls to upload 1 file
 	 * Force spaces on tags
 	 * Multiple tags without search?
 	 * Classes? - Might just go as far as to seperate the functions
 	 * Temporarly dropped support for bitmap files until I learn how to generate those
+	 * unps.us picture redirection support? (unps.us/?i=name.ext redirect to img.unps-gama.info/?img=name.ext)
+	 * New idea for recent pictures: Instead of using one row in db and array tricks, use multiple rows and order by dateposted in decending order - $sql = "SELECT * FROM `recentpics` ORDER BY `dateposted` DESC LIMIT 2"; - Should reduce upload sql queries to only two.
 	 *
 	 * -----------------------------------------------------------
+	 *
+	 * For unps.us short image link support
+	 * if(isset($_GET['i']) && !empty($_GET['i'])){
+	 * 	header('location:http://img.unps-gama.info/?img='.$_GET['i']);
+	 * }
 	 *
 -->
 	<head>
@@ -87,7 +102,8 @@
 		<link rel="shortcut icon" type="image/ico" href="favicon.ico" />
 		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 		<link rel="stylesheet" href="style.css" type="text/css" media="screen" />
-		<script src="jquery.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="js/jquery.zclip.js"></script>
 		<script type="text/javascript" language="JavaScript">
 			function set_body_height(){
 				var wh = $(window).height();
@@ -96,6 +112,10 @@
 			$(document).ready(function() {
 				set_body_height();
 				$(window).bind('resize', function() { set_body_height(); });
+				$('a#copy-description').zclip({
+					path:'ZeroClipboard.swf',
+					copy:$('a#copy-description').text()
+				});
 			});
 		</script>
 		<style type="text/css">
@@ -136,7 +156,7 @@
 					</div> <!-- End Post -->
 				</div> <!-- End MainWide -->
 				<div id="main">
-					<div class="sticky">
+					<!--<div class="sticky">
 						Force spaces on tags
 					</div> <!-- End Sticky -->
 					<div class="post">
@@ -154,7 +174,10 @@
 							<div id="search">
 								<form action="" method="get" name="search" id="search">
 									<input name="search" id="search" type="text" placeholder="Search" />
-									<input id="submit" name="submit" type="submit" value=" Search " />
+									<input id="submit" name="submit" type="submit" value=" Search " /><br />
+									<div style="padding-left:29px;padding-top:3px;float:left;">
+										<input name="google" id="google" type="checkbox" /> Google Search This
+									</div><br />
 								</form>
 							</div>
 						</li>
@@ -173,8 +196,8 @@
 					<ul> <!-- Recent Pictures -->
 						<li class="widget widget_text">
 							<div class="textwidget">
-								<h3>Recently Uploaded Pictures</h3><br />
-								<?php // Not currently working
+								<h3>Recently Uploaded Pictures</h3><p></p>
+								<?php
 									require('dbsettings.php');
 									$sql = "SELECT * FROM `recentpics` WHERE `id` = 1";
 									if(!$result = $db->query($sql)){
@@ -185,7 +208,6 @@
 										$thethumbs = '';
 										if($thumbs = opendir('thumbs')){
 											while(false != ($fiel = readdir($thumbs))){
-												// Test if thumbnail exists if not show nothumb.png
 												if($fiel != "." && $fiel != ".." && $fiel != ".htaccess"){
 													$thethumbs .= "-".$fiel;
 												}
@@ -197,15 +219,15 @@
 										$name = explode("-", $name);
 										foreach($name as $names){
 											if(in_array($names, $thethumbs)){
-												echo '<a href="?img='.$names.'"><img src="thumbs/'.$names.'" alt="'.$names.'" title="'.$names.'"/></a>'."\n		";
+												echo '<a href="?img='.$names.'"><img src="thumbs/'.$names.'" alt="'.$names.'" title="'.$names.'"/></a>'."\n								";
 											}else{
-												echo '<a href="?img='.$names.'"><img src="nothumb.png" alt="'.$names.'" title="'.$names.'"/></a>'."\n		";
+												echo '<a href="?img='.$names.'"><img src="nothumb.png" alt="'.$names.'" title="'.$names.'"/></a>'."\n								";
 											}
-											//echo '<a href="?img='.$names.'"><img src="thumbs/'.$names.'" alt="'.$names.'" title="'.$names.'"/></a>'."\n		";
 										}
 									}else{
 										echo "Error getting images from database";
 									}
+									echo "\n";
 								?>
 							</div>
 						</li>
