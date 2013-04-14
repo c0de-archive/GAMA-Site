@@ -72,6 +72,10 @@
 	function search(){
 		if(!empty($_GET['search'])){ // Show list of pictures according to search term
 			$search = sanitize($_GET['search']);
+			if(isset($_GET['google']) && $_GET['google'] == "on"){
+				$gsearch = preg_replace("/ /", "+", $search);
+				header('location:https://www.google.com/search?q=site:http%3A%2F%2Fimg.unps-gama.info+'.$gsearch);
+			}
 			$search = explode(" ", $search);
 			echo "<center><h4>Pictures found using search terms: ";
 			foreach ($search as $searches){
@@ -178,8 +182,8 @@
 			$tags = sanitize($tags);
 			$upusername = sanitize($upusername);
 			
-			//$notspace = array("\,", ".", "/", "\\", ":", "-", "_", "+", "=", "~", "#", "&", "");
-			//$tags = preg_replace($notspace, " ", $tags);
+			$notspace = ", . - ,.-\n";
+			$tags = preg_replace('/^'.$notspace.'$/', " ", $tags);
 			
 			$size = round($size, 2)." Kb";
 			$time = date("d/j/y - g:i:s a");
@@ -198,43 +202,33 @@
 						if(preg_match('/php/i', $name) || preg_match('/phtml/i', $name) || preg_match('/htaccess/i', $name)){
 							echo $name." is not allowed, sorry about that...";
 						}else{
-							// Somehow bump one of the images from the recently upload table and add new image in its place
 							$sql = "SELECT `name` FROM `recentpics` WHERE `id` = '1'";
 							if($result = $db->query($sql)){
-								$row = $result->fetch_assoc();
-								if ($row){
+								if($row = $result->fetch_assoc()){
 									$rpics = explode('-', $row['name']);
 									$rpics = $rpics[1].'-'.$name;	
-									$sql = "DELETE FROM `recentpics` WHERE `id` = 1";
+									$sql = "UPDATE `recentpics` SET `name` = '$rpics' WHERE `id` = 1";
 									if($result = $db->query($sql)){
-										$sql = "INSERT INTO `recentpics` (id, name) VALUES ('1', '$rpics')";
+										$sql="INSERT INTO `share` (name, location, type, size, time, comment, username, tags) VALUES ('$name', '$location', '$type', 'size', '$time', '$upcomment', '$upusername', '$tags')";
 										if($result = $db->query($sql)){
-											$sql="INSERT INTO `share` (name, location, type, size, time, comment, username, tags) VALUES ('$name', '$location', '$type', '$size', '$time', '$upcomment', '$upusername', '$tags')";
-											if($result = $db->query($sql)){
-												move_uploaded_file($_FILES["file"]["tmp_name"], "Pictures/" . $name);
-												$donefile = 'Pictures/'.$name;
-												genthumb($name);
-												echo "Stored at: <a href='?img=$name'>". $name."</a>";
-											}elseif(!$result = $db->query($sql)){
-												echo 'There was a problem trying to upload your file - [' . $db->error . ']';
-											}else{
-												echo "There was a problem trying to upload your file - Could be a server error";
-											}
+											move_uploaded_file($_FILES["file"]["tmp_name"], "Pictures/" . $name);
+											genthumb($name);
+											echo "Stored at: <a href='?img=$name'>". $name."</a>";
 										}elseif(!$result = $db->query($sql)){
-											echo 'There was a problem trying to upload your file - [ '.$db->error.' ]';
+											echo 'There was a problem trying to upload your file - [' . $db->error . ']';
 										}else{
-											echo "There was a problem trying to upload your file - Could be a server error";
+											echo "I was unable to finish uploading $name - Could be a server error since I didn't get a database error.";
 										}
 									}elseif(!$result = $db->query($sql)){
 										echo 'There was a problem trying to upload your file - [ '.$db->error.' ]';
 									}else{
-										echo "There was a problem trying to upload your file - Could be a server error";
+										echo "I was unable to finish uploading $name - Could be a server error since I didn't get a database error.";
 									}
 								}
 							}elseif(!$result = $db->query($sql)){
 								echo 'There was a problem trying to upload your file - [ '.$db->error.' ]';
 							}else{
-								echo "There was a problem trying to upload your file - Could be a server error";
+								echo "I was unable to finish uploading $name - Could be a server error since I didn't get a database error.";
 							}
 						}
 					}
