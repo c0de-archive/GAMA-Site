@@ -52,7 +52,25 @@
 	$username = '';
 	$tags = '';
 	$_SESSION['noimg'] = ''; 
-	
+
+	function showads(){
+		// Code for ads or something...
+		$db = new mysqli('localhost', 'adds', 'password', 'adds'); // hostname. username, password, database
+		if($db->connect_errno > 0){
+    		die('Unable to connect to database [' . $db->connect_error . ']');
+		}
+
+		$rand = mt_rand(1, 6);
+		$ads = "SELECT * FROM `ads` WHERE `id` = $rand";
+
+		if(!$result = $db->query($ads)){
+			die('There was an error running the query [' . $db->error . ']');
+		}
+		$row = $result->fetch_assoc();
+		if($row){
+			return '<a href="'.$row['link'].'" target="_'.$row['cname'].'"><img src="'.$row['image'].'" alt="ad for '.$row['cname'].'" title="'.$row['title'].'" /></a>';
+		} 
+	}
 ?>						
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" prefix="og: http://ogp.me/ns#">
@@ -152,7 +170,9 @@
 			<div id="container">
 				<div id="mainwide" class="ad">
 					<div class="post"><!-- 925x96px seems optimal -->
-						<img src="./add.png" alt="This is a placeholder for ads" />
+						<?php
+							echo showads();
+						?>
 					</div> <!-- End Post -->
 				</div> <!-- End MainWide -->
 				<div id="main">
