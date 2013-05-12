@@ -45,19 +45,10 @@ function prepOutputText($text) { // Takes mysql string and makes it able to be u
 	return $output;
 }
 
-function checkRemoteFile($url)
-{
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL,$url);
-    // don't download content
-    curl_setopt($ch, CURLOPT_NOBODY, 1);
-    curl_setopt($ch, CURLOPT_FAILONERROR, 1);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    if(curl_exec($ch)!==FALSE){
-        return true;
-    }else{
-        return false;
-    }
+function checkRemoteFile($url){
+	if (@file_get_contents($url)): return true;
+	else: return false;
+	endif;
 }
 
 if(isset($_GET['l'])) { // if there is a link...
