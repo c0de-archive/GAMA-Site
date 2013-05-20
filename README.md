@@ -1,4 +1,7 @@
 GAMA-Site
+
+[![Build Status](https://api.travis-ci.org/alopexc0de/GAMA-Site.png)](http://travis-ci.org/alopexc0de/GAMA-Site)
+
 =========
 Unless otherwise stated, all files here are under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License. 
 To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/3.0/
